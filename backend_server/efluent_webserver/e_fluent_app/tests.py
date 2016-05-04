@@ -1,5 +1,4 @@
-from django.test import TestCase
-
+from django.test import TestCase,Client
 # Create your tests here.
 
 from e_fluent_app.models import Orthophoniste, Patient
@@ -31,3 +30,43 @@ class UsersTestCase(TestCase):
         self.orth.save()
 
         self.assertEqual(self.user.get_role().__class__, Patient)
+
+
+class Login(TestCase):
+    def setUp(self):
+        User.objects.create_user("orth1", "mail@test.com", "12345678")
+        self.user = CustomUser.objects.get(username="orth1")
+        self.orth = Orthophoniste()
+        self.orth.user = self.user
+        self.orth.save()
+
+
+    def test_login(self):
+        #client = Client(Authorization=)
+        #response = self.client.post('/api-token-auth/', {'username':'orth1', 'password':'12345678'})
+        
+        from rest_framework.test import APIClient
+
+        client = APIClient()
+        response = client.post('/API/api-token-auth/', {'username':'orth1', 'password':'12345678'}, format='json')
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('token' in response.data)
+
+        token = response.data['token']
+
+        response = client.post('/API/add_patient/', format='json')
+        
+        self.assertEqual(response.status_code, 401)
+
+        client.credentials(HTTP_AUTHORIZATION='Token ' + token)
+
+        response = client.post('/API/add_patient/', format='json')
+
+        # from now on, the client must be loged in
+
+        self.assertEqual(response.status_code, 400)
+
+        response = client.post('/API/add_patient/', {'id': 1}, format='json')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['id'], 1)
+
