@@ -3,7 +3,7 @@
 Making a login:
 
 ```HTTP
-POST http://localhost:8000/API/api-token-auth/ username=ortho1 
+POST http://localhost:8000/API/api-token-auth/ username=ortho1 password=123456
 ```
 
 will return:
