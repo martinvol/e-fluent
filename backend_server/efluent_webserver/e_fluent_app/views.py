@@ -96,8 +96,6 @@ def create_auth(request):
         patient = models.Patient()
         patient.user = new_user
         patient.save()
-
-        #print(Patient.objects.all())
         return Response(serialized.data, status=status.HTTP_201_CREATED)
     else:
         return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)

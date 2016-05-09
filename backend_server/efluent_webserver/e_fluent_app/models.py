@@ -31,3 +31,14 @@ class Patient(models.Model):
 	
     def __str__(self):
         return "Patient"
+
+#Signals to create a patient #TODO
+
+class Exercise(models.Model):
+    name = models.CharField(max_length=200 ,null=False, blank=False)
+    #Audio = URL
+    #Category
+
+class AssignedExercise(models.Model):
+    patient = models.ForeignKey(Patient, null=False, blank=False)
+    exercise = models.ForeignKey(Exercise, null=False, blank=False)
