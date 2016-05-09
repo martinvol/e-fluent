@@ -83,6 +83,25 @@ class PatientList(APIView):
 
         #print(models.Orthophoniste.patient_set.all())
 
+@api_view(['POST'])
+def create_auth(request):
+    serialized = serializers.UserSerializer(data=request.data)
+    if serialized.is_valid():
+        print("is_valid")
+        new_user = models.CustomUser.objects.create_user(
+            serialized.validated_data['email'],
+            serialized.validated_data['username'],
+            serialized.validated_data['password']
+        )
+        patient = models.Patient()
+        patient.user = new_user
+        patient.save()
+
+        #print(Patient.objects.all())
+        return Response(serialized.data, status=status.HTTP_201_CREATED)
+    else:
+        return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 #@login_required
 @api_view(['POST',])

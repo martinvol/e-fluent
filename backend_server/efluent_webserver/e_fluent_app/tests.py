@@ -4,6 +4,7 @@ from django.test import TestCase,Client
 from e_fluent_app.models import Orthophoniste, Patient
 from django.contrib.auth.models import User
 from e_fluent_app.models import CustomUser
+from rest_framework.test import APIClient
 
 
 import json
@@ -48,7 +49,6 @@ class Login(TestCase):
         #client = Client(Authorization=)
         #response = self.client.post('/api-token-auth/', {'username':'orth1', 'password':'12345678'})
         
-        from rest_framework.test import APIClient
 
         client = APIClient()
         response = client.post('/API/api-token-auth/', {'username':'orth1', 'password':'12345678'}, format='json')
@@ -97,6 +97,14 @@ class Login(TestCase):
         response = client.get('/API/patient_list/', format='json')
         self.assertEqual(len(response.data), 2)
         #TODO Patient tries to add a patientn, unautorized error
+
+    def test_register(self):
+        client = APIClient()
+        self.assertEqual(Patient.objects.all().count(), 0)
+        response = client.post('/API/patient_register/', {'username':'orth11', 'password':'12345678', 'email':"mail@example.com"}, format='json')
+        print(response.data)
+        self.assertEqual(Patient.objects.all().count(), 1)
+
 
     def create_patient(self, id):
         id = str(id)
