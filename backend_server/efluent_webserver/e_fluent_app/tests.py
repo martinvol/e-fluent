@@ -6,6 +6,9 @@ from django.contrib.auth.models import User
 from e_fluent_app.models import CustomUser
 
 
+import json
+import codecs
+
 class UsersTestCase(TestCase):
     def setUp(self):
         User.objects.create_user("username", "mail@test.com", "password")
@@ -71,7 +74,7 @@ class Login(TestCase):
         
         self.assertEqual(response.data['id'], 1)
 
-        self.create_patient()
+        self.create_patient(1)
 
         response = client.post('/API/add_patient/', {'id': 1}, format='json')
         self.assertEqual(response.status_code, 200)
@@ -81,11 +84,24 @@ class Login(TestCase):
         self.assertEqual(CustomUser.objects.get(username="orth1").get_role(), 
             CustomUser.objects.get(username="pat1").get_role().orthophoniste)
 
+
+        response = client.get('/API/patient_list/', format='json')        
+        self.assertEqual(response.status_code, 200)
+        
+        self.assertEqual(len(response.data), 1)
+
+        self.create_patient(2)
+        response = client.post('/API/add_patient/', {'id': 2}, format='json')
+        self.assertEqual(response.status_code, 200)
+
+        response = client.get('/API/patient_list/', format='json')
+        self.assertEqual(len(response.data), 2)
         #TODO Patient tries to add a patientn, unautorized error
 
-    def create_patient(self):
-        User.objects.create_user("pat1", "mail@test.com", "12345678")
-        user = CustomUser.objects.get(username="pat1")
+    def create_patient(self, id):
+        id = str(id)
+        User.objects.create_user("pat" +id, "mail@test.com", "12345678")
+        user = CustomUser.objects.get(username="pat"+id)
         patient = Patient()
         patient.user = user
         patient.save()

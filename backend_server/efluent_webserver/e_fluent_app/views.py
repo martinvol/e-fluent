@@ -14,9 +14,24 @@ from . import serializers, models
 # Create your views here.
 
 
+
+from django.http import HttpResponse
+from rest_framework.renderers import JSONRenderer
+
+class JSONResponse(HttpResponse):
+    """
+    An HttpResponse that renders its content into JSON.
+    """
+    def __init__(self, data, **kwargs):
+        content = JSONRenderer().render(data)
+        kwargs['content_type'] = 'application/json'
+        super(JSONResponse, self).__init__(content, **kwargs)
+
+
+
 class AddPatient(APIView):
     """
-    List all snippets, or create a new snippet.
+    API call to add a patient to an Orthoponiste
     """
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
@@ -50,15 +65,23 @@ class AddPatient(APIView):
         except ObjectDoesNotExist:
             return Response({'detail' : "Patient does not exist", 'id' : patient_id}, 
                     status = status.HTTP_400_BAD_REQUEST)
-
-
-
-                # add
-            # fail
         
         return Response(serializer.data, status=status.HTTP_200_OK)
-        #return Response(serializer.data, status=status.HTTP_501_NOT_IMPLEMENTED)
 
+class PatientList(APIView):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+
+    def get(self, request, format=None):
+        requested = models.CustomUser.objects.get(id=request.user.id)
+        if not isinstance(requested.get_role(), models.Orthophoniste):
+            return Response({'detail' : "Patients can't do this actions", 'id' : patient_id}, 
+                    status = status.HTTP_401_UNAUTHORIZED)
+
+        serializer = serializers.PatientSerializer(requested.orthophoniste.patient_set.all(), many=True)
+        return Response(serializer.data)
+
+        #print(models.Orthophoniste.patient_set.all())
 
 
 #@login_required
