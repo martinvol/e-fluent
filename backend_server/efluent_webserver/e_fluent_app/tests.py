@@ -67,6 +67,25 @@ class Login(TestCase):
         self.assertEqual(response.status_code, 400)
 
         response = client.post('/API/add_patient/', {'id': 1}, format='json')
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 400)
+        
         self.assertEqual(response.data['id'], 1)
 
+        self.create_patient()
+
+        response = client.post('/API/add_patient/', {'id': 1}, format='json')
+        self.assertEqual(response.status_code, 200)
+        
+        self.assertEqual(response.data['id'], 1)        
+
+        self.assertEqual(CustomUser.objects.get(username="orth1").get_role(), 
+            CustomUser.objects.get(username="pat1").get_role().orthophoniste)
+
+        #TODO Patient tries to add a patientn, unautorized error
+
+    def create_patient(self):
+        User.objects.create_user("pat1", "mail@test.com", "12345678")
+        user = CustomUser.objects.get(username="pat1")
+        patient = Patient()
+        patient.user = user
+        patient.save()

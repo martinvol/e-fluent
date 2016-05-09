@@ -7,3 +7,5 @@ class PatientSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Patient
         fields = ('id',)
+
+        
