@@ -62,3 +62,14 @@ target/
 .ipynb_checkpoints
 
 virtualenv
+
+
+# Android
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
