@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
 
         EditText text = new EditText(this);
         Intent intent1 = new Intent(this, )
-        text.setText("Bonjour, c'est bon rentrez chez vous");
+        text.setText("Bonjour, c'est bon rentrez chez vous ");
         setContentView(text);
     }
 }
