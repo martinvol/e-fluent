@@ -65,4 +65,13 @@
         android:layout_alignBottom="@+id/PasswordMain"
         android:layout_toStartOf="@+id/PasswordMain" />
 
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        android:id="@+id/GoProActivity"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
+
 </RelativeLayout>

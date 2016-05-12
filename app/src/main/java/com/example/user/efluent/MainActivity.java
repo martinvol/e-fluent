@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final Button button = (Button) findViewById(R.id.connexionMain);
+        final Button button = (Button) findViewById(R.id.GoProActivity);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.i("test", "mesage");
