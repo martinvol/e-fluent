@@ -19,7 +19,9 @@ public class MainActivity extends AppCompatActivity {
         final Button button = (Button) findViewById(R.id.connexionMain);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Log.i("test", "mesage");
+                Log.i("test", "mesage");
+                Intent intent = new Intent(v.getContext(), ProActivity.class);
+                startActivity(intent);
             }
         });
 
