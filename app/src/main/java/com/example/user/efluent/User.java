@@ -1,0 +1,18 @@
+package com.example.user.efluent;
+
+/**
+ * Created by martin on 19/05/16.
+ */
+public class User {
+
+    public String first_name;
+    public String last_name;
+    public String email;
+    public String id;
+
+    private LoginManager data;
+
+    public User(LoginManager data){
+        this.data = data;
+    }
+}
