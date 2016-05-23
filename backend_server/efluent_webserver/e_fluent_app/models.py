@@ -42,3 +42,5 @@ class Exercise(models.Model):
 class AssignedExercise(models.Model):
     patient = models.ForeignKey(Patient, null=False, blank=False)
     exercise = models.ForeignKey(Exercise, null=False, blank=False)
+
+#TODO rendez-vous
