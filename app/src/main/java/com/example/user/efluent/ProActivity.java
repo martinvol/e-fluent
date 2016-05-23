@@ -54,9 +54,9 @@ public class ProActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         //tabLayout.setupWithViewPager(mViewPager);
 
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 1"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 2"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 3"));
+        tabLayout.addTab(tabLayout.newTab().setText("Patients"));
+        tabLayout.addTab(tabLayout.newTab().setText("Rendez-vous"));
+        tabLayout.addTab(tabLayout.newTab().setText("Gestion compte"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         // Set up the ViewPager with the sections adapter.
