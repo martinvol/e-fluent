@@ -91,7 +91,7 @@ public class LoginManager {
                 // save token
 
                 getToken(out);
-                patientList();
+                //patientList();
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -111,7 +111,7 @@ public class LoginManager {
         return request;
     }
 
-    private void patientList(){
+    public void patientList(final TabFragment1 fragment1){
         Request request = withHeader("/patient_list/");
 
         final LoginManager self = this;
@@ -129,21 +129,29 @@ public class LoginManager {
 
                 try {
                     JSONArray array = new JSONArray(out);
-                    Patient patient = new Patient(self);
+
                     for (int i=0; i < array.length(); i++) {
+                        Patient patient = new Patient(self);
                         JSONObject patient_json = array.getJSONObject(i);
                         patient.id = patient_json.getString("id");
                         JSONObject user_json = patient_json.getJSONObject("user");
                         patient.first_name = user_json.getString("first_name");
                         patient.last_name = user_json.getString("last_name");
                         patient.email = user_json.getString("email");
-                        /*System.out.println(patient.first_name);
+                        System.out.println(patient.first_name);
                         System.out.println(patient.last_name);
-                        System.out.println(patient.email);*/
+                        System.out.println(patient.email);
                         patient_list.add(patient);
-
                         //TODO Here it's missing a callback to return the list of patients
                     }
+
+                    fragment1.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            fragment1.setPatients(patient_list);
+                        }
+                    });
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
