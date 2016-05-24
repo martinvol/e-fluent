@@ -69,8 +69,16 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Next"
+        android:text="Pro"
         android:id="@+id/GoProActivity"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/GoPatientActivity" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Patient"
+        android:id="@+id/GoPatientActivity"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true" />
 

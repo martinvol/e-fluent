@@ -55,6 +55,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        final Button button2 = (Button) findViewById(R.id.GoPatientActivity);
+        button2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.i("test", "-> Patient tab");
+                Intent intent = new Intent(v.getContext(), PatientActivity.class);
+                //PatientActivity.login = login;
+                startActivity(intent);
+
+
+            }
+        });
+
 
 
         /*EditText text = new EditText(this);
