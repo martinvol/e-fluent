@@ -1,8 +1,10 @@
 package com.example.user.efluent;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +30,18 @@ public class TabFragment1 extends ListFragment {
         /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                 R.layout.rowlayout, R.id.label,values);
         setListAdapter(adapter);*/
+
+        View addButton = getActivity().findViewById(R.id.GoAddPatient);
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i("Test", "GoAddPatient");
+                Intent intent = new Intent(getView().getContext(), AddPatientActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
 
