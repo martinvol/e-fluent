@@ -23,7 +23,8 @@ import okhttp3.Callback;
 
 public class LoginManager {
 
-    private static String ADRESS = "10.0.2.2:8000/API";
+    //private static String ADRESS = "10.0.2.2:8000/API";
+    private static String ADRESS = "162.243.214.40:9000/API";
     private static String FULLURL;
 
     //public void LoginManager
@@ -54,7 +55,7 @@ public class LoginManager {
 
     public void login(String username, String password){
         RequestBody formBody = new FormBody.Builder()
-                .add("username", username)
+                .add("username", username.toLowerCase())
                 .add("password", password)
                 .build();
         Request request = new Request.Builder()
@@ -138,9 +139,6 @@ public class LoginManager {
                         patient.first_name = user_json.getString("first_name");
                         patient.last_name = user_json.getString("last_name");
                         patient.email = user_json.getString("email");
-                        System.out.println(patient.first_name);
-                        System.out.println(patient.last_name);
-                        System.out.println(patient.email);
                         patient_list.add(patient);
                         //TODO Here it's missing a callback to return the list of patients
                     }
