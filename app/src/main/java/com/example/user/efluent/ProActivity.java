@@ -64,6 +64,7 @@ public class ProActivity extends AppCompatActivity {
         //mViewPager.setAdapter(mSectionsPagerAdapter);
         final PagerAdapter adapter = new PagerAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount());
+        adapter.login  = this.login;
         mViewPager.setAdapter(adapter);
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
