@@ -32,3 +32,19 @@ class UserSerializer(serializers.ModelSerializer):
         #user = User.objects.create(**validated_data)
         #Profile.objects.create(user=user, **profile_data)
         return user
+
+
+class MeetingSerializer(serializers.ModelSerializer):
+    orthophoniste = None
+
+    class Meta:
+        model = models.Meeting
+        fields = ('time', 'patient', 'orthophoniste')
+    
+    def create(self, validated_data):
+        return models.Meeting.objects.create(
+            time = validated_data['time'],
+            orthophoniste = self.orthophoniste,
+            patient = validated_data['patient'] #models.Patient.objects.get(id=validated_data['patient'])
+        )
+
