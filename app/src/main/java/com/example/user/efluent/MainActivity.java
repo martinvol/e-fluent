@@ -31,13 +31,25 @@ public class MainActivity extends AppCompatActivity {
         ((Button) findViewById(R.id.connexionMain))
                 .setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //loginDialog.show(v.getContext(), "Loging in", "Wait while loading...");
+                //loginDialog.show(v.getContext(), "Logging in", "Wait while loading...");
                 loginDialog.show();
                 Log.i("test", "Login");
                 login.login(
                         ((EditText) findViewById(R.id.LoginMain)).getText().toString(),
                         ((EditText)findViewById(R.id.PasswordMain)).getText().toString()
                 );
+
+
+            }
+        });
+
+        final Button buttonInscription = (Button) findViewById(R.id.inscriptionMain);
+        buttonInscription.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.i("test", "-> Pro tab");
+                Intent intent = new Intent(v.getContext(), InscriptionProActivity.class);
+                ProActivity.login = login;
+                startActivity(intent);
 
 
             }
@@ -79,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         loginDialog.dismiss();
         new AlertDialog.Builder(this)
                 .setTitle("Bad Login")
-                .setMessage("Bad username or Bassword")
+                .setMessage("Bad username or Password")
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // continue with delete
@@ -89,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void loginSucess() {
         loginDialog.dismiss();
-        Toast toast = Toast.makeText(getApplicationContext(), "Login successful, Wellcome!", Toast.LENGTH_LONG);
+        Toast toast = Toast.makeText(getApplicationContext(), "Login successful, Welcome!", Toast.LENGTH_LONG);
         toast.show();
         Intent intent = new Intent(getApplicationContext(), ProActivity.class);
         ProActivity.login = login;
