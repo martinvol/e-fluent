@@ -7,6 +7,8 @@ from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
 from rest_framework import permissions, status
 from rest_framework.response import Response
+from rest_framework.authtoken.views import ObtainAuthToken
+
 
 from django.contrib.auth.decorators import login_required
 
@@ -17,6 +19,17 @@ from . import serializers, models
 
 from django.http import HttpResponse
 from rest_framework.renderers import JSONRenderer
+
+class CustomLoginHadshake(ObtainAuthToken):
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        token, created = Token.objects.get_or_create(user=user)
+        user.__class__ = models.CustomUser
+        user.get_role().role_name
+        return Response({'token': token.key, 'role_name': user.get_role().role_name})
+
 
 class JSONResponse(HttpResponse):
     """
@@ -130,11 +143,39 @@ class CreateMeeting(APIView):
 
         if serializer.is_valid():
             serializer.save()
-            print("is_valid")
+            #print("is_valid")
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class Exercises(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
 
-            # return unutorized
-
+    def get(self, request, format=None):
+        request.user.__class__ = models.CustomUser
+        if request.user.get_role().__class__  != models.Orthophoniste:
+            exercises = request.user.get_role().get_exercises()
+        else:
+            return Response({'detail' : "Orthophonistes doesn't have Exercises"}, 
+                status=status.HTTP_400_BAD_REQUEST)
+        serializer = serializers.ExercisesSerializer(exercises, many=True)
         return Response(serializer.data)
+
+
+    def post(self, request, format=None):
+        print("post")
+        request.user.__class__ = models.CustomUser
+        if request.user.get_role().__class__  != models.Orthophoniste:
+            return Response({'detail' : "Patients can't do this actions"}, 
+                    status = status.HTTP_401_UNAUTHORIZED)
+        serializer = serializers.ExercisesSerializer(data=request.data)
+
+        if serializer.is_valid():
+            if models.Patient.objects.get(id=request.data['patient']).orthophoniste == request.user.get_role():
+                serializer.save()
+                #print("is_valid")
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            else:
+                return Response({'detail' : "You can only add exercises to you patients"}, 
+                    status = status.HTTP_401_UNAUTHORIZED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -48,3 +48,8 @@ class MeetingSerializer(serializers.ModelSerializer):
             patient = validated_data['patient'] #models.Patient.objects.get(id=validated_data['patient'])
         )
 
+class ExercisesSerializer(serializers.ModelSerializer):
+    
+    class Meta(object):
+        model = models.AssignedExercise
+        
