@@ -8,7 +8,7 @@ from rest_framework.views import APIView
 from rest_framework import permissions, status
 from rest_framework.response import Response
 
-
+from django.contrib.auth.decorators import login_required
 
 from . import serializers, models
 # Create your views here.
@@ -69,7 +69,7 @@ class AddPatient(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class PatientList(APIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.IsAuthenticated,)
 
 
     def get(self, request, format=None):
@@ -101,7 +101,40 @@ def create_auth(request):
         return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-#@login_required
 @api_view(['POST',])
 def add_patient(request):
     """An Orthoponist will use this view to add a patient to its list"""
+
+class CreateMeeting(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request, format=None):
+        request.user.__class__ = models.CustomUser
+        meetings = request.user.get_role().get_meetings()
+        serializer = serializers.MeetingSerializer(meetings, many=True)
+        return Response(serializer.data)
+
+
+    def post(self, request, format=None):
+        # create new rendes-vous, arguments ()
+        request.user.__class__ = models.CustomUser
+
+        if request.user.get_role().__class__  != models.Orthophoniste:
+            return Response({'detail' : "Patients can't do this actions"}, 
+                    status = status.HTTP_401_UNAUTHORIZED)
+
+        data = dict(request.data)
+
+        serializer = serializers.MeetingSerializer(data=data)
+        serializer.orthophoniste = request.user.get_role()
+
+        if serializer.is_valid():
+            serializer.save()
+            print("is_valid")
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+            # return unutorized
+
+        return Response(serializer.data)

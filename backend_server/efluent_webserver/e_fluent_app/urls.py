@@ -38,5 +38,6 @@ urlpatterns = [
     url(r'^patient_register', create_auth),
     url(r'^add_patient/', AddPatient.as_view()),
     url(r'^patient_list/', PatientList.as_view()),
+    url(r'^create_meeting/', CreateMeeting.as_view()),
     #url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

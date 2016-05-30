@@ -20,17 +20,24 @@ class CustomUser(User):
 
 class Orthophoniste(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=False)
+    #meeting = models.ForeignKey('Meeting', null=True, blank=True)
 
     def __str__(self):
-        return "Orthophoniste"
+        return self.user.username
+
+    def get_meetings(self):
+        return Meeting.objects.filter(orthophoniste=self)
 
 class Patient(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=False)
     orthophoniste = models.ForeignKey(Orthophoniste, null=True, blank=True)
-
+    #meeting = models.ForeignKey('Meeting', null=True, blank=True)
 	
     def __str__(self):
-        return "Patient"
+        return self.user.username
+
+    def get_meetings(self):
+        return Meeting.objects.filter(patient=self)
 
 #Signals to create a patient #TODO
 
@@ -41,6 +48,11 @@ class Exercise(models.Model):
 
 class AssignedExercise(models.Model):
     patient = models.ForeignKey(Patient, null=False, blank=False)
-    exercise = models.ForeignKey(Exercise, null=False, blank=False)
+    #exercise = models.ForeignKey(Exercise, null=False, blank=False)
 
 #TODO rendez-vous
+
+class Meeting(models.Model):
+    patient = models.ForeignKey(Patient, null=False, blank=False)
+    time = models.DateTimeField(null=False, blank=False)
+    orthophoniste = models.ForeignKey(Orthophoniste, null=False, blank=True)

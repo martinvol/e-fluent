@@ -26,7 +26,10 @@ public class MainActivity extends AppCompatActivity {
         loginDialog = new ProgressDialog(this);
         loginDialog.setTitle("Loging in");
         loginDialog.setMessage("Wait while loading...");
-        //login
+
+
+        ((EditText) findViewById(R.id.LoginMain)).setText("ortho1");
+        ((EditText) findViewById(R.id.PasswordMain)).setText("123456");
 
         ((Button) findViewById(R.id.connexionMain))
                 .setOnClickListener(new View.OnClickListener() {
@@ -47,9 +50,9 @@ public class MainActivity extends AppCompatActivity {
         buttonInscription.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.i("test", "-> Pro tab");
-                Intent intent = new Intent(v.getContext(), InscriptionProActivity.class);
-                ProActivity.login = login;
-                startActivity(intent);
+                //Intent intent = new Intent(v.getContext(), InscriptionProActivity.class);
+                //ProActivity.login = login;
+                //startActivity(intent);
 
 
             }
