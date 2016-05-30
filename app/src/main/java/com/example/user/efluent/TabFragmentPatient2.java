@@ -38,10 +38,6 @@ public class TabFragmentPatient2 extends ListFragment implements MeetingReceiver
 
     public void setMeetings(ArrayList<Meeting> meetingList){
         this.meetingList = meetingList;
-
-        System.out.println("DESDE EL Fragment");
-        System.out.println(meetingList.size());
-
         ArrayList<String> patient_names = new ArrayList<String>();
 
         for(Meeting meeting: meetingList ){
@@ -54,15 +50,11 @@ public class TabFragmentPatient2 extends ListFragment implements MeetingReceiver
                 R.layout.rowlayout, R.id.label, patient_names.toArray(new String[patient_names.size()]));
         setListAdapter(adapter);
 
-        this.getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-                //Intent intent = new Intent(MainActivity.this, SendMessage.class);
-                //String message = "abc";
-                //intent.putExtra(EXTRA_MESSAGE, message);
-                //startActivity(intent);
                 Log.i("test", "Click from the list");
                 final String item = (String) parent.getItemAtPosition(position);
                 Log.i("test", "Name of patient is: " + item);

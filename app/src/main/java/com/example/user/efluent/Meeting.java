@@ -9,5 +9,6 @@ import java.util.Date;
 public class Meeting {
 
     public Date time;
+    public Patient patient;
 
 }

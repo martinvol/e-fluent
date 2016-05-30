@@ -24,6 +24,7 @@ public class PagerAdapterPro extends FragmentStatePagerAdapter {
                 return tab1;
             case 1:
                 TabFragmentPro2 tab2 = new TabFragmentPro2();
+                login.getListOfMeetings(tab2);
                 return tab2;
             case 2:
                 TabFragmentPro3 tab3 = new TabFragmentPro3();
