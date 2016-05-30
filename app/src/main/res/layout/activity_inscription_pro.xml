@@ -70,47 +70,12 @@
         android:layout_height="wrap_content"
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/AddPatientName"
-        android:layout_above="@+id/Password"
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/Nom" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:layout_above="@+id/Birthdate"
-        android:layout_toEndOf="@+id/Nom"
-        android:id="@+id/AddPatientPassword" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
-        android:inputType="date"
-        android:ems="10"
-        android:id="@+id/editText"
-        android:layout_above="@+id/Num"
-        android:layout_alignParentEnd="true"
-        android:layout_alignStart="@+id/AddPatientPassword" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
         android:inputType="number"
         android:ems="10"
-        android:id="@+id/editText2"
-        android:layout_above="@+id/Email"
-        android:layout_alignStart="@+id/editText"
-        android:layout_alignParentEnd="true" />
+        android:id="@+id/InscriptionProName"
+        android:layout_above="@+id/Password"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@+id/InscriptionProEmail" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -119,16 +84,52 @@
         android:paddingBottom="20dp"
         android:inputType="textEmailAddress"
         android:ems="10"
-        android:id="@+id/editText3"
+        android:id="@+id/InscriptionProPassword"
+        android:layout_alignBottom="@+id/Password"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@+id/InscriptionProName" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/InscriptionProDate"
+        android:layout_above="@+id/Num"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@+id/InscriptionProPassword" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/InscriptionProNumber"
+        android:layout_above="@+id/Email"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@+id/InscriptionProDate" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:inputType="date"
+        android:ems="10"
+        android:id="@+id/InscriptionProEmail"
         android:layout_alignBottom="@+id/Email"
-        android:layout_alignStart="@+id/editText2"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/Email" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="FORMULAIRE AJOUT PATIENT"
+        android:text="INSCRIPTION ORTHOPHONISTE"
         android:id="@+id/textView3"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
@@ -137,8 +138,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CREER"
-        android:id="@+id/CreatePatient"
+        android:text="S&apos;INCRIRE"
+        android:id="@+id/RegisterPro"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true" />
 </RelativeLayout>

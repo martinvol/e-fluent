@@ -9,17 +9,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 
 import java.util.ArrayList;
 
-public class TabFragment1 extends ListFragment {
+public class TabFragmentInfoPatient4 extends Fragment {
 
-    private ArrayList<Patient> patient_list;
+    //private ArrayList<Patient> patient_list;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.tab_fragment_1, container, false);
+        return inflater.inflate(R.layout.tab_fragment_info_patient_4, container, false);
     }
 
     @Override
@@ -32,7 +31,7 @@ public class TabFragment1 extends ListFragment {
                 R.layout.rowlayout, R.id.label,values);
         setListAdapter(adapter);*/
 
-        View addButton = getActivity().findViewById(R.id.GoAddPatient);
+        /*View addButton = getActivity().findViewById(R.id.GoAddPatient);
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,36 +40,13 @@ public class TabFragment1 extends ListFragment {
                 Intent intent = new Intent(getView().getContext(), AddPatientActivity.class);
                 startActivity(intent);
             }
-        });
-
-        View addButtonInfo = getActivity().findViewById(R.id.GoPatientInfo);
-
-        addButtonInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.i("Test", "GoInfoPatient");
-                Intent intent = new Intent(getView().getContext(), InfoPatientActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        /*final Button buttonPatientInfo = (Button) getView().findViewById(R.id.inscriptionMain);
-        buttonPatientInfo.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Log.i("test", "-> Info Patient");
-                Intent intent = new Intent(v.getContext(), InfoPatientActivity.class);
-                //ProActivity.login = login;
-                startActivity(intent);
-
-
-            }
         });*/
 
     }
 
 
 
-    public void setPatients (ArrayList<Patient> patient_list){
+    /*public void setPatients (ArrayList<Patient> patient_list){
         this.patient_list = patient_list;
 
         System.out.println("DESDE EL Fragment");
@@ -87,6 +63,6 @@ public class TabFragment1 extends ListFragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                 R.layout.rowlayout, R.id.label, patient_names.toArray(new String[patient_names.size()]));
         setListAdapter(adapter);
-    }
+    } */
 
 }

@@ -25,7 +25,12 @@
             android:name=".PatientActivity"
             android:label="@string/title_activity_patient"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".AddPatientActivity"></activity>
+        <activity android:name=".AddPatientActivity" />
+        <activity android:name=".InscriptionProActivity" />
+        <activity
+            android:name=".InfoPatientActivity"
+            android:label="@string/title_activity_info_patient"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
