@@ -5,11 +5,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-public class PagerAdapter extends FragmentStatePagerAdapter {
+public class PagerAdapterPro extends FragmentStatePagerAdapter {
     int mNumOfTabs;
     public LoginManager login;
 
-    public PagerAdapter(FragmentManager fm, int NumOfTabs) {
+    public PagerAdapterPro(FragmentManager fm, int NumOfTabs) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
     }
@@ -19,14 +19,14 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                TabFragment1 tab1 = new TabFragment1();
+                TabFragmentPro1 tab1 = new TabFragmentPro1();
                 login.patientList(tab1);
                 return tab1;
             case 1:
-                TabFragment2 tab2 = new TabFragment2();
+                TabFragmentPro2 tab2 = new TabFragmentPro2();
                 return tab2;
             case 2:
-                TabFragment3 tab3 = new TabFragment3();
+                TabFragmentPro3 tab3 = new TabFragmentPro3();
                 return tab3;
             default:
                 return null;

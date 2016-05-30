@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 public class PagerAdapterPatient extends FragmentStatePagerAdapter {
     int mNumOfTabs;
-    //public LoginManager login;
+    public LoginManager login;
 
     public PagerAdapterPatient(FragmentManager fm, int NumOfTabs) {
         super(fm);
@@ -20,10 +20,11 @@ public class PagerAdapterPatient extends FragmentStatePagerAdapter {
         switch (position) {
             case 0:
                 TabFragmentPatient1 tab1 = new TabFragmentPatient1();
-                //login.patientList(tab1);
+                login.getListOfExersices(tab1);
                 return tab1;
             case 1:
                 TabFragmentPatient2 tab2 = new TabFragmentPatient2();
+                login.getListOfMeetings(tab2);
                 return tab2;
             default:
                 return null;

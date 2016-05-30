@@ -62,7 +62,7 @@ public class PatientActivity extends AppCompatActivity {
 
         final PagerAdapterPatient adapter = new PagerAdapterPatient
                 (getSupportFragmentManager(), tabLayout.getTabCount());
-        //adapter.login  = this.login;
+        adapter.login  = this.login;
         mViewPager.setAdapter(adapter);
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 

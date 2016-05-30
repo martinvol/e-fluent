@@ -1,5 +1,6 @@
 package com.example.user.efluent;
 
+import android.app.Activity;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -7,6 +8,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import okhttp3.Call;
@@ -117,7 +120,7 @@ public class LoginManager {
         return request;
     }
 
-    public void patientList(final TabFragment1 fragment1){
+    public void patientList(final TabFragmentPro1 fragment1){
         Request request = withHeader("/patient_list/");
 
         final LoginManager self = this;
@@ -163,5 +166,54 @@ public class LoginManager {
             }
         });
 
+    }
+
+    public void getListOfExersices(TabFragmentPatient1 tab1) {
+        //FIXME this method is too generic
+    }
+
+    public void getListOfMeetings(final MeetingReceiver fragment) {
+        Request request = withHeader("/create_meeting/");
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override public void onResponse(Call call, Response response) throws IOException {
+                String out =  response.body().string();
+                System.out.println(out);
+
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                final ArrayList<Meeting> meetings_list = new ArrayList<Meeting>();
+
+                try {
+                    JSONArray array = new JSONArray(out);
+                    for (int i=0; i < array.length(); i++) {
+                        Meeting meeting = new Meeting();
+                        JSONObject meeting_json = array.getJSONObject(i);
+                        meeting.time = format.parse(meeting_json.getString("time"));
+                        //Log.i("test", "The time of the meeting is: " + meeting.time.toString());
+                        meetings_list.add(meeting);
+                    }
+
+                    //fragment.getActivity().runOnUiThread(new Runnable() {
+                    fragment.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            fragment.setMeetings(meetings_list);
+                        }
+                    });
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        //FIXME this method is too generic
     }
 }

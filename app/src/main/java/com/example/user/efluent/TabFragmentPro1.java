@@ -14,7 +14,7 @@ import android.widget.Button;
 
 import java.util.ArrayList;
 
-public class TabFragment1 extends ListFragment {
+public class TabFragmentPro1 extends ListFragment {
 
     private ArrayList<Patient> patient_list;
 
