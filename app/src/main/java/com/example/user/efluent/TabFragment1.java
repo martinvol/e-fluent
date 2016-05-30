@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
@@ -63,6 +64,21 @@ public class TabFragment1 extends ListFragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                 R.layout.rowlayout, R.id.label, patient_names.toArray(new String[patient_names.size()]));
         setListAdapter(adapter);
+
+        this.getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                //Intent intent = new Intent(MainActivity.this, SendMessage.class);
+                //String message = "abc";
+                //intent.putExtra(EXTRA_MESSAGE, message);
+                //startActivity(intent);
+                Log.i("test", "Click from the list");
+                final String item = (String) parent.getItemAtPosition(position);
+                Log.i("test", "Name of patient is: " + item);
+            }
+        });
     }
 
 }
