@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 
 import java.util.ArrayList;
 
@@ -42,6 +43,29 @@ public class TabFragment1 extends ListFragment {
                 startActivity(intent);
             }
         });
+
+        View addButtonInfo = getActivity().findViewById(R.id.GoPatientInfo);
+
+        addButtonInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i("Test", "GoInfoPatient");
+                Intent intent = new Intent(getView().getContext(), InfoPatientActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        /*final Button buttonPatientInfo = (Button) getView().findViewById(R.id.inscriptionMain);
+        buttonPatientInfo.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.i("test", "-> Info Patient");
+                Intent intent = new Intent(v.getContext(), InfoPatientActivity.class);
+                //ProActivity.login = login;
+                startActivity(intent);
+
+
+            }
+        });*/
 
     }
 

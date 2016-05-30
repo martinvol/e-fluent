@@ -52,7 +52,7 @@ public class PatientActivity extends AppCompatActivity {
         //tabLayout.setupWithViewPager(mViewPager);
 
         tabLayout.addTab(tabLayout.newTab().setText("Exo A Faire"));
-        tabLayout.addTab(tabLayout.newTab().setText("Exo Termine"));
+        tabLayout.addTab(tabLayout.newTab().setText("Planning"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         // Set up the ViewPager with the sections adapter.
