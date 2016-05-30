@@ -50,9 +50,9 @@ public class MainActivity extends AppCompatActivity {
         buttonInscription.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.i("test", "-> Pro tab");
-                //Intent intent = new Intent(v.getContext(), InscriptionProActivity.class);
-                //ProActivity.login = login;
-                //startActivity(intent);
+                Intent intent = new Intent(v.getContext(), InscriptionProActivity.class);
+                ProActivity.login = login;
+                startActivity(intent);
 
 
             }
