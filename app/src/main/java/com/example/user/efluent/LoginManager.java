@@ -23,8 +23,8 @@ import okhttp3.Callback;
 
 public class LoginManager {
 
-    //private static String ADRESS = "10.0.2.2:8000/API";
-    private static String ADRESS = "162.243.214.40:9000/API";
+    private static String ADRESS = "10.0.2.2:8000/API";
+    //private static String ADRESS = "162.243.214.40:9000/API";
     private static String FULLURL;
 
     //public void LoginManager
@@ -49,8 +49,6 @@ public class LoginManager {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
     }
 
     public void login(String username, String password){
