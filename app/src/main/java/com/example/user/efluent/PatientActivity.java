@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class PatientActivity extends AppCompatActivity {
+    public static LoginManager login;
 
     //public static LoginManager login;
     /**

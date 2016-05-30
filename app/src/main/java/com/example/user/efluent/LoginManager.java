@@ -1,6 +1,5 @@
 package com.example.user.efluent;
 
-import android.util.ArrayMap;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -8,12 +7,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.StringReader;
 import java.util.ArrayList;
 
 import okhttp3.Call;
 import okhttp3.FormBody;
-import okhttp3.Headers;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -23,8 +20,8 @@ import okhttp3.Callback;
 
 public class LoginManager {
 
-    //private static String ADDRESS = "10.0.2.2:8000/API";
-    private static String ADDRESS = "162.243.214.40:9000/API";
+    private static String ADDRESS = "10.0.2.2:8000/API";
+    //private static String ADDRESS = "162.243.214.40:9000/API";
     private static String FULLURL;
 
     //public void LoginManager
@@ -39,15 +36,15 @@ public class LoginManager {
         FULLURL = "http://" + ADDRESS;
     }
 
-    private void getToken(String response){
+    private String get_item(String response, String key){
         try {
             JSONObject reader = new JSONObject(response);
             //JSONObject tokenOb  = reader.getJSONObject("token");
-            this.token = reader.getString("token");
-            Log.i("test", "The token is: " + token );
+            return reader.getString(key);
 
         } catch (JSONException e) {
             e.printStackTrace();
+            return null;
         }
 
 
@@ -90,13 +87,21 @@ public class LoginManager {
                 }
 
                 // save token
+                token = get_item(out,"token" );
+                Log.i("test", "The token is: " + token );
 
-                getToken(out);
-                //patientList();
+                final String role = get_item(out,"role_name");
+
+                Log.i("test", "role is: " + role);
+
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        activity.loginSucess();
+                        if(role.equals("Patient")){
+                            activity.loginSucessPatient();
+                        } else {
+                            activity.loginSucessOrtho();
+                        }
                     }
                 });
 

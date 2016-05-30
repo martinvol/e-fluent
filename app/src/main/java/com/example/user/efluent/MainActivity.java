@@ -102,14 +102,28 @@ public class MainActivity extends AppCompatActivity {
                 }).show();
     }
 
-    public void loginSucess() {
-        loginDialog.dismiss();
-        Toast toast = Toast.makeText(getApplicationContext(), "Login successful, Welcome!", Toast.LENGTH_LONG);
-        toast.show();
+
+
+    public void loginSucessOrtho() {
+        loginSucess();
+        Log.i("test", "Logged was an Ortho");
         Intent intent = new Intent(getApplicationContext(), ProActivity.class);
         ProActivity.login = login;
         startActivity(intent);
+    }
 
+    private void loginSucess() {
+        loginDialog.dismiss();
+        Toast toast = Toast.makeText(getApplicationContext(), "Login successful, Welcome!", Toast.LENGTH_LONG);
+        toast.show();
+    }
+
+    public void loginSucessPatient() {
+        loginSucess();
+        Log.i("test", "Logged was a patient");
+        Intent intent = new Intent(getApplicationContext(), PatientActivity.class);
+        PatientActivity.login = login;
+        startActivity(intent);
     }
 }
 
