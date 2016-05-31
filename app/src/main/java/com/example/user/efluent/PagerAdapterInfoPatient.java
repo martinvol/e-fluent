@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 public class PagerAdapterInfoPatient extends FragmentStatePagerAdapter {
     int mNumOfTabs;
     public LoginManager login;
+    public Patient patient;
 
     public PagerAdapterInfoPatient(FragmentManager fm, int NumOfTabs) {
         super(fm);
@@ -21,6 +22,8 @@ public class PagerAdapterInfoPatient extends FragmentStatePagerAdapter {
             case 0:
                 TabFragmentInfoPatient1 tab1 = new TabFragmentInfoPatient1();
                 //login.patientList(tab1);
+                System.out.println("Patient Name 3:" + patient.first_name);
+                tab1.setInfo(patient);
                 return tab1;
             case 1:
                 TabFragmentInfoPatient2 tab2 = new TabFragmentInfoPatient2();

@@ -9,16 +9,37 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class TabFragmentInfoPatient1 extends Fragment {
 
-    //private ArrayList<Patient> patient_list;
+    Patient patient;
+    TextView nom;
+    TextView prenom;
+    TextView email;
+    TextView phonenumber;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.tab_fragment_info_patient_1, container, false);
+
+        View myFragmentView = inflater.inflate(R.layout.tab_fragment_info_patient_1, container, false);
+
+        nom = (TextView )myFragmentView.findViewById(R.id.InfoPatientName);
+        nom.setText(patient.last_name);
+
+        prenom = (TextView )myFragmentView.findViewById(R.id.InfoPatientFirstName);
+        prenom.setText(patient.first_name);
+
+        email = (TextView )myFragmentView.findViewById(R.id.InfoPatientEmail);
+        email.setText(patient.email);
+
+        phonenumber = (TextView )myFragmentView.findViewById(R.id.InfoPatientName);
+        phonenumber.setText(patient.id);
+
+        return myFragmentView;
     }
 
     @Override
@@ -64,5 +85,17 @@ public class TabFragmentInfoPatient1 extends Fragment {
                 R.layout.rowlayout, R.id.label, patient_names.toArray(new String[patient_names.size()]));
         setListAdapter(adapter);
     } */
+
+    public void setInfo (final Patient patient){
+        this.patient = patient;
+
+        System.out.println("In a setInfo method");
+
+        //in your OnCreate() method
+        //System.out.println("Name patient = "+patient.last_name);
+        //nom.setText(patient.last_name);
+
+
+    }
 
 }

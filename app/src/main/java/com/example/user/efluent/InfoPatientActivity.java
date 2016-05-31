@@ -65,6 +65,9 @@ public class InfoPatientActivity extends AppCompatActivity {
         final PagerAdapterInfoPatient adapter = new PagerAdapterInfoPatient
                 (getSupportFragmentManager(), tabLayout.getTabCount());
         adapter.login  = this.login;
+        //Pass the object patient to the adapter
+        System.out.println("Name patient2 : " + patient.first_name);
+        adapter.patient = this.patient;
         mViewPager.setAdapter(adapter);
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 

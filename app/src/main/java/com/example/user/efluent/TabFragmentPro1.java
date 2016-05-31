@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 public class TabFragmentPro1 extends ListFragment {
 
+    /*Arraylist of patients are retrieved from LoginManager*/
     private ArrayList<Patient> patient_list;
 
     @Override
@@ -44,7 +45,7 @@ public class TabFragmentPro1 extends ListFragment {
             }
         });
 
-        View addButtonInfo = getActivity().findViewById(R.id.GoPatientInfo);
+        /*View addButtonInfo = getActivity().findViewById(R.id.GoPatientInfo);
 
         addButtonInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +54,7 @@ public class TabFragmentPro1 extends ListFragment {
                 Intent intent = new Intent(getView().getContext(), InfoPatientActivity.class);
                 startActivity(intent);
             }
-        });
+        }); */
 
         /*final Button buttonPatientInfo = (Button) getView().findViewById(R.id.inscriptionMain);
         buttonPatientInfo.setOnClickListener(new View.OnClickListener() {
@@ -95,7 +96,6 @@ public class TabFragmentPro1 extends ListFragment {
 
                 Log.i("test","from the click: " + item.first_name);
 
-                // TODO Start the Patient Activity passing the Patient object
                 Log.i("Test", "GoInfoPatient");
                 Intent intent = new Intent(getView().getContext(), InfoPatientActivity.class);
                 InfoPatientActivity.patient = item;
