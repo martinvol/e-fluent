@@ -4,9 +4,9 @@ import android.app.Activity;
 
 import java.util.ArrayList;
 
-public interface MeetingReceiver {
 
-    public void setMeetings(ArrayList<Meeting> meetingList);
+public interface ExerciseReceiver {
+    public void setExercises(ArrayList<Exercise> meetingList);
 
     public Activity getActivity();
 }
