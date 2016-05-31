@@ -4,12 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Performance"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
+    <ListView android:id="@+id/list_exercices_todo_for_my_patient"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+
+    <!--android:divider="@drawable/list_divider"-->
 
 </RelativeLayout>

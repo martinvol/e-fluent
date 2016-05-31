@@ -28,7 +28,7 @@ public class TabFragmentInfoPatient3 extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        listview_exercice_non_fait = (ListView) getActivity().findViewById(R.id.list_exercices_done);
+        listview_exercice_non_fait = (ListView) getActivity().findViewById(R.id.list_exercices_todo_for_my_patient);
 
         listview_exercice_non_fait.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -38,7 +38,6 @@ public class TabFragmentInfoPatient3 extends Fragment {
         });
 
         View addButton = getActivity().findViewById(R.id.GoAddExerciceAFaire);
-        listview_exercice_non_fait = (ListView)getActivity().findViewById(R.id.list_exercices_todo);
 
 
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +59,7 @@ public class TabFragmentInfoPatient3 extends Fragment {
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                R.layout.item_exercices_todo, R.id.label, exo_names.toArray(new String[exo_names.size()]));
+                R.layout.item_for_exercices_todo_list, R.id.name_exercice_todo, exo_names.toArray(new String[exo_names.size()]));
         listview_exercice_non_fait.setAdapter(adapter);
     }
+}
