@@ -36,7 +36,7 @@ public class TabFragmentInfoPatient1 extends Fragment {
         email = (TextView )myFragmentView.findViewById(R.id.InfoPatientEmail);
         email.setText(patient.email);
 
-        phonenumber = (TextView )myFragmentView.findViewById(R.id.InfoPatientName);
+        phonenumber = (TextView )myFragmentView.findViewById(R.id.InfoPatientNumeroTel);
         phonenumber.setText(patient.id);
 
         return myFragmentView;

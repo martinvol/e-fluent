@@ -36,11 +36,14 @@ public class TabFragmentPro1 extends ListFragment {
 
         View addButton = getActivity().findViewById(R.id.GoAddPatient);
 
+        final TabFragmentPro1 self = this;
+
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.i("Test", "GoAddPatient");
                 Intent intent = new Intent(getView().getContext(), AddPatientActivity.class);
+                AddPatientActivity.fragmentICameFrom = self;
                 startActivity(intent);
             }
         });
@@ -99,9 +102,15 @@ public class TabFragmentPro1 extends ListFragment {
                 Log.i("Test", "GoInfoPatient");
                 Intent intent = new Intent(getView().getContext(), InfoPatientActivity.class);
                 InfoPatientActivity.patient = item;
+                // pass fragment
                 startActivity(intent);
             }
         });
     }
 
+    public void AddPatientToList(Patient patient) {
+        patient_list.add(patient);
+        this.getListView().invalidateViews();
+        System.out.println("Size of patient_list = "+patient_list.size());
+    }
 }

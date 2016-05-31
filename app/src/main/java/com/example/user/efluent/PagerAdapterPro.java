@@ -21,6 +21,7 @@ public class PagerAdapterPro extends FragmentStatePagerAdapter {
             case 0:
                 TabFragmentPro1 tab1 = new TabFragmentPro1();
                 login.patientList(tab1);
+
                 return tab1;
             case 1:
                 TabFragmentPro2 tab2 = new TabFragmentPro2();
@@ -38,4 +39,6 @@ public class PagerAdapterPro extends FragmentStatePagerAdapter {
     public int getCount() {
         return mNumOfTabs;
     }
+
+
 }

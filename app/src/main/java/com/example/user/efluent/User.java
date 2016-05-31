@@ -9,6 +9,7 @@ public class User {
     public String last_name;
     public String email;
     public String id;
+    public String password;
 
     private LoginManager data;
 

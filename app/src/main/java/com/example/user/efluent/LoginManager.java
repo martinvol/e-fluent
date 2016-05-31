@@ -1,6 +1,7 @@
 package com.example.user.efluent;
 
 import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -32,6 +33,8 @@ public class LoginManager {
     private MainActivity activity;
 
     public String token;
+
+    public Patient addpatient;
 
     public LoginManager(MainActivity activity){
         this.activity = activity;
@@ -217,4 +220,14 @@ public class LoginManager {
 
         //FIXME this method is too generic
     }
+
+    public static void addPatient(final Patient patient, final AddPatientActivity activity) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                activity.addNewToList(patient);
+            }
+        });
+    }
+
 }
