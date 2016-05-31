@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import okhttp3.Call;
 import okhttp3.FormBody;
@@ -120,7 +121,7 @@ public class LoginManager {
         return request;
     }
 
-    public void patientList(final TabFragmentPro1 fragment1){
+    public void myPatientList(final TabFragmentPro1 fragment) {
         Request request = withHeader("/patient_list/");
 
         final LoginManager self = this;
@@ -128,18 +129,20 @@ public class LoginManager {
         final ArrayList<Patient> patient_list = new ArrayList<Patient>();
 
         client.newCall(request).enqueue(new Callback() {
-            @Override public void onFailure(Call call, IOException e) {
+            @Override
+            public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
             }
 
-            @Override public void onResponse(Call call, Response response) throws IOException {
-                String out =  response.body().string();
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String out = response.body().string();
                 System.out.println(out);
 
                 try {
                     JSONArray array = new JSONArray(out);
 
-                    for (int i=0; i < array.length(); i++) {
+                    for (int i = 0; i < array.length(); i++) {
                         Patient patient = new Patient(self);
                         JSONObject patient_json = array.getJSONObject(i);
                         patient.id = patient_json.getString("id");
@@ -151,10 +154,10 @@ public class LoginManager {
                         //TODO Here it's missing a callback to return the list of patients
                     }
 
-                    fragment1.getActivity().runOnUiThread(new Runnable() {
+                    fragment.getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            fragment1.setPatients(patient_list);
+                            fragment.setPatients(patient_list);
                         }
                     });
 
@@ -168,53 +171,266 @@ public class LoginManager {
 
     }
 
-    public void getListOfExersices(TabFragmentPatient1 tab1) {
-        //FIXME this method is too generic
+    public void resultsOfMyPatient(final TabFragmentInfoPatient2 fragment, Patient patient) {
+        Request request = withHeader("/resultat_A_Valider/Patient/" + patient.id);
+
+        final LoginManager self = this;
+
+        final ArrayList<Resultat> resultat_list = new ArrayList<Resultat>();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String out = response.body().string();
+                System.out.println(out);
+
+                try {
+                    JSONArray array = new JSONArray(out);
+
+                    for (int i = 0; i < array.length(); i++) {
+                        Resultat resultat = new Resultat(self);
+                        JSONObject Resultat_json = array.getJSONObject(i);
+                        resultat.id = Resultat_json.getString("id");
+                        resultat.isDone = Resultat_json.getString("isDone");
+                        resultat.pourcentage = Resultat_json.getString("pourcentage");
+
+                        Exercice exercice = new Exercice(self);
+                        exercice.name = Resultat_json.getString("exercice_name");
+                        resultat.exercice = exercice;
+
+                        resultat_list.add(resultat);
+                        //TODO Here it's missing a callback to return the list of patients
+                    }
+
+                    fragment.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            fragment.setResults(resultat_list);
+                        }
+                    });
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+    }
+
+    public void resultsOfMyPatient(final TabFragmentInfoPatient3 fragment, Patient patient) {
+        Request request = withHeader("/results_nodone/Patient/" + patient.id);
+
+        final LoginManager self = this;
+
+        final ArrayList<Resultat> resultat_list = new ArrayList<Resultat>();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String out = response.body().string();
+                System.out.println(out);
+
+                try {
+                    JSONArray array = new JSONArray(out);
+
+                    for (int i = 0; i < array.length(); i++) {
+                        Resultat resultat = new Resultat(self);
+                        JSONObject Resultat_json = array.getJSONObject(i);
+                        resultat.id = Resultat_json.getString("id");
+                        resultat.isDone = Resultat_json.getString("isDone");
+                        resultat.pourcentage = Resultat_json.getString("pourcentage");
+
+                        Exercice exercice = new Exercice(self);
+                        exercice.name = Resultat_json.getString("exercice_name");
+                        resultat.exercice = exercice;
+
+                        resultat_list.add(resultat);
+                        //TODO Here it's missing a callback to return the list of patients
+                    }
+
+                    fragment.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            fragment.setResults(resultat_list);
+                        }
+                    });
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+    }
+
+    public void myResults(final TabFragmentPatient1 fragment) {
+        Request request = withHeader("/results_noDone/Patient/");
+
+        final LoginManager self = this;
+
+        final ArrayList<Resultat> resultat_list = new ArrayList<Resultat>();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String out = response.body().string();
+                System.out.println(out);
+
+                try {
+                    JSONArray array = new JSONArray(out);
+
+                    for (int i = 0; i < array.length(); i++) {
+                        Resultat resultat = new Resultat(self);
+                        JSONObject Resultat_json = array.getJSONObject(i);
+                        resultat.id = Resultat_json.getString("id");
+                        resultat.isDone = Resultat_json.getString("isDone");
+                        resultat.pourcentage = Resultat_json.getString("pourcentage");
+
+                        Exercice exercice = new Exercice(self);
+                        exercice.name = Resultat_json.getString("exercice_name");
+                        resultat.exercice = exercice;
+
+                        resultat_list.add(resultat);
+                        //TODO Here it's missing a callback to return the list of patients
+                    }
+
+                    fragment.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            fragment.setResults(resultat_list);
+                        }
+                    });
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+    }
+
+    public void myResults(final TabFragmentPatient2 fragment) {
+        Request request = withHeader("/results_done/Patient/");
+
+        final LoginManager self = this;
+
+        final ArrayList<Resultat> resultat_list = new ArrayList<Resultat>();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String out = response.body().string();
+                System.out.println(out);
+
+                try {
+                    JSONArray array = new JSONArray(out);
+
+                    for (int i = 0; i < array.length(); i++) {
+                        Resultat resultat = new Resultat(self);
+                        JSONObject Resultat_json = array.getJSONObject(i);
+                        resultat.id = Resultat_json.getString("id");
+                        resultat.isDone = Resultat_json.getString("isDone");
+                        resultat.pourcentage = Resultat_json.getString("pourcentage");
+
+                        Exercice exercice = new Exercice(self);
+                        exercice.name = Resultat_json.getString("exercice_name");
+                        resultat.exercice = exercice;
+
+                        resultat_list.add(resultat);
+                        //TODO Here it's missing a callback to return the list of patients
+                    }
+
+                    fragment.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            fragment.setResults(resultat_list);
+                        }
+                    });
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
     }
 
     public void getListOfMeetings(final MeetingReceiver fragment) {
         Request request = withHeader("/create_meeting/");
 
+        final LoginManager self = this;
+
+        final ArrayList<Meeting> RDV_list = new ArrayList<Meeting>();
+
         client.newCall(request).enqueue(new Callback() {
-            @Override public void onFailure(Call call, IOException e) {
+            @Override
+            public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
             }
 
-            @Override public void onResponse(Call call, Response response) throws IOException {
-                String out =  response.body().string();
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String out = response.body().string();
                 System.out.println(out);
-
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-                final ArrayList<Meeting> meetings_list = new ArrayList<Meeting>();
 
                 try {
                     JSONArray array = new JSONArray(out);
-                    for (int i=0; i < array.length(); i++) {
-                        Meeting meeting = new Meeting();
-                        JSONObject meeting_json = array.getJSONObject(i);
-                        meeting.time = format.parse(meeting_json.getString("time"));
-                        //Log.i("test", "The time of the meeting is: " + meeting.time.toString());
-                        meetings_list.add(meeting);
+
+                    for (int i = 0; i < array.length(); i++) {
+                        Meeting rdv = new Meeting();
+                        JSONObject RDV_json = array.getJSONObject(i);
+                        rdv.id = RDV_json.getString("id");
+
+                        Patient patient = new Patient(self);
+                        patient.first_name = RDV_json.getString("first_name");
+                        patient.last_name = RDV_json.getString("last_name");
+                        rdv.patient = patient;
+
+                        Date date = new Date();
+                        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                        rdv.time = formatter.parse(RDV_json.getString("date"));
+                        RDV_list.add(rdv);
+                        //TODO Here it's missing a callback to return the list of patients
                     }
 
-                    /*A new thread is created for the display of data on the user's side*/
-                    //fragment.getActivity().runOnUiThread(new Runnable() {
                     fragment.getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            fragment.setMeetings(meetings_list);
+                            fragment.setMeetings(RDV_list);
                         }
                     });
 
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (ParseException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
+
             }
         });
 
-        //FIXME this method is too generic
     }
 }

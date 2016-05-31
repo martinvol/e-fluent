@@ -8,6 +8,8 @@ import java.util.Date;
  */
 public class Meeting {
 
+    public String id;
+    public Pro pro;
     public Date time;
     public Patient patient;
 

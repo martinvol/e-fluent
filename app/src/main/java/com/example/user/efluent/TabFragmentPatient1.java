@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 public class TabFragmentPatient1 extends ListFragment {
 
     @Override
@@ -29,6 +31,10 @@ public class TabFragmentPatient1 extends ListFragment {
         /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                 R.layout.rowlayout, R.id.label,values);
         setListAdapter(adapter);*/
+
+    }
+
+    public void setResults(ArrayList<Resultat> resultat_list) {
 
     }
 }

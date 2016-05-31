@@ -8,13 +8,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
 public class TabFragmentInfoPatient3 extends Fragment {
 
-    //private ArrayList<Patient> patient_list;
+    ArrayList<Resultat> resultat_list;
+    private ListView listview_exercice_non_fait;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -24,45 +27,39 @@ public class TabFragmentInfoPatient3 extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        /*String[] values = new String[] { "Android", "iPhone", "WindowsMobile",
-                "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-                "Linux", "OS/2" };*/
-        /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                R.layout.rowlayout, R.id.label,values);
-        setListAdapter(adapter);*/
 
-        /*View addButton = getActivity().findViewById(R.id.GoAddPatient);
+        listview_exercice_non_fait = (ListView) getActivity().findViewById(R.id.list_exercices_done);
+
+        listview_exercice_non_fait.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+
+            }
+        });
+
+        View addButton = getActivity().findViewById(R.id.GoAddExerciceAFaire);
+        listview_exercice_non_fait = (ListView)getActivity().findViewById(R.id.list_exercices_todo);
+
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("Test", "GoAddPatient");
-                Intent intent = new Intent(getView().getContext(), AddPatientActivity.class);
+                Intent intent = new Intent(getView().getContext(), AddExoForMyPatientActivity.class);
                 startActivity(intent);
             }
-        });*/
-
+        });
     }
 
+    public void setResults(ArrayList<Resultat> resultat_list) {
+        this.resultat_list = resultat_list;
 
+        ArrayList<String> exo_names = new ArrayList<String>();
 
-    /*public void setPatients (ArrayList<Patient> patient_list){
-        this.patient_list = patient_list;
-
-        System.out.println("DESDE EL Fragment");
-        System.out.println(patient_list.size());
-
-        ArrayList<String> patient_names = new ArrayList<String>();
-
-        for(Patient patient: patient_list ){
-            System.out.println("first name: " + patient.first_name);
-            patient_names.add(patient.first_name);
+        for (Resultat resultat : resultat_list) {
+            exo_names.add(resultat.exercice.name);
         }
 
-
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                R.layout.rowlayout, R.id.label, patient_names.toArray(new String[patient_names.size()]));
-        setListAdapter(adapter);
-    } */
-
-}
+                R.layout.item_exercices_todo, R.id.label, exo_names.toArray(new String[exo_names.size()]));
+        listview_exercice_non_fait.setAdapter(adapter);
+    }
