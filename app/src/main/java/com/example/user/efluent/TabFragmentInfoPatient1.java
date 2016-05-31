@@ -28,7 +28,8 @@ public class TabFragmentInfoPatient1 extends Fragment {
         View myFragmentView = inflater.inflate(R.layout.tab_fragment_info_patient_1, container, false);
 
         nom = (TextView )myFragmentView.findViewById(R.id.InfoPatientName);
-        nom.setText(patient.last_name);
+        nom.setText(patient.first_name);
+        //Log.i("test", "Last Name sent to text : "+ patient.last_name);
 
         prenom = (TextView )myFragmentView.findViewById(R.id.InfoPatientFirstName);
         prenom.setText(patient.first_name);
@@ -36,8 +37,8 @@ public class TabFragmentInfoPatient1 extends Fragment {
         email = (TextView )myFragmentView.findViewById(R.id.InfoPatientEmail);
         email.setText(patient.email);
 
-        phonenumber = (TextView )myFragmentView.findViewById(R.id.InfoPatientName);
-        phonenumber.setText(patient.id);
+        phonenumber = (TextView )myFragmentView.findViewById(R.id.InfoPatientNumeroTel);
+        phonenumber.setText(patient.id); //TODO phone number not ready
 
         return myFragmentView;
     }

@@ -22,7 +22,7 @@ public class PagerAdapterInfoPatient extends FragmentStatePagerAdapter {
             case 0:
                 TabFragmentInfoPatient1 tab1 = new TabFragmentInfoPatient1();
                 //login.patientList(tab1);
-                System.out.println("Patient Name 3:" + patient.first_name);
+                //System.out.println("Patient Name 3:" + patient.first_name);
                 tab1.setInfo(patient);
                 return tab1;
             case 1:
