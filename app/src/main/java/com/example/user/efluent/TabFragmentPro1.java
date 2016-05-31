@@ -96,6 +96,10 @@ public class TabFragmentPro1 extends ListFragment {
                 Log.i("test","from the click: " + item.first_name);
 
                 // TODO Start the Patient Activity passing the Patient object
+                Log.i("Test", "GoInfoPatient");
+                Intent intent = new Intent(getView().getContext(), InfoPatientActivity.class);
+                InfoPatientActivity.patient = item;
+                startActivity(intent);
             }
         });
     }

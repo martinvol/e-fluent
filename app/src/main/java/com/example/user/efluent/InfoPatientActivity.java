@@ -22,6 +22,7 @@ import android.widget.TextView;
 public class InfoPatientActivity extends AppCompatActivity {
 
     public static LoginManager login;
+    public static Patient patient;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide

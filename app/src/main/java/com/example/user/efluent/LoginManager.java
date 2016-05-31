@@ -23,8 +23,8 @@ import okhttp3.Callback;
 
 public class LoginManager {
 
-    private static String ADDRESS = "10.0.2.2:8000/API";
-    //private static String ADDRESS = "162.243.214.40:9000/API";
+    //private static String ADDRESS = "10.0.2.2:8000/API";
+    private static String ADDRESS = "162.243.214.40:9000/API";
     private static String FULLURL;
 
     //public void LoginManager
@@ -197,6 +197,7 @@ public class LoginManager {
                         meetings_list.add(meeting);
                     }
 
+                    /*A new thread is created for the display of data on the user's side*/
                     //fragment.getActivity().runOnUiThread(new Runnable() {
                     fragment.getActivity().runOnUiThread(new Runnable() {
                         @Override
