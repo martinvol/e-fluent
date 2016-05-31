@@ -71,22 +71,17 @@ public class TabFragmentPro1 extends ListFragment {
 
 
 
-    public void setPatients (ArrayList<Patient> patient_list){
+    public void setPatients (final ArrayList<Patient> patient_list){
         this.patient_list = patient_list;
 
         System.out.println("DESDE EL Fragment");
         System.out.println(patient_list.size());
 
-        ArrayList<String> patient_names = new ArrayList<String>();
-
-        for(Patient patient: patient_list ){
-            System.out.println("first name: " + patient.first_name);
-            patient_names.add(patient.first_name);
-        }
+        CustomPatientListAdapter adapter= new CustomPatientListAdapter(getActivity(),
+                patient_list.toArray(new Patient[patient_list.size()])
+        );
 
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                R.layout.rowlayout, R.id.label, patient_names.toArray(new String[patient_names.size()]));
         setListAdapter(adapter);
 
         this.getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -94,13 +89,13 @@ public class TabFragmentPro1 extends ListFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-                //Intent intent = new Intent(MainActivity.this, SendMessage.class);
-                //String message = "abc";
-                //intent.putExtra(EXTRA_MESSAGE, message);
-                //startActivity(intent);
                 Log.i("test", "Click from the list");
-                final String item = (String) parent.getItemAtPosition(position);
-                Log.i("test", "Name of patient is: " + item);
+
+                Patient item = patient_list.get(position);
+
+                Log.i("test","from the click: " + item.first_name);
+
+                // TODO Start the Patient Activity passing the Patient object
             }
         });
     }
