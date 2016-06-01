@@ -17,7 +17,7 @@ public class CustomPatientListAdapter extends ArrayAdapter<Patient> {
     private final Patient[] values;
 
     public CustomPatientListAdapter(Context context, Patient[] values) {
-        super(context, R.layout.rowlayout, values);
+        super(context, R.layout.rowlayout2, values);
         this.context = context;
         this.values = values;
     }
@@ -26,7 +26,7 @@ public class CustomPatientListAdapter extends ArrayAdapter<Patient> {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.rowlayout, parent, false);
+        View rowView = inflater.inflate(R.layout.rowlayout2, parent, false);
         TextView textView = (TextView) rowView.findViewById(R.id.label);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
         textView.setText(values[position].first_name);
@@ -38,7 +38,7 @@ public class CustomPatientListAdapter extends ArrayAdapter<Patient> {
         } else {
             imageView.setImageResource(R.drawable.ok);
         }*/
-        imageView.setImageResource(R.mipmap.ic_launcher);
+        imageView.setImageResource(R.drawable.ic_account_circle_black_48dp);
         return rowView;
     }
 
