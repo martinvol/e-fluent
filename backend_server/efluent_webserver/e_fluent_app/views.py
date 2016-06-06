@@ -149,6 +149,7 @@ class Exercises(APIView):
         else:
             return Response({'detail' : "Orthophonistes doesn't have Exercises"}, 
                 status=status.HTTP_400_BAD_REQUEST)
+        # exercises = request.user.get_role().get_exercises()
         serializer = serializers.ExercisesSerializer(exercises, many=True)
         return Response(serializer.data)
 

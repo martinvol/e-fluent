@@ -58,8 +58,22 @@ class MeetingSerializer(serializers.ModelSerializer):
             patient = validated_data['patient'] #models.Patient.objects.get(id=validated_data['patient'])
         )
 
+
+class ExercisesSubjectSerializer(serializers.ModelSerializer):
+    class Meta(object):
+        model = models.Exercise
+        fields = ('name',)
+
+
+
+
+
 class ExercisesSerializer(serializers.ModelSerializer):
-    
+    exercise = ExercisesSubjectSerializer()
+
     class Meta(object):
         model = models.AssignedExercise
+        fields = ('done', 'patient', 'exercise', 'word')
+
+
         

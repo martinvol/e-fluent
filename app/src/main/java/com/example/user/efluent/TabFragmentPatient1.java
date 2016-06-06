@@ -1,8 +1,7 @@
 package com.example.user.efluent;
 
-/**
- * Created by User on 24/05/2016.
- */
+
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,10 +9,41 @@ import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.util.Log;
 
-public class TabFragmentPatient1 extends ListFragment {
+import java.util.ArrayList;
+
+public class TabFragmentPatient1 extends ListFragment implements ExerciseReceiver{
+
+    ArrayList<Exercise> exerciseList;
+
+    public void setExercises(ArrayList<Exercise> exerciseList){
+        this.exerciseList = exerciseList;
+        ArrayList<String> patient_names = new ArrayList<String>();
+
+        for(Exercise exercise: exerciseList ){
+            // System.out.println("first name: " + exercise.time.toString());
+            patient_names.add(exercise.word);
+        }
+
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                R.layout.rowlayout, R.id.label, patient_names.toArray(new String[patient_names.size()]));
+        setListAdapter(adapter);
+
+        getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                Log.i("test", "Click from the list");
+                final String item = (String) parent.getItemAtPosition(position);
+                Log.i("test", "Word of exercises is: " + item);
+            }
+        });
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -32,4 +62,3 @@ public class TabFragmentPatient1 extends ListFragment {
 
     }
 }
-

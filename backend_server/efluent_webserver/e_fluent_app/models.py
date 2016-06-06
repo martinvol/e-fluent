@@ -30,6 +30,9 @@ class Orthophoniste(models.Model):
     def get_meetings(self):
         return Meeting.objects.filter(orthophoniste=self)
 
+    def get_exercises(self):
+        return AssignedExercise.objects.filter(patient__orthophoniste=self)
+
 class Patient(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=False)
     orthophoniste = models.ForeignKey(Orthophoniste, null=True, blank=True)
@@ -63,6 +66,8 @@ class AssignedExercise(models.Model):
     #orthophoniste = models.ForeignKey(Orthophoniste, null=False, blank=False)
     exercise = models.ForeignKey(Exercise, null=False, blank=False)
     done = models.BooleanField(null=False, blank=True, default=False)
+
+    word = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
         return "%s: %s → %s" % (self.exercise.name, self.patient.orthophoniste, self.patient)

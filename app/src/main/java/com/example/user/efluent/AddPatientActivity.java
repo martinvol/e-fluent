@@ -83,6 +83,6 @@ public class AddPatientActivity extends AppCompatActivity {
     }
 
     public void addNewToList(Patient patient) {
-        fragmentICameFrom.AddPatientToList(patient);
+        //fragmentICameFrom.AddPatientToList(patient);
     }
 }

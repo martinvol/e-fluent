@@ -24,8 +24,8 @@ import okhttp3.Callback;
 
 public class LoginManager {
 
-    private static String ADDRESS = "10.0.2.2:8000/API";
-    //private static String ADDRESS = "162.243.214.40:9000/API";
+    //private static String ADDRESS = "10.0.2.2:8000/API";
+    private static String ADDRESS = "162.243.214.40:9000/API";
     private static String FULLURL;
 
     //public void LoginManager
@@ -151,7 +151,6 @@ public class LoginManager {
                         patient.last_name = user_json.getString("last_name");
                         patient.email = user_json.getString("email");
                         patient_list.add(patient);
-                        //TODO Here it's missing a callback to return the list of patients
                     }
 
                     fragment1.getActivity().runOnUiThread(new Runnable() {
@@ -171,8 +170,49 @@ public class LoginManager {
 
     }
 
-    public void getListOfExersices(TabFragmentPatient1 tab1) {
+    public void getListOfExercises(final ExerciseReceiver tab) {
         //FIXME this method is too generic
+        Request request = withHeader("/exercises/").build();
+        client.newCall(request).enqueue(new Callback() {
+
+            @Override public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+            @Override public void onResponse(Call call, Response response) throws IOException {
+                String out =  response.body().string();
+                System.out.println(out);
+
+                final ArrayList<Exercise> exerciseList = new ArrayList<Exercise>();
+
+                try {
+                    JSONArray array = new JSONArray(out);
+                    for (int i=0; i < array.length(); i++) {
+                        Exercise exercise = new Exercise();
+                        JSONObject exercise_json = array.getJSONObject(i);
+                        exercise.done = exercise_json.getBoolean("done");
+                        exercise.word = exercise_json.getString("word");
+                        //exercise.type = meeting_json.getInt("exercise"); //FIXME it's more than a int
+                        exerciseList.add(exercise);
+                    }
+
+                    // A new thread is created for the display of data on the user's side
+                    //fragment.getActivity().runOnUiThread(new Runnable() {
+                    tab.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            tab.setExercises(exerciseList);
+                        }
+                    });
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } /*catch (ParseException e) {
+                    e.printStackTrace();
+                }*/
+            }
+        });
+
     }
 
     public void getListOfMeetings(final MeetingReceiver fragment) {
