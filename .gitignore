@@ -8,3 +8,4 @@
 /captures
 .pyc
 __pycache__
+.idea/misc.xml
