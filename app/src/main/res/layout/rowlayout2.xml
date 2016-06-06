@@ -10,7 +10,7 @@
         android:layout_marginLeft="30px"
         android:layout_marginRight="10px"
         android:layout_marginTop="4px"
-        android:src="@drawable/ic_today_black_48dp" >
+        android:src="@drawable/ic_account_circle_black_48dp" >
     </ImageView>
 
     <TextView

@@ -112,5 +112,6 @@ public class TabFragmentPro1 extends ListFragment {
         patient_list.add(patient);
         this.getListView().invalidateViews();
         System.out.println("Size of patient_list = "+patient_list.size());
+        System.out.println("Patient no 3 first name = " + patient_list.get(2).first_name);
     }
 }
