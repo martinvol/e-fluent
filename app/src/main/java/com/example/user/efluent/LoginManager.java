@@ -24,8 +24,8 @@ import okhttp3.Callback;
 
 public class LoginManager {
 
-    //private static String ADDRESS = "10.0.2.2:8000/API";
-    private static String ADDRESS = "162.243.214.40:9000/API";
+    private static String ADDRESS = "10.0.2.2:8000/API";
+    //private static String ADDRESS = "162.243.214.40:9000/API";
     private static String FULLURL;
 
     //public void LoginManager
@@ -115,16 +115,16 @@ public class LoginManager {
         });
     }
 
-    private Request withHeader(String url){
-        Request request = new Request.Builder()
+    private Request.Builder withHeader(String url){
+        Request.Builder request = new Request.Builder()
                 .addHeader("Authorization", "Token " + this.token)
-                .url(FULLURL + url)
-                .build();
+                .url(FULLURL + url);
+                //.build();
         return request;
     }
 
     public void patientList(final TabFragmentPro1 fragment1){
-        Request request = withHeader("/patient_list/");
+        Request request = withHeader("/patient_list/").build();
 
         final LoginManager self = this;
 
@@ -176,7 +176,7 @@ public class LoginManager {
     }
 
     public void getListOfMeetings(final MeetingReceiver fragment) {
-        Request request = withHeader("/create_meeting/");
+        Request request = withHeader("/create_meeting/").build();
 
         client.newCall(request).enqueue(new Callback() {
             @Override public void onFailure(Call call, IOException e) {
@@ -221,13 +221,39 @@ public class LoginManager {
         //FIXME this method is too generic
     }
 
-    public static void addPatient(final Patient patient, final AddPatientActivity activity) {
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                activity.addNewToList(patient);
+    public void addPatient(final Patient patient, final AddPatientActivity activity) {
+        RequestBody formBody = new FormBody.Builder()
+                .add("first_name", patient.first_name)
+                .add("last_name", patient.last_name)
+                .add("password", patient.password)
+                .add("email", patient.email)
+                .build();
+
+
+        Request request = withHeader("/add_patient/")
+                .post(formBody)
+                .build();
+
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override public void onResponse(Call call, Response response) throws IOException {
+
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        activity.addNewToList(patient);
+                    }
+                });
+
             }
         });
+
+
+
     }
 
 }
