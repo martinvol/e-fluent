@@ -18,6 +18,7 @@ public class TabFragmentPro1 extends ListFragment {
 
     /*Arraylist of patients are retrieved from LoginManager*/
     private ArrayList<Patient> patient_list;
+    LoginManager login;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class TabFragmentPro1 extends ListFragment {
             public void onClick(View view) {
                 Log.i("Test", "GoAddPatient");
                 Intent intent = new Intent(getView().getContext(), AddPatientActivity.class);
+                AddPatientActivity.login = login;
                 startActivity(intent);
             }
         });
