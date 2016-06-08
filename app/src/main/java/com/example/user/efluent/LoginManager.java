@@ -230,4 +230,7 @@ public class LoginManager {
         });
     }
 
+    /** ADD ORTHOPHONISTE TO THE SERVER HERE**/
+    public static void createOrthophoniste(Orthophonist ortho, InscriptionProActivity self) {
+    }
 }
