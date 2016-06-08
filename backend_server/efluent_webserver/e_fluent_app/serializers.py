@@ -17,6 +17,16 @@ class PatientSerializer(serializers.ModelSerializer):
         model = models.Patient
         fields = ('id', 'user')
 
+class AddPatientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.CustomUser
+        fields = ('last_name', 'first_name', 'email', 'password',)
+
+    def create(self, validated_data):
+        user = User.objects.create_user(**validated_data, username=validated_data['first_name']+validated_data['last_name'])
+        user.save()
+        patient = models.Patient.objects.create(user=user)
+        return patient
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -28,9 +38,9 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('username', 'email', 'password')
 
     def create(self, validated_data):
-        #profile_data = validated_data.pop('profile')
-        #user = User.objects.create(**validated_data)
-        #Profile.objects.create(user=user, **profile_data)
+        profile_data = validated_data.pop('profile')
+        user = User.objects.create(**validated_data)
+        models.Profile.objects.create(user=user, **profile_data)
         return user
 
 
@@ -48,8 +58,22 @@ class MeetingSerializer(serializers.ModelSerializer):
             patient = validated_data['patient'] #models.Patient.objects.get(id=validated_data['patient'])
         )
 
+
+class ExercisesSubjectSerializer(serializers.ModelSerializer):
+    class Meta(object):
+        model = models.Exercise
+        fields = ('name',)
+
+
+
+
+
 class ExercisesSerializer(serializers.ModelSerializer):
-    
+    exercise = ExercisesSubjectSerializer()
+
     class Meta(object):
         model = models.AssignedExercise
+        fields = ('done', 'patient', 'exercise', 'word')
+
+
         

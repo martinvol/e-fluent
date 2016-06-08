@@ -20,12 +20,10 @@ public class PagerAdapterPatient extends FragmentStatePagerAdapter {
         switch (position) {
             case 0:
                 TabFragmentPatient1 tab1 = new TabFragmentPatient1();
-                /** UNCOMMENT THIS **/
-                //login.getListOfExersices(tab1);
+                login.getListOfExercises(tab1);
                 return tab1;
             case 1:
                 TabFragmentPatient2 tab2 = new TabFragmentPatient2();
-                /** UNCOMMENT THIS **/
                 login.getListOfMeetings(tab2);
                 return tab2;
             default:

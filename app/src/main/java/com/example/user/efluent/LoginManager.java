@@ -115,16 +115,16 @@ public class LoginManager {
         });
     }
 
-    private Request withHeader(String url){
-        Request request = new Request.Builder()
+    private Request.Builder withHeader(String url){
+        Request.Builder request = new Request.Builder()
                 .addHeader("Authorization", "Token " + this.token)
-                .url(FULLURL + url)
-                .build();
+                .url(FULLURL + url);
+                //.build();
         return request;
     }
 
     public void patientList(final TabFragmentPro1 fragment1){
-        Request request = withHeader("/patient_list/");
+        Request request = withHeader("/patient_list/").build();
 
         final LoginManager self = this;
 
@@ -151,7 +151,6 @@ public class LoginManager {
                         patient.last_name = user_json.getString("last_name");
                         patient.email = user_json.getString("email");
                         patient_list.add(patient);
-                        //TODO Here it's missing a callback to return the list of patients
                     }
 
                     fragment1.getActivity().runOnUiThread(new Runnable() {
@@ -171,12 +170,53 @@ public class LoginManager {
 
     }
 
-    public void getListOfExersices(TabFragmentPatient1 tab1) {
+    public void getListOfExercises(final ExerciseReceiver tab) {
         //FIXME this method is too generic
+        Request request = withHeader("/exercises/").build();
+        client.newCall(request).enqueue(new Callback() {
+
+            @Override public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+            @Override public void onResponse(Call call, Response response) throws IOException {
+                String out =  response.body().string();
+                System.out.println(out);
+
+                final ArrayList<Exercise> exerciseList = new ArrayList<Exercise>();
+
+                try {
+                    JSONArray array = new JSONArray(out);
+                    for (int i=0; i < array.length(); i++) {
+                        Exercise exercise = new Exercise();
+                        JSONObject exercise_json = array.getJSONObject(i);
+                        exercise.done = exercise_json.getBoolean("done");
+                        exercise.word = exercise_json.getString("word");
+                        //exercise.type = meeting_json.getInt("exercise"); //FIXME it's more than a int
+                        exerciseList.add(exercise);
+                    }
+
+                    // A new thread is created for the display of data on the user's side
+                    //fragment.getActivity().runOnUiThread(new Runnable() {
+                    tab.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            tab.setExercises(exerciseList);
+                        }
+                    });
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } /*catch (ParseException e) {
+                    e.printStackTrace();
+                }*/
+            }
+        });
+
     }
 
     public void getListOfMeetings(final MeetingReceiver fragment) {
-        Request request = withHeader("/create_meeting/");
+        Request request = withHeader("/create_meeting/").build();
 
         client.newCall(request).enqueue(new Callback() {
             @Override public void onFailure(Call call, IOException e) {
@@ -221,13 +261,39 @@ public class LoginManager {
         //FIXME this method is too generic
     }
 
-    public static void addPatient(final Patient patient, final AddPatientActivity activity) {
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                activity.addNewToList(patient);
+    public void addPatient(final Patient patient, final AddPatientActivity activity) {
+        RequestBody formBody = new FormBody.Builder()
+                .add("first_name", patient.first_name)
+                .add("last_name", patient.last_name)
+                .add("password", patient.password)
+                .add("email", patient.email)
+                .build();
+
+
+        Request request = withHeader("/add_patient/")
+                .post(formBody)
+                .build();
+
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override public void onResponse(Call call, Response response) throws IOException {
+
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        activity.addNewToList(patient);
+                    }
+                });
+
             }
         });
+
+
+
     }
 
     /** ADD ORTHOPHONISTE TO THE SERVER HERE**/

@@ -29,7 +29,7 @@ public class CustomPatientListAdapter extends ArrayAdapter<Patient> {
         View rowView = inflater.inflate(R.layout.rowlayout2, parent, false);
         TextView textView = (TextView) rowView.findViewById(R.id.label);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
-        textView.setText(values[position].first_name);
+        textView.setText(values[position].last_name + " " + values[position].first_name);
         // Change the icon for Windows and iPhone
         Patient s = values[position];
 /*        if (s.startsWith("Windows7") || s.startsWith("iPhone")

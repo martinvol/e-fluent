@@ -1,8 +1,11 @@
 package com.example.user.efluent;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +15,8 @@ public class AddPatientActivity extends AppCompatActivity {
 
 
     public static TabFragmentPro1 fragmentICameFrom;
+    public static LoginManager login;
+
     Button addPatient;
     EditText lastName;
     EditText firstName;
@@ -50,7 +55,21 @@ public class AddPatientActivity extends AppCompatActivity {
                         //patient.phone_number = phoneNumber.getText().toString();
                         patient.password = password.getText().toString();
                         //System.out.println("patient.password = " + patient.password);
-                        LoginManager.addPatient(patient, self);
+
+                        if (!patient.isValid()){
+                            final AlertDialog show = new AlertDialog.Builder(AddPatientActivity.this)
+                                    .setTitle("Missing information")
+                                    .setMessage("Last name, First Name, E-mail and Password must be filled")
+                                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            // continue with delete
+                                        }
+                                    })
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .show();
+                            return;
+                        }
+                        login.addPatient(patient, self);
 
                         Intent intent = new Intent(view.getContext(), ProActivity.class);
                         startActivity(intent);
@@ -64,6 +83,6 @@ public class AddPatientActivity extends AppCompatActivity {
     }
 
     public void addNewToList(Patient patient) {
-        fragmentICameFrom.AddPatientToList(patient);
+        //fragmentICameFrom.AddPatientToList(patient);
     }
 }

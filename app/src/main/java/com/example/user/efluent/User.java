@@ -18,4 +18,10 @@ public class User {
     public User(LoginManager data){
         this.data = data;
     }
+
+    public Boolean isValid(){
+        return !(first_name.equals("") || last_name.equals("") || password.equals("")
+                || email.equals(""));
+
+    }
 }
