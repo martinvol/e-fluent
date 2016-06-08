@@ -20,9 +20,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class PatientActivity extends AppCompatActivity {
+    /** UNCOMMENT THIS **/
     public static LoginManager login;
-
-    //public static LoginManager login;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -62,6 +61,7 @@ public class PatientActivity extends AppCompatActivity {
 
         final PagerAdapterPatient adapter = new PagerAdapterPatient
                 (getSupportFragmentManager(), tabLayout.getTabCount());
+        /** UNCOMMENT THIS **/
         adapter.login  = this.login;
         mViewPager.setAdapter(adapter);
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

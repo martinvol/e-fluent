@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         final Button buttonInscription = (Button) findViewById(R.id.inscriptionMain);
         buttonInscription.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.i("test", "-> Pro tab");
+                Log.i("test", "-> ProActivity tab");
                 Intent intent = new Intent(v.getContext(), InscriptionProActivity.class);
                 ProActivity.login = login;
                 startActivity(intent);
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         final Button button = (Button) findViewById(R.id.GoProActivity);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.i("test", "-> Pro tab");
+                Log.i("test", "-> ProActivity tab");
                 Intent intent = new Intent(v.getContext(), ProActivity.class);
                 ProActivity.login = login;
                 startActivity(intent);
