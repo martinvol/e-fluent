@@ -10,6 +10,8 @@ public class User {
     public String email;
     public String id;
     public String password;
+    public String numADELI;
+    public String phone_number;
 
     private LoginManager data;
 

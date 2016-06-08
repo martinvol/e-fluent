@@ -12,8 +12,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Nom :"
         android:id="@+id/Nom"
@@ -24,8 +24,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Mot de Passe :"
         android:id="@+id/Password"
@@ -35,8 +35,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Prenom :"
         android:id="@+id/FirstName"
@@ -46,8 +46,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="No Portable :"
         android:id="@+id/Num"
@@ -57,8 +57,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Email :"
         android:id="@+id/Email"
@@ -68,8 +68,8 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/InscriptionProName"
@@ -80,8 +80,8 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/InscriptionProPassword"
@@ -92,8 +92,8 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/InscriptionProFirstName"
@@ -104,8 +104,8 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:inputType="number"
         android:ems="10"
         android:id="@+id/InscriptionProNumber"
@@ -116,8 +116,8 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/InscriptionProEmail"
@@ -142,4 +142,24 @@
         android:id="@+id/RegisterPro"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="N° ADELI :"
+        android:id="@+id/textView9"
+        android:layout_below="@+id/Email"
+        android:layout_alignEnd="@+id/Email" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/InscriptionProNoAdeli"
+        android:layout_alignBottom="@+id/textView9"
+        android:layout_alignStart="@+id/InscriptionProEmail" />
 </RelativeLayout>
