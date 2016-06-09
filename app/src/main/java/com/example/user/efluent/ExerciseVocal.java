@@ -17,15 +17,19 @@ import android.widget.Button;
 
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.io.IOException;
 
 public class ExerciseVocal extends AppCompatActivity {
 
+    public static String word = null;
     Button play,stop;
     ImageButton record;
     private MediaRecorder myAudioRecorder;
     private String outputFile = null;
+
+    TextView exerciseWord;
 
     /*Button micCall;
     private static final String AUDIO_RECORDER_FILE_EXT_3GP = ".3gp";
@@ -41,6 +45,9 @@ public class ExerciseVocal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_vocal);
+
+        exerciseWord = (TextView )findViewById(R.id.WordToPronounce);
+        exerciseWord.setText(word);
 
         play = (Button)findViewById(R.id.playButton);
         stop = (Button)findViewById(R.id.stopButton);
