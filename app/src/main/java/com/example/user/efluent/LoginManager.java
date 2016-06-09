@@ -34,8 +34,8 @@ import okio.Source;
 
 public class LoginManager {
 
-    private static String ADDRESS = "10.0.2.2:8000/API";
-    //private static String ADDRESS = "162.243.214.40:9000/API";
+    //private static String ADDRESS = "10.0.2.2:8000/API";
+    private static String ADDRESS = "162.243.214.40:9000/API";
     private static String FULLURL;
 
     //public void LoginManager
