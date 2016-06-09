@@ -195,7 +195,8 @@ class MakeExercises(APIView):
         file_obj = request.FILES['file']
 
         temp_file_path = "/tmp/audio%s.wav" % str(time.time())
-        destination = tempfile.NamedTemporaryFile(mode='wb+', delete=True)
+        #destination = tempfile.NamedTemporaryFile(mode='wb+', delete=True)
+        destination = open("/home/martin/", mode='wb+')
         for chunk in file_obj.chunks():
             destination.write(chunk)
 
