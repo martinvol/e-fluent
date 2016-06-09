@@ -21,6 +21,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         login = new LoginManager(this);
+
+        // the following line is here only for testing
+        login.sendExercise(this);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         loginDialog = new ProgressDialog(this);
