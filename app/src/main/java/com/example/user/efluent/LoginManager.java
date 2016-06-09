@@ -319,11 +319,15 @@ public class LoginManager {
             RequestBody requestBody = RequestBodyUtil.create(MEDIA_TYPE_MARKDOWN, inputStream);
 
 
-            Request request = new Request.Builder()
+            Request request = withHeader("/makeexercise/1/")
+                    .post(requestBody)
+                    .build();;
+
+            /*Request request = new Request.Builder()
                     .url("http://10.0.2.2:8000/API/makeexercise/1/")
                     //.post(RequestBody.create(MEDIA_TYPE_MARKDOWN, file))
                     .post(requestBody)
-                    .build();
+                    .build();*/
 
             client.newCall(request).enqueue(new Callback() {
                 @Override public void onFailure(Call call, IOException e) {

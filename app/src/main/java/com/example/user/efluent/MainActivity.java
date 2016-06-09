@@ -22,8 +22,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         login = new LoginManager(this);
 
-        // the following line is here only for testing
-        login.sendExercise(this);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -114,6 +112,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), ProActivity.class);
         ProActivity.login = login;
         startActivity(intent);
+
+        // the following line is here only for testing
+        login.sendExercise(this);
     }
 
     private void loginSucess() {

@@ -180,7 +180,7 @@ class Exercises(APIView):
 
 
 class MakeExercises(APIView):
-    # permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,)
     parser_classes = (FileUploadParser,)
 
     def post(self, request, pk, format=None):
