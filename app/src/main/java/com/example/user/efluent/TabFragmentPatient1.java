@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.util.Log;
+import android.widget.Button;
 
 import java.util.ArrayList;
 
@@ -41,6 +42,8 @@ public class TabFragmentPatient1 extends ListFragment implements ExerciseReceive
                 Log.i("test", "Click from the list");
                 final String item = (String) parent.getItemAtPosition(position);
                 Log.i("test", "Word of exercises is: " + item);
+                Intent intent = new Intent(getView().getContext(), ExerciseVocal.class);
+                startActivity(intent);
             }
         });
     }
@@ -59,6 +62,17 @@ public class TabFragmentPatient1 extends ListFragment implements ExerciseReceive
         /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                 R.layout.rowlayout, R.id.label,values);
         setListAdapter(adapter);*/
+
+        View goExo = getActivity().findViewById(R.id.GoExoVocal);
+
+        goExo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i("Test", "GoExoVocal");
+                Intent intent = new Intent(getView().getContext(), ExerciseVocal.class);
+                startActivity(intent);
+            }
+        });
 
     }
 }
