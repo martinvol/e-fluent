@@ -43,6 +43,7 @@ public class TabFragmentPatient1 extends ListFragment implements ExerciseReceive
                 final String item = (String) parent.getItemAtPosition(position);
                 Log.i("test", "Word of exercises is: " + item);
                 Intent intent = new Intent(getView().getContext(), ExerciseVocal.class);
+                ExerciseVocal.word = item;
                 startActivity(intent);
             }
         });
@@ -63,7 +64,7 @@ public class TabFragmentPatient1 extends ListFragment implements ExerciseReceive
                 R.layout.rowlayout, R.id.label,values);
         setListAdapter(adapter);*/
 
-        View goExo = getActivity().findViewById(R.id.GoExoVocal);
+        /*View goExo = getActivity().findViewById(R.id.GoExoVocal);
 
         goExo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,7 +73,7 @@ public class TabFragmentPatient1 extends ListFragment implements ExerciseReceive
                 Intent intent = new Intent(getView().getContext(), ExerciseVocal.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
     }
 }
