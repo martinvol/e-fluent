@@ -2,6 +2,10 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
 
+import subprocess
+import time
+import tempfile
+
 from rest_framework.decorators import api_view
 from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
@@ -9,6 +13,7 @@ from rest_framework import permissions, status
 from rest_framework.response import Response
 from rest_framework.authtoken.views import ObtainAuthToken
 
+from rest_framework.parsers import FileUploadParser
 
 from django.contrib.auth.decorators import login_required
 
@@ -172,3 +177,34 @@ class Exercises(APIView):
                     status = status.HTTP_401_UNAUTHORIZED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class MakeExercises(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    parser_classes = (FileUploadParser,)
+
+    def post(self, request, pk, format=None):
+        try:
+            exercise = models.AssignedExercise.objects.get(pk=pk)
+        except models.AssignedExercise.DoesNotExist:
+            return Response(status.HTTP_404_NOT_FOUND)
+
+
+        file_obj = request.FILES['file']
+
+        temp_file_path = "/tmp/audio%s.wav" % str(time.time())
+        destination = tempfile.NamedTemporaryFile(mode='wb+', delete=True)
+        for chunk in file_obj.chunks():
+            destination.write(chunk)
+
+        command = "pocketsphinx_continuous -infile %s -word papa" % destination.name
+
+        result = subprocess.check_output([command,], shell=True).decode('ascii')
+
+        # delete_file
+        # depending of the result, update the database
+
+
+        return Response(
+            result
+        )

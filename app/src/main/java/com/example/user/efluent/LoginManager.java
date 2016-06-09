@@ -8,24 +8,34 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import okhttp3.Call;
 import okhttp3.FormBody;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.Callback;
+import okhttp3.internal.Util;
+import okio.BufferedSink;
+import okio.Okio;
+import okio.Source;
+
 
 
 public class LoginManager {
 
-    //private static String ADDRESS = "10.0.2.2:8000/API";
-    private static String ADDRESS = "162.243.214.40:9000/API";
+    private static String ADDRESS = "10.0.2.2:8000/API";
+    //private static String ADDRESS = "162.243.214.40:9000/API";
     private static String FULLURL;
 
     //public void LoginManager
@@ -293,6 +303,52 @@ public class LoginManager {
         });
 
 
+
+    }
+
+    public void sendExercise(AppCompatActivity act){
+
+        Log.i("test","pido ejes");
+        // InputStream iS = resources.getAssets().open("bla.txt");
+        MediaType MEDIA_TYPE_MARKDOWN
+                = MediaType.parse("text/x-markdown; charset=utf-8");
+
+        try {
+            File file;
+            InputStream inputStream = act.getAssets().open("hello.wav");
+            RequestBody requestBody = RequestBodyUtil.create(MEDIA_TYPE_MARKDOWN, inputStream);
+
+
+            Request request = withHeader("/makeexercise/1/")
+                    .post(requestBody)
+                    .build();;
+
+            /*Request request = new Request.Builder()
+                    .url("http://10.0.2.2:8000/API/makeexercise/1/")
+                    //.post(RequestBody.create(MEDIA_TYPE_MARKDOWN, file))
+                    .post(requestBody)
+                    .build();*/
+
+            client.newCall(request).enqueue(new Callback() {
+                @Override public void onFailure(Call call, IOException e) {
+                    e.printStackTrace();
+                }
+
+                @Override public void onResponse(Call call, Response response) throws IOException {
+                    Log.i("test",response.body().string());
+
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            // activity.addNewToList(patient);
+                        }
+                    });
+
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 

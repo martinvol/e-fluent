@@ -8,3 +8,6 @@
 /captures
 .pyc
 __pycache__
+misc.xml
+virtualenv/
+

@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         login = new LoginManager(this);
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         loginDialog = new ProgressDialog(this);
@@ -110,6 +112,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), ProActivity.class);
         ProActivity.login = login;
         startActivity(intent);
+
+        // the following line is here only for testing
+        login.sendExercise(this);
     }
 
     private void loginSucess() {
