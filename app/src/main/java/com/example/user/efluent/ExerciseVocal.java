@@ -55,15 +55,21 @@ public class ExerciseVocal extends AppCompatActivity {
 
         stop.setEnabled(false);
         play.setEnabled(false);
-        outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recording.3gp";;
+        outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recording.3gp";
+        System.out.println("Outputfile location : " + outputFile);
 
         myAudioRecorder = new MediaRecorder();
+
+        myAudioRecorder.setAudioSamplingRate(16000);
+        myAudioRecorder.setAudioEncodingBitRate(16);
         myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         //myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         //myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
         myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
         myAudioRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
         myAudioRecorder.setOutputFile(outputFile);
+
+
 
         record.setOnClickListener(new View.OnClickListener() {
             @Override
