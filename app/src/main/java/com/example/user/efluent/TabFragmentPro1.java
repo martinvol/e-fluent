@@ -104,6 +104,7 @@ public class TabFragmentPro1 extends ListFragment {
                 Log.i("Test", "GoInfoPatient");
                 Intent intent = new Intent(getView().getContext(), InfoPatientActivity.class);
                 InfoPatientActivity.patient = item;
+                InfoPatientActivity.login = login;
                 // pass fragment
                 startActivity(intent);
             }

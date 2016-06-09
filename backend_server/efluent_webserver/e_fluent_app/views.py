@@ -152,6 +152,8 @@ class Exercises(APIView):
         if request.user.get_role().__class__  != models.Orthophoniste:
             exercises = request.user.get_role().get_exercises()
         else:
+            #FIXME here I should filter a patient
+            exercises = request.user.get_role().get_exercises()
             return Response({'detail' : "Orthophonistes doesn't have Exercises"}, 
                 status=status.HTTP_400_BAD_REQUEST)
         # exercises = request.user.get_role().get_exercises()
