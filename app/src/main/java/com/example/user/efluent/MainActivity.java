@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.EditText;
 import android.content.Intent;
 import android.widget.Toast;
@@ -30,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         loginDialog.setMessage("Wait while loading...");
 
 
-        ((EditText) findViewById(R.id.LoginMain)).setText("ortho1");
+        ((EditText) findViewById(R.id.LoginMain)).setText("pat1");
         ((EditText) findViewById(R.id.PasswordMain)).setText("123456");
 
         ((Button) findViewById(R.id.connexionMain))
@@ -114,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
         // the following line is here only for testing
-        login.sendExercise(this);
+        //login.sendExercise(this, "");
     }
 
     private void loginSucess() {

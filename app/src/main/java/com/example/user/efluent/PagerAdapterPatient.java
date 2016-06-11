@@ -20,6 +20,7 @@ public class PagerAdapterPatient extends FragmentStatePagerAdapter {
         switch (position) {
             case 0:
                 TabFragmentPatient1 tab1 = new TabFragmentPatient1();
+                tab1.login = login;
                 login.getListOfExercises(tab1);
                 return tab1;
             case 1:

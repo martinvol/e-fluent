@@ -31,6 +31,8 @@ public class ExerciseVocal extends AppCompatActivity {
 
     TextView exerciseWord;
 
+    public static LoginManager login;
+
     /*Button micCall;
     private static final String AUDIO_RECORDER_FILE_EXT_3GP = ".3gp";
     private static final String AUDIO_RECORDER_FILE_EXT_MP4 = ".mp4";
@@ -55,21 +57,24 @@ public class ExerciseVocal extends AppCompatActivity {
 
         stop.setEnabled(false);
         play.setEnabled(false);
+
         outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recording.3gp";
         System.out.println("Outputfile location : " + outputFile);
 
         myAudioRecorder = new MediaRecorder();
 
-        myAudioRecorder.setAudioSamplingRate(16000);
-        myAudioRecorder.setAudioEncodingBitRate(16);
+        myAudioRecorder.setAudioSamplingRate(441000);
+        // myAudioRecorder.setAudioEncodingBitRate(16);
+        myAudioRecorder.setAudioEncodingBitRate(96000);
+
         myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         //myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         //myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-        myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
-        myAudioRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+        myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.AMR_WB);
+        myAudioRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_WB);
         myAudioRecorder.setOutputFile(outputFile);
 
-
+        final ExerciseVocal self = this;
 
         record.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +104,9 @@ public class ExerciseVocal extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 myAudioRecorder.stop();
+                login.sendExercise(self, outputFile);
                 myAudioRecorder.release();
+
                 myAudioRecorder  = null;
 
                 stop.setEnabled(false);

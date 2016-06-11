@@ -18,6 +18,8 @@ import java.util.ArrayList;
 
 public class TabFragmentPatient1 extends ListFragment implements ExerciseReceiver{
 
+    LoginManager login;
+
     ArrayList<Exercise> exerciseList;
 
     public void setExercises(ArrayList<Exercise> exerciseList){
@@ -44,6 +46,8 @@ public class TabFragmentPatient1 extends ListFragment implements ExerciseReceive
                 Log.i("test", "Word of exercises is: " + item);
                 Intent intent = new Intent(getView().getContext(), ExerciseVocal.class);
                 ExerciseVocal.word = item;
+                ExerciseVocal.login = login;
+
                 startActivity(intent);
             }
         });

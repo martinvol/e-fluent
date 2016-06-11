@@ -34,8 +34,8 @@ import okio.Source;
 
 public class LoginManager {
 
-    //private static String ADDRESS = "10.0.2.2:8000/API";
     private static String ADDRESS = "162.243.214.40:9000/API";
+    //private static String ADDRESS = "10.0.2.2:8000/API";
     private static String FULLURL;
 
     //public void LoginManager
@@ -306,7 +306,7 @@ public class LoginManager {
 
     }
 
-    public void sendExercise(AppCompatActivity act){
+    public void sendExercise(AppCompatActivity act, String path){
 
         Log.i("test","pido ejes");
         // InputStream iS = resources.getAssets().open("bla.txt");
@@ -319,15 +319,14 @@ public class LoginManager {
             RequestBody requestBody = RequestBodyUtil.create(MEDIA_TYPE_MARKDOWN, inputStream);
 
 
-            Request request = withHeader("/makeexercise/1/")
-                    .post(requestBody)
-                    .build();;
-
-            /*Request request = new Request.Builder()
-                    .url("http://10.0.2.2:8000/API/makeexercise/1/")
-                    //.post(RequestBody.create(MEDIA_TYPE_MARKDOWN, file))
+            /*Request request = withHeader("/makeexercise/1/")
                     .post(requestBody)
                     .build();*/
+
+            Request request = withHeader("/makeexercise/1/")
+                    .post(RequestBody.create(MEDIA_TYPE_MARKDOWN, new File(path) ))
+                    //.post(requestBody)
+                    .build();
 
             client.newCall(request).enqueue(new Callback() {
                 @Override public void onFailure(Call call, IOException e) {
