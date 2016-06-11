@@ -26,12 +26,15 @@ public class ExerciseVocal extends AppCompatActivity {
     public static String word = null;
     Button play,stop;
     ImageButton record;
-    private MediaRecorder myAudioRecorder;
+    //private MediaRecorder myAudioRecorder;
     private String outputFile = null;
 
     TextView exerciseWord;
 
     public static LoginManager login;
+
+    private WavAudioRecorder mRecorder;
+
 
     /*Button micCall;
     private static final String AUDIO_RECORDER_FILE_EXT_3GP = ".3gp";
@@ -61,7 +64,7 @@ public class ExerciseVocal extends AppCompatActivity {
         outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recording.3gp";
         System.out.println("Outputfile location : " + outputFile);
 
-        myAudioRecorder = new MediaRecorder();
+        /*myAudioRecorder = new MediaRecorder();
 
         myAudioRecorder.setAudioSamplingRate(441000);
         // myAudioRecorder.setAudioEncodingBitRate(16);
@@ -72,7 +75,12 @@ public class ExerciseVocal extends AppCompatActivity {
         //myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
         myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         myAudioRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
-        myAudioRecorder.setOutputFile(outputFile);
+        myAudioRecorder.setOutputFile(outputFile);*/
+
+        mRecorder = WavAudioRecorder.getInstanse();
+        mRecorder.setOutputFile(outputFile);
+
+
 
         final ExerciseVocal self = this;
 
@@ -80,8 +88,10 @@ public class ExerciseVocal extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    myAudioRecorder.prepare();
-                    myAudioRecorder.start();
+                    /*myAudioRecorder.prepare();
+                    myAudioRecorder.start();*/
+                    mRecorder.prepare();
+                    mRecorder.start();
                 }
 
                 catch (IllegalStateException e) {
@@ -89,10 +99,10 @@ public class ExerciseVocal extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                catch (IOException e) {
+                /*catch (IOException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
-                }
+                }*/
                 record.setEnabled(false);
                 stop.setEnabled(true);
 
@@ -103,11 +113,13 @@ public class ExerciseVocal extends AppCompatActivity {
         stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myAudioRecorder.stop();
+                //myAudioRecorder.stop();
+                mRecorder.stop();
+                mRecorder.reset();
                 login.sendExercise(self, outputFile);
-                myAudioRecorder.release();
+                //myAudioRecorder.release();
 
-                myAudioRecorder  = null;
+                //myAudioRecorder  = null;
 
                 stop.setEnabled(false);
                 play.setEnabled(true);
