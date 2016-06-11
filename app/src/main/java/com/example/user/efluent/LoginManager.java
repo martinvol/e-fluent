@@ -306,7 +306,7 @@ public class LoginManager {
 
     }
 
-    public void sendExercise(AppCompatActivity act, String path){
+    public void sendExercise(final ExerciseVocal act, String path){
 
         Log.i("test","pido ejes");
         // InputStream iS = resources.getAssets().open("bla.txt");
@@ -334,12 +334,13 @@ public class LoginManager {
                 }
 
                 @Override public void onResponse(Call call, Response response) throws IOException {
-                    Log.i("test",response.body().string());
+                    final String reponse_text =  response.body().string();
+                    Log.i("test",reponse_text);
 
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            // activity.addNewToList(patient);
+                            act.notify_result(reponse_text);
                         }
                     });
 

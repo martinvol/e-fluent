@@ -1,13 +1,19 @@
 package com.example.user.efluent;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 
 import android.os.Bundle;
 import android.os.Environment;
 
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,6 +41,7 @@ public class ExerciseVocal extends AppCompatActivity {
 
     private WavAudioRecorder mRecorder;
 
+    private ProgressDialog loadingDialog;
 
     /*Button micCall;
     private static final String AUDIO_RECORDER_FILE_EXT_3GP = ".3gp";
@@ -90,6 +97,7 @@ public class ExerciseVocal extends AppCompatActivity {
                 try {
                     /*myAudioRecorder.prepare();
                     myAudioRecorder.start();*/
+
                     mRecorder.prepare();
                     mRecorder.start();
                 }
@@ -113,10 +121,20 @@ public class ExerciseVocal extends AppCompatActivity {
         stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                loadingDialog = new ProgressDialog(self);
+                loadingDialog.setTitle("Loading");
+                loadingDialog.setMessage("Evaluating your results...");
+                loadingDialog.show();
+                Log.i("test", "pongo el dialog");
                 //myAudioRecorder.stop();
+
+
                 mRecorder.stop();
                 mRecorder.reset();
+
+
                 login.sendExercise(self, outputFile);
+
                 //myAudioRecorder.release();
 
                 //myAudioRecorder  = null;
@@ -251,4 +269,23 @@ public class ExerciseVocal extends AppCompatActivity {
             recorder = null;
         }
     } */
+
+    public void notify_result(String result){
+        loadingDialog.dismiss();
+
+        AlertDialog.Builder alertDialogBuilder =
+                new AlertDialog.Builder(this)
+                        .setTitle("Your result")
+                        .setMessage(result)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+
+// Show the AlertDialog.
+        AlertDialog alertDialog = alertDialogBuilder.show();
+
+
+    }
 }
