@@ -70,8 +70,8 @@ public class ExerciseVocal extends AppCompatActivity {
         myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         //myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         //myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-        myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.AMR_WB);
-        myAudioRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_WB);
+        myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        myAudioRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
         myAudioRecorder.setOutputFile(outputFile);
 
         final ExerciseVocal self = this;
