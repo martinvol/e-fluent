@@ -28,12 +28,19 @@ public class TabFragmentPatient1 extends ListFragment implements ExerciseReceive
 
         for(Exercise exercise: exerciseList ){
             // System.out.println("first name: " + exercise.time.toString());
-            patient_names.add(exercise.word);
+            if (!exercise.done){
+                patient_names.add(exercise.word);
+                //FIXME this should be on the adapter
+            }
         }
 
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                R.layout.rowlayout, R.id.label, patient_names.toArray(new String[patient_names.size()]));
+        /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                R.layout.rowlayout, R.id.label, patient_names.toArray(new String[patient_names.size()]));*/
+        CustomExerciseListAdapter adapter  = new CustomExerciseListAdapter(getActivity(),
+                exerciseList.toArray(new Exercise[exerciseList.size()]));
+        //patient_list.toArray(new Patient[patient_list.size()])
+
         setListAdapter(adapter);
 
         getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -42,10 +49,10 @@ public class TabFragmentPatient1 extends ListFragment implements ExerciseReceive
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
                 Log.i("test", "Click from the list");
-                final String item = (String) parent.getItemAtPosition(position);
+                final Exercise item = (Exercise) parent.getItemAtPosition(position);
                 Log.i("test", "Word of exercises is: " + item);
                 Intent intent = new Intent(getView().getContext(), ExerciseVocal.class);
-                ExerciseVocal.word = item;
+                ExerciseVocal.word = item.mot;
                 ExerciseVocal.login = login;
 
                 startActivity(intent);
