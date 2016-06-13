@@ -45,7 +45,8 @@
         <activity
             android:name=".ExerciseVocal"
             android:screenOrientation="portrait" />
-        <activity android:name=".GiveExerciseActivity"></activity>
+        <activity android:name=".GiveExerciseActivity" />
+        <activity android:name=".GiveRendezvousActivity"></activity>
     </application>
 
 </manifest>
