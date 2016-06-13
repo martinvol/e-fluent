@@ -51,8 +51,9 @@ public class TabFragmentInfoPatient2 extends ListFragment implements ExerciseRec
         ArrayList<String> patient_names = new ArrayList<String>();
 
         for(Exercise exercise: exerciseList ){
-            // System.out.println("first name: " + exercise.time.toString());
-            patient_names.add(exercise.word);
+            if (!exercise.done){
+                patient_names.add(exercise.word);
+            }
         }
 
 

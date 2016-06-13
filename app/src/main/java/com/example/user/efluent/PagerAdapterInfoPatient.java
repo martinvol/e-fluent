@@ -31,6 +31,7 @@ public class PagerAdapterInfoPatient extends FragmentStatePagerAdapter {
                 return tab2;
             case 2:
                 TabFragmentInfoPatient3 tab3 = new TabFragmentInfoPatient3();
+                login.getListOfExercises(tab3, patient.id);
                 return tab3;
             case 3:
                 TabFragmentInfoPatient4 tab4 = new TabFragmentInfoPatient4();

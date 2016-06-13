@@ -109,17 +109,20 @@ public class LoginManager {
                 final String role = get_item(out,"role_name");
 
                 Log.i("test", "role is: " + role);
+                if (!(activity == null)){
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
 
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(role.equals("Patient")){
-                            activity.loginSucessPatient();
-                        } else {
-                            activity.loginSucessOrtho();
+                                if (role.equals("Patient")) {
+                                    activity.loginSucessPatient();
+                                } else {
+                                    activity.loginSucessOrtho();
+                                }
+
                         }
-                    }
-                });
+                    });
+                }
 
             }
         });
@@ -163,14 +166,14 @@ public class LoginManager {
                         patient_list.add(patient);
                     }
 
-                    fragment1.getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            fragment1.setPatients(patient_list);
-                        }
-                    });
-
-
+                    if ( !(null == fragment1)) {
+                        fragment1.getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                fragment1.setPatients(patient_list);
+                            }
+                        });
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -206,12 +209,16 @@ public class LoginManager {
 
                     // A new thread is created for the display of data on the user's side
                     //fragment.getActivity().runOnUiThread(new Runnable() {
-                    tab.getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            tab.setExercises(exerciseList);
-                        }
-                    });
+                    if (!(tab == null)) {
+                        tab.getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                    tab.setExercises(exerciseList);
+                                }
+
+                        });
+                    }
 
 
                 } catch (JSONException e) {
@@ -262,12 +269,15 @@ public class LoginManager {
 
                     /*A new thread is created for the display of data on the user's side*/
                     //fragment.getActivity().runOnUiThread(new Runnable() {
-                    fragment.getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            fragment.setMeetings(meetings_list);
-                        }
-                    });
+                    if (!(fragment == null)) {
+                        fragment.getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                fragment.setMeetings(meetings_list);
+                            }
+                        });
+                    }
 
 
                 } catch (JSONException e) {
@@ -302,12 +312,15 @@ public class LoginManager {
 
             @Override public void onResponse(Call call, Response response) throws IOException {
 
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        activity.addNewToList(patient);
-                    }
-                });
+                if (!(activity == null)) {
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            activity.addNewToList(patient);
+                        }
+                    });
+                }
 
             }
         });
@@ -347,12 +360,16 @@ public class LoginManager {
                     final String reponse_text =  response.body().string();
                     Log.i("test",reponse_text);
 
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            act.notify_result(reponse_text);
-                        }
-                    });
+                    if (!(act == null)) {
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                    act.notify_result(reponse_text);
+                                }
+
+                        });
+                    }
 
                 }
             });
