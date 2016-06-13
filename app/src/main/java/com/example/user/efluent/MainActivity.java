@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         loginDialog.setMessage("Wait while loading...");
 
 
-        ((EditText) findViewById(R.id.LoginMain)).setText("pat1");
+        ((EditText) findViewById(R.id.LoginMain)).setText("ortho1");
         ((EditText) findViewById(R.id.PasswordMain)).setText("123456");
 
         ((Button) findViewById(R.id.connexionMain))
