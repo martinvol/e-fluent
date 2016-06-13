@@ -201,6 +201,7 @@ public class LoginManager {
                         JSONObject exercise_json = array.getJSONObject(i);
                         exercise.done = exercise_json.getBoolean("done");
                         exercise.word = exercise_json.getString("word");
+                        exercise.id = exercise_json.getInt("id");
                         //exercise.type = meeting_json.getInt("exercise"); //FIXME it's more than a int
                         exerciseList.add(exercise);
                     }
@@ -306,7 +307,7 @@ public class LoginManager {
 
     }
 
-    public void sendExercise(final ExerciseVocal act, String path){
+    public void sendExercise(final ExerciseVocal act, String path, String ex_id){
 
         Log.i("test","pido ejes");
         // InputStream iS = resources.getAssets().open("bla.txt");
@@ -323,7 +324,7 @@ public class LoginManager {
                     .post(requestBody)
                     .build();*/
 
-            Request request = withHeader("/makeexercise/1/")
+            Request request = withHeader("/makeexercise/" + ex_id + "/")
                     .post(RequestBody.create(MEDIA_TYPE_MARKDOWN, new File(path) ))
                     //.post(requestBody)
                     .build();

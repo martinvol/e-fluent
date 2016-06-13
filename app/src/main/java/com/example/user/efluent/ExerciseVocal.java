@@ -29,7 +29,6 @@ import java.io.IOException;
 
 public class ExerciseVocal extends AppCompatActivity {
 
-    public static String word = null;
     Button play,stop;
     ImageButton record;
     //private MediaRecorder myAudioRecorder;
@@ -43,6 +42,7 @@ public class ExerciseVocal extends AppCompatActivity {
 
     private ProgressDialog loadingDialog;
 
+    public static Exercise exercise;
     /*Button micCall;
     private static final String AUDIO_RECORDER_FILE_EXT_3GP = ".3gp";
     private static final String AUDIO_RECORDER_FILE_EXT_MP4 = ".mp4";
@@ -59,7 +59,7 @@ public class ExerciseVocal extends AppCompatActivity {
         setContentView(R.layout.activity_exercise_vocal);
 
         exerciseWord = (TextView )findViewById(R.id.WordToPronounce);
-        exerciseWord.setText(word);
+        exerciseWord.setText(exercise.word);
 
         play = (Button)findViewById(R.id.playButton);
         stop = (Button)findViewById(R.id.stopButton);
@@ -133,7 +133,7 @@ public class ExerciseVocal extends AppCompatActivity {
                 mRecorder.reset();
 
 
-                login.sendExercise(self, outputFile);
+                login.sendExercise(self, outputFile, exercise.id.toString());
 
                 //myAudioRecorder.release();
 

@@ -52,7 +52,7 @@ public class TabFragmentPatient1 extends ListFragment implements ExerciseReceive
                 final Exercise item = (Exercise) parent.getItemAtPosition(position);
                 Log.i("test", "Word of exercises is: " + item);
                 Intent intent = new Intent(getView().getContext(), ExerciseVocal.class);
-                ExerciseVocal.word = item.mot;
+                ExerciseVocal.exercise = item;
                 ExerciseVocal.login = login;
 
                 startActivity(intent);
