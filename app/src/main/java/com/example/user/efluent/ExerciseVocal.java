@@ -68,7 +68,7 @@ public class ExerciseVocal extends AppCompatActivity {
         stop.setEnabled(false);
         play.setEnabled(false);
 
-        outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recording.3gp";
+        outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recording.wav";
         System.out.println("Outputfile location : " + outputFile);
 
         /*myAudioRecorder = new MediaRecorder();
@@ -84,8 +84,8 @@ public class ExerciseVocal extends AppCompatActivity {
         myAudioRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
         myAudioRecorder.setOutputFile(outputFile);*/
 
-        mRecorder = WavAudioRecorder.getInstanse();
-        mRecorder.setOutputFile(outputFile);
+        /* mRecorder = WavAudioRecorder.getInstanse();
+        mRecorder.setOutputFile(outputFile); */
 
 
 
@@ -95,6 +95,8 @@ public class ExerciseVocal extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
+                    mRecorder = WavAudioRecorder.getInstanse();
+                    mRecorder.setOutputFile(outputFile);
                     /*myAudioRecorder.prepare();
                     myAudioRecorder.start();*/
 
@@ -113,6 +115,7 @@ public class ExerciseVocal extends AppCompatActivity {
                 }*/
                 record.setEnabled(false);
                 stop.setEnabled(true);
+                play.setEnabled(false);
 
                 Toast.makeText(getApplicationContext(), "Recording started", Toast.LENGTH_LONG).show();
             }
@@ -169,6 +172,7 @@ public class ExerciseVocal extends AppCompatActivity {
 
                 m.start();
                 Toast.makeText(getApplicationContext(), "Playing audio", Toast.LENGTH_LONG).show();
+                record.setEnabled(true);
             }
         });
 
