@@ -15,9 +15,9 @@ import android.widget.Toast;
 
 public class GiveExerciseActivity extends AppCompatActivity {
 
-    String[] themeExo = new String[]{"","Reeducation Orale", "Reeducation Ecrite", "Rythme"};
-    String[] typeExo = new String[]{"","Reconnaissance Vocale", "Puissance Voix"};
-    String[] listExercisesVocal = new String[]{"","papa", "jeux", "deux"};
+    String[] themeExo = new String[]{"choisir le thème..","Reeducation Orale", "Reeducation Ecrite", "Rythme"};
+    String[] typeExo = new String[]{"choisir le type..","Reconnaissance Vocale", "Puissance Voix"};
+    String[] listExercisesVocal = new String[]{"choisir l'exercise..","papa", "jeux", "deux"};
     String[] listExercisesPuissance = new String[]{"","Sonometre"};
     String[] emptyList = new String[]{};
 
