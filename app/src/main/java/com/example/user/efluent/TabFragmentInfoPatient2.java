@@ -26,6 +26,19 @@ public class TabFragmentInfoPatient2 extends ListFragment implements ExerciseRec
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        View addButton = getActivity().findViewById(R.id.GoAddPatient);
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i("Test", "GoGiveExercise");
+                Intent intent = new Intent(getView().getContext(), GiveExerciseActivity.class);
+                //AddPatientActivity.fragmentICameFrom = self;
+                //AddPatientActivity.login = login;
+                startActivity(intent);
+            }
+        });
         /*String[] values = new String[] { "Android", "iPhone", "WindowsMobile",
                 "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
                 "Linux", "OS/2" };*/
