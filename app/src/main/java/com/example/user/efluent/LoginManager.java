@@ -180,9 +180,7 @@ public class LoginManager {
 
     }
 
-    public void getListOfExercises(final ExerciseReceiver tab) {
-        //FIXME this method is too generic
-        Request request = withHeader("/exercises/").build();
+    private void getListOfExercisesFromRequest(Request request, final ExerciseReceiver tab){
         client.newCall(request).enqueue(new Callback() {
 
             @Override public void onFailure(Call call, IOException e) {
@@ -223,7 +221,18 @@ public class LoginManager {
                 }*/
             }
         });
+    }
 
+    public void getListOfExercises(final ExerciseReceiver tab, String id) {
+
+        Request request = withHeader("/exercises/"+id+"/").build();
+        getListOfExercisesFromRequest(request, tab);
+
+    }
+
+    public void getListOfExercises(final ExerciseReceiver tab) {
+        Request request = withHeader("/exercises/").build();
+        getListOfExercisesFromRequest(request, tab);
     }
 
     public void getListOfMeetings(final MeetingReceiver fragment) {
