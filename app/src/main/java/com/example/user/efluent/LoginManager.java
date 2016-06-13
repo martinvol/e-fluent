@@ -44,7 +44,6 @@ public class LoginManager {
 
     public String token;
 
-    public Patient addpatient;
 
     public LoginManager(MainActivity activity){
         this.activity = activity;
@@ -380,6 +379,37 @@ public class LoginManager {
     }
 
     /** ADD ORTHOPHONISTE TO THE SERVER HERE**/
-    public static void createOrthophoniste(Orthophonist ortho, InscriptionProActivity self) {
+    public void createOrthophoniste(Orthophonist ortho, final InscriptionProActivity activity, Orthophonist orthophonist) {
+
+        RequestBody formBody = new FormBody.Builder()
+                .add("email", orthophonist.email)
+                .add("username", orthophonist.first_name + orthophonist.last_name)
+                .add("password", orthophonist.password)
+                .build();
+
+        Request request = withHeader("/register_orthophoniste/")
+                .post(formBody)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override public void onResponse(Call call, final Response response) throws IOException {
+
+                final String text_response = response.body().string();
+
+                if (!(activity == null)) {
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.i("test", text_response);
+                            activity.loginSucess();
+                        }
+                    });
+                }
+            }
+        });
     }
 }

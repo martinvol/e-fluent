@@ -17,6 +17,15 @@ public class MainActivity extends AppCompatActivity {
     LoginManager login;
     ProgressDialog loginDialog;
 
+    final void login(){
+        loginDialog.show();
+        Log.i("test", "Login");
+        login.login(
+                ((EditText) findViewById(R.id.LoginMain)).getText().toString(),
+                ((EditText)findViewById(R.id.PasswordMain)).getText().toString()
+        );
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         login = new LoginManager(this);
@@ -35,13 +44,14 @@ public class MainActivity extends AppCompatActivity {
         ((Button) findViewById(R.id.connexionMain))
                 .setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                login();
                 //loginDialog.show(v.getContext(), "Logging in", "Wait while loading...");
-                loginDialog.show();
+/*                loginDialog.show();
                 Log.i("test", "Login");
                 login.login(
                         ((EditText) findViewById(R.id.LoginMain)).getText().toString(),
                         ((EditText)findViewById(R.id.PasswordMain)).getText().toString()
-                );
+                );*/
 
 
             }
@@ -52,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.i("test", "-> ProActivity tab");
                 Intent intent = new Intent(v.getContext(), InscriptionProActivity.class);
-                ProActivity.login = login;
+                InscriptionProActivity.login = login;
                 startActivity(intent);
 
 
