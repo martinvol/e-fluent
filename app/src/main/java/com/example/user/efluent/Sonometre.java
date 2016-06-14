@@ -1,6 +1,7 @@
 package com.example.user.efluent;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,6 +13,7 @@ import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.Timer;
@@ -26,18 +28,10 @@ public class Sonometre extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         final Sonometre self = this;
         final TextView label = (TextView) findViewById(R.id.sonometre_out);
-        final Button button = (Button) findViewById(R.id.micro_sonometre);
+        final TextView comment = (TextView) findViewById(R.id.comment_sonometre);
+        final ImageButton button = (ImageButton) findViewById(R.id.micro_sonometre);
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -52,13 +46,22 @@ public class Sonometre extends AppCompatActivity {
                             @Override
                             public void run() {
                                 label.setText(String.valueOf(getAmplitude()));
+                                if (getAmplitude() < 1000) {
+                                    comment.setText("Il faut parler plus fort");
+                                }
+                                else if(getAmplitude() > 10000) {
+                                    comment.setText("Il faut parler moins fort");
+                                }
+                                else {
+                                    comment.setText("Bonne puissance de voix !");
+                                }
                             }
                         });
                     }
                 }
 
                 Timer timer = new Timer();
-                final int FPS = 40;
+                final int FPS = 5;
                 GetAudio audioTaskt = new GetAudio();
                 timer.scheduleAtFixedRate(audioTaskt, 0, 1000/FPS);
             }

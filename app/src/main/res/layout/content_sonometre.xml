@@ -12,13 +12,32 @@
     tools:context="com.example.user.efluent.Sonometre"
     tools:showIn="@layout/activity_sonometre">
 
-    <Button
+   <!-- <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="micro_sonometre"
         android:id="@+id/micro_sonometre"
         android:layout_marginTop="28dp"
-         />
+         /> -->
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/micro_sonometre"
+        android:src="@drawable/ic_mic_black_48dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/comment_sonometre"
+        android:layout_marginTop="150dp"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/micro_sonometre" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -27,8 +46,10 @@
         android:paddingBottom="10dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/sonometre_out"
-        android:layout_marginTop="54dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignEnd="@+id/micro_sonometre" />
+        android:layout_below="@+id/comment_sonometre"
+        android:layout_alignStart="@+id/micro_sonometre"
+        android:layout_marginTop="25dp" />
+
+
 
 </RelativeLayout>
