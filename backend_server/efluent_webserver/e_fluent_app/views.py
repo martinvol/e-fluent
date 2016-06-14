@@ -44,27 +44,45 @@ class JSONResponse(HttpResponse):
         kwargs['content_type'] = 'application/json'
         super(JSONResponse, self).__init__(content, **kwargs)
 
-#class RegisterOrthophoniste(APIView):
-class RegisterOrthophoniste(ObtainAuthToken):
-    # throttle_classes = ()
-    # permission_classes = (permissions.AllowAny)
+# #class RegisterOrthophoniste(APIView):
+# class RegisterOrthophoniste(APIView):
+#     # throttle_classes = ()
+#     permission_classes = (permissions.AllowAny,)
 
-    def post(self, request, *args, **kwargs):
-        serialized = serializers.UserSerializer(data=request.data)
-        if serialized.is_valid():
-            print("is_valid")
-            new_user = models.CustomUser.objects.create_user(
-                serialized.validated_data['username'],
-                serialized.validated_data['email'],
-                serialized.validated_data['password']
-            )
-            ortho = models.Orthophoniste()
-            ortho.user = new_user
-            ortho.save()
-            return Response(serialized.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
+#     def post(self, request, format=None):
+#         serialized = serializers.UserSerializer(data=request.data)
+#         if serialized.is_valid():
+#             print("is_valid")
+#             new_user = models.CustomUser.objects.create_user(
+#                 serialized.validated_data['username'],
+#                 serialized.validated_data['email'],
+#                 serialized.validated_data['password']
+#             )
+#             ortho = models.Orthophoniste()
+#             ortho.user = new_user
+#             ortho.save()
+#             return Response(serialized.data, status=status.HTTP_201_CREATED)
+#         else:
+#             return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
 
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
+def registerOrthiphiniste(request, format=None):
+    serialized = serializers.UserSerializer(data=request.POST)
+    if serialized.is_valid():
+        print("is_valid")
+        new_user = models.CustomUser.objects.create_user(
+            serialized.validated_data['username'].lower(),
+            serialized.validated_data['email'],
+            serialized.validated_data['password']
+        )
+        ortho = models.Orthophoniste()
+        ortho.user = new_user
+        ortho.save()
+        return HttpResponse(str(serialized.data), status=status.HTTP_201_CREATED)
+    else:
+        return HttpResponse(str(serialized._errors), status=status.HTTP_400_BAD_REQUEST)
 
 class AddPatient(APIView):
     """

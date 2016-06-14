@@ -35,8 +35,8 @@ router = routers.DefaultRouter()
 urlpatterns = [
 	url(r'^', include(router.urls)),
     #url(r'^api-token-auth/', views.obtain_auth_token),
+    url(r'^register_orthophoniste/', registerOrthiphiniste),
     url(r'^api-token-auth/', CustomLoginHadshake.as_view()),
-    url(r'^register_orthophoniste/', RegisterOrthophoniste.as_view()),
     url(r'^add_patient/', AddPatient.as_view()),
     url(r'^patient_list/', PatientList.as_view()),
     url(r'^create_meeting/', CreateMeeting.as_view()),
