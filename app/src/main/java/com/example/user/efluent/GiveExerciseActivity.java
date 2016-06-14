@@ -17,7 +17,15 @@ public class GiveExerciseActivity extends AppCompatActivity {
 
     String[] themeExo = new String[]{"choisir le thème..","Reeducation Orale", "Reeducation Ecrite", "Rythme"};
     String[] typeExo = new String[]{"choisir le type..","Reconnaissance Vocale", "Puissance Voix"};
-    String[] listExercisesVocal = new String[]{"choisir l'exercise..","papa", "jeux", "deux"};
+    String[] listExercisesVocal = new String[]{"choisir l'exercise..",
+            "baba",
+            "dada",
+            "deux",
+            "jeux",
+            "noeud",
+            "papa",
+            "tata",
+            "voeux"};
     String[] listExercisesPuissance = new String[]{"","Sonometre"};
     String[] emptyList = new String[]{};
 
@@ -129,53 +137,6 @@ public class GiveExerciseActivity extends AppCompatActivity {
             }
 
         });
-
-        /* switch (dropdown1.getSelectedItem().toString()) {
-            case "Reeducation Orale" :
-                ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, typeExo);
-                dropdown2.setAdapter(adapter2);
-                //Show dropdown2
-                //dropdown2.setVisibility(View.VISIBLE);
-
-                if (dropdown2.getSelectedItem().toString() == "Reconnaisance Vocale"){
-                    ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, listExercisesVocal);
-                    dropdown3.setAdapter(adapter3);
-                    //Show dropdown3
-                    //dropdown3.setVisibility(View.VISIBLE);
-                }
-
-                else {
-                    //Puissance Voix choisie
-                    ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, listExercisesPuissance);
-                    dropdown3.setAdapter(adapter3);
-                    //Show dropdown3
-                    //dropdown3.setVisibility(View.VISIBLE);
-                }
-                break;
-
-            case "Reeducation Ecrite" :
-                ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, emptyList);
-                dropdown2.setAdapter(adapter4);
-                //Show dropdown2
-                //dropdown2.setVisibility(View.VISIBLE);
-                break;
-
-            case "Rythme" :
-                ArrayAdapter<String> adapter5 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, emptyList);
-                dropdown2.setAdapter(adapter5);
-                //Show dropdown2
-                //dropdown2.setVisibility(View.VISIBLE);
-                break;
-        } */
-
-        /*if (theme == null || type == null || nameExo == null) {
-            buttonGiveExo.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
-            buttonGiveExo.setClickable(false);
-        }
-        else {
-            buttonGiveExo.getBackground().setColorFilter(null);
-            buttonGiveExo.setClickable(true);
-        }*/
 
         buttonGiveExo.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
