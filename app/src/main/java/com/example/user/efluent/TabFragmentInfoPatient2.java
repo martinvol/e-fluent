@@ -17,6 +17,8 @@ public class TabFragmentInfoPatient2 extends ListFragment implements ExerciseRec
 
     //private ArrayList<Patient> patient_list;
     ArrayList<Exercise> exerciseList;
+    public Patient patient;
+    public LoginManager login;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,8 +36,8 @@ public class TabFragmentInfoPatient2 extends ListFragment implements ExerciseRec
             public void onClick(View view) {
                 Log.i("Test", "GoGiveExercise");
                 Intent intent = new Intent(getView().getContext(), GiveExerciseActivity.class);
-                //AddPatientActivity.fragmentICameFrom = self;
-                //AddPatientActivity.login = login;
+                GiveExerciseActivity.patient_to_add = patient;
+                GiveExerciseActivity.login = login;
                 startActivity(intent);
             }
         });

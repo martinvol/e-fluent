@@ -75,5 +75,13 @@ class ExercisesSerializer(serializers.ModelSerializer):
         model = models.AssignedExercise
         fields = ('done', 'patient', 'exercise', 'word', 'id')
 
+class ExercisesSerializerNoExtraData(serializers.ModelSerializer):
 
-        
+    class Meta(object):
+        model = models.AssignedExercise
+        fields = ('done', 'patient', 'exercise', 'word', 'id')
+
+# class AssignedExerciseSerializer(serializers.ModelSerializer):
+#     class Meta(object):
+#         model = models.AssignedExercise
+#         fields = ('done', 'patient', 'exercise', 'word', 'id')

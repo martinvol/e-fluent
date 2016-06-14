@@ -251,3 +251,22 @@ class MakeExercises(APIView):
 
 def process_out(command_out):
     return "PASSED" in command_out
+
+class MakeExercises(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def post(self, request, format=None):
+        request.user.__class__ = models.CustomUser
+        if request.user.get_role().__class__  != models.Orthophoniste:
+            return Response({'detail' : "Patients can't do this actions"}, 
+                    status = status.HTTP_401_UNAUTHORIZED)
+        serializer = serializers.ExercisesSerializerNoExtraData(data=request.data)
+
+        if serializer.is_valid():
+            print("is valid")
+            serializer.save()
+            return Response(serializer.data)
+
+
+        return Response(serializer.errors, 
+                    status = status.HTTP_401_UNAUTHORIZED)

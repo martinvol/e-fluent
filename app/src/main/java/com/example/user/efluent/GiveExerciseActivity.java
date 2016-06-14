@@ -34,6 +34,9 @@ public class GiveExerciseActivity extends AppCompatActivity {
     String type = null;
     String nameExo = null;
 
+    public static Patient patient_to_add;
+    public static LoginManager login;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,6 +141,8 @@ public class GiveExerciseActivity extends AppCompatActivity {
 
         });
 
+        final GiveExerciseActivity self = this;
+
         buttonGiveExo.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.i("test", "-> ProActivity tab");
@@ -146,16 +151,22 @@ public class GiveExerciseActivity extends AppCompatActivity {
                 if ( theme != null && type != null && nameExo != null) {
                     Toast toast = Toast.makeText(getApplicationContext(), "Exo choisi :" + theme + "/" + type + "/" + nameExo + "/", Toast.LENGTH_LONG);
                     toast.show();
-                    //ProActivity.login = login;
+
+                    login.addExercise(self, patient_to_add, type.replace(" ",""), nameExo);
                     startActivity(intent);
                 }
                 else{
-                    Toast toast = Toast.makeText(getApplicationContext(), "Choisir bien l'exercice!", Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(getApplicationContext(), "Choisir bien l'exercice!", Toast.LENGTH_SHORT);
                     toast.show();
                 }
 
 
             }
         });
+    }
+
+    public void giveSuccess() {
+        Toast toast = Toast.makeText(getApplicationContext(), "Exercice ajouté!", Toast.LENGTH_LONG);
+        toast.show();
     }
 }

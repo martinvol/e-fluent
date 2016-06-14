@@ -25,8 +25,8 @@ import okhttp3.Callback;
 
 public class LoginManager {
 
-    private static String ADDRESS = "162.243.214.40:9000/API";
-    //private static String ADDRESS = "10.0.2.2:8000/API";
+    //private static String ADDRESS = "162.243.214.40:9000/API";
+    private static String ADDRESS = "10.0.2.2:8000/API";
     private static String FULLURL;
 
     //public void LoginManager
@@ -331,14 +331,8 @@ public class LoginManager {
             InputStream inputStream = act.getAssets().open("hello.wav");
             RequestBody requestBody = RequestBodyUtil.create(MEDIA_TYPE_MARKDOWN, inputStream);
 
-
-            /*Request request = withHeader("/makeexercise/1/")
-                    .post(requestBody)
-                    .build();*/
-
             Request request = withHeader("/makeexercise/" + ex_id + "/")
                     .post(RequestBody.create(MEDIA_TYPE_MARKDOWN, new File(path) ))
-                    //.post(requestBody)
                     .build();
 
             client.newCall(request).enqueue(new Callback() {
@@ -402,5 +396,41 @@ public class LoginManager {
                 }
             }
         });
+    }
+
+    public void addExercise(final GiveExerciseActivity activity, Patient patient_to_add, String type, String nameExo) {
+
+        RequestBody formBody = new FormBody.Builder()
+                .add("patient", patient_to_add.id)
+                .add("word", nameExo)
+                .add("exercise", "1")
+                .build();
+
+        //Request request = withHeader("/give_exercise/" + type + "/" + nameExo + "/" +patient_to_add.id + "/")
+        Request request = withHeader("/give_exercise/")
+                .post(formBody)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override public void onResponse(Call call, final Response response) throws IOException {
+
+                final String text_response = response.body().string();
+
+                if (!(activity == null)) {
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.i("test", text_response);
+                            activity.giveSuccess();
+                        }
+                    });
+                }
+            }
+        });
+
     }
 }
