@@ -21,7 +21,6 @@ from . import serializers, models
 # Create your views here.
 
 
-
 from django.http import HttpResponse
 from rest_framework.renderers import JSONRenderer
 
@@ -45,6 +44,26 @@ class JSONResponse(HttpResponse):
         kwargs['content_type'] = 'application/json'
         super(JSONResponse, self).__init__(content, **kwargs)
 
+#class RegisterOrthophoniste(APIView):
+class RegisterOrthophoniste(ObtainAuthToken):
+    # throttle_classes = ()
+    # permission_classes = (permissions.AllowAny)
+
+    def post(self, request, *args, **kwargs):
+        serialized = serializers.UserSerializer(data=request.data)
+        if serialized.is_valid():
+            print("is_valid")
+            new_user = models.CustomUser.objects.create_user(
+                serialized.validated_data['username'],
+                serialized.validated_data['email'],
+                serialized.validated_data['password']
+            )
+            ortho = models.Orthophoniste()
+            ortho.user = new_user
+            ortho.save()
+            return Response(serialized.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class AddPatient(APIView):
@@ -86,7 +105,6 @@ class AddPatient(APIView):
 class PatientList(APIView):
     permission_classes = (permissions.IsAuthenticated,)
 
-
     def get(self, request, format=None):
         requested = models.CustomUser.objects.get(id=request.user.id)
         if not isinstance(requested.get_role(), models.Orthophoniste):
@@ -98,22 +116,6 @@ class PatientList(APIView):
 
         #print(models.Orthophoniste.patient_set.all())
 
-@api_view(['POST'])
-def create_auth(request):
-    serialized = serializers.UserSerializer(data=request.data)
-    if serialized.is_valid():
-        print("is_valid")
-        new_user = models.CustomUser.objects.create_user(
-            serialized.validated_data['email'],
-            serialized.validated_data['username'],
-            serialized.validated_data['password']
-        )
-        patient = models.Patient()
-        patient.user = new_user
-        patient.save()
-        return Response(serialized.data, status=status.HTTP_201_CREATED)
-    else:
-        return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
 
 class CreateMeeting(APIView):
     permission_classes = (permissions.IsAuthenticated,)
@@ -147,15 +149,20 @@ class CreateMeeting(APIView):
 class Exercises(APIView):
     permission_classes = (permissions.IsAuthenticated,)
 
-    def get(self, request, format=None):
+    def get(self, request, pk=None, format=None):
+        
         request.user.__class__ = models.CustomUser
         if request.user.get_role().__class__  != models.Orthophoniste:
             exercises = request.user.get_role().get_exercises()
         else:
             #FIXME here I should filter a patient
-            exercises = request.user.get_role().get_exercises()
-            return Response({'detail' : "Orthophonistes doesn't have Exercises"}, 
-                status=status.HTTP_400_BAD_REQUEST)
+            if pk:
+                exercises = request.user.get_role().get_exercises(pk=pk)
+                print (exercises)
+            else:
+                exercises = request.user.get_role().get_exercises()
+            # return Response({'detail' : "Orthophonistes doesn't have Exercises"}, 
+            #     status=status.HTTP_400_BAD_REQUEST)
         # exercises = request.user.get_role().get_exercises()
         serializer = serializers.ExercisesSerializer(exercises, many=True)
         return Response(serializer.data)
@@ -181,6 +188,8 @@ class Exercises(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+
+
 class MakeExercises(APIView):
     permission_classes = (permissions.IsAuthenticated,)
     parser_classes = (FileUploadParser,)
@@ -194,16 +203,25 @@ class MakeExercises(APIView):
 
         file_obj = request.FILES['file']
 
-        temp_file_path = "/tmp/audio%s.wav" % str(time.time())
+        #temp_file_path = "/tmp/audio%s.wav" % str(time.time())
         #destination = tempfile.NamedTemporaryFile(mode='wb+', delete=True)
-        destination = open("/home/martin/", mode='wb+')
+        destination = open("/home/martin/robin.wav", mode='wb+')
         for chunk in file_obj.chunks():
             destination.write(chunk)
 
-        command = "pocketsphinx_continuous -infile %s -word papa" % destination.name
+        command = "pocketsphinx_continuous -infile %s -word %s" % (destination.name, exercise.word)
+
+        print("Executed: $ " + command)
 
         result = subprocess.check_output([command,], shell=True).decode('ascii')
 
+        result = process_out(result)
+
+        exercise.done = result
+        exercise.save()
+
+        
+        text_result = str(result)
         # delete_file
         # depending of the result, update the database
 
@@ -211,3 +229,7 @@ class MakeExercises(APIView):
         return Response(
             result
         )
+
+
+def process_out(command_out):
+    return "PASSED" in command_out

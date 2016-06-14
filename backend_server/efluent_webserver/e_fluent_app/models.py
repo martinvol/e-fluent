@@ -30,8 +30,9 @@ class Orthophoniste(models.Model):
     def get_meetings(self):
         return Meeting.objects.filter(orthophoniste=self)
 
-    def get_exercises(self):
-        return AssignedExercise.objects.filter(patient__orthophoniste=self)
+    def get_exercises(self, pk=None):
+        # return AssignedExercise.objects.filter(patient__orthophoniste=self, patient__id=pk)
+        return AssignedExercise.objects.filter(patient__id=pk)
 
 class Patient(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=False)

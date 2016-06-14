@@ -73,7 +73,7 @@ class ExercisesSerializer(serializers.ModelSerializer):
 
     class Meta(object):
         model = models.AssignedExercise
-        fields = ('done', 'patient', 'exercise', 'word')
+        fields = ('done', 'patient', 'exercise', 'word', 'id')
 
 
         
