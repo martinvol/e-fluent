@@ -43,7 +43,7 @@ public class InscriptionProActivity extends AppCompatActivity {
         lastName.setText("Volpe");
         firstName.setText("Matias");
         email.setText("mymail@hotmail.com");
-        password.setText("1234567");
+        password.setText("123456");
 
         final InscriptionProActivity self = this;
 
