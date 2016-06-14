@@ -1,13 +1,19 @@
 package com.example.user.efluent;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 
 import android.os.Bundle;
 import android.os.Environment;
 
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,14 +29,20 @@ import java.io.IOException;
 
 public class ExerciseVocal extends AppCompatActivity {
 
-    public static String word = null;
     Button play,stop;
     ImageButton record;
-    private MediaRecorder myAudioRecorder;
+    //private MediaRecorder myAudioRecorder;
     private String outputFile = null;
 
     TextView exerciseWord;
 
+    public static LoginManager login;
+
+    private WavAudioRecorder mRecorder;
+
+    private ProgressDialog loadingDialog;
+
+    public static Exercise exercise;
     /*Button micCall;
     private static final String AUDIO_RECORDER_FILE_EXT_3GP = ".3gp";
     private static final String AUDIO_RECORDER_FILE_EXT_MP4 = ".mp4";
@@ -47,7 +59,7 @@ public class ExerciseVocal extends AppCompatActivity {
         setContentView(R.layout.activity_exercise_vocal);
 
         exerciseWord = (TextView )findViewById(R.id.WordToPronounce);
-        exerciseWord.setText(word);
+        exerciseWord.setText(exercise.word);
 
         play = (Button)findViewById(R.id.playButton);
         stop = (Button)findViewById(R.id.stopButton);
@@ -55,28 +67,41 @@ public class ExerciseVocal extends AppCompatActivity {
 
         stop.setEnabled(false);
         play.setEnabled(false);
-        outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recording.3gp";
+
+        outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recording.wav";
         System.out.println("Outputfile location : " + outputFile);
 
-        myAudioRecorder = new MediaRecorder();
+        /*myAudioRecorder = new MediaRecorder();
 
-        myAudioRecorder.setAudioSamplingRate(16000);
-        myAudioRecorder.setAudioEncodingBitRate(16);
+        myAudioRecorder.setAudioSamplingRate(441000);
+        // myAudioRecorder.setAudioEncodingBitRate(16);
+        myAudioRecorder.setAudioEncodingBitRate(96000);
+
         myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         //myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         //myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-        myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+        myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         myAudioRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
-        myAudioRecorder.setOutputFile(outputFile);
+        myAudioRecorder.setOutputFile(outputFile);*/
+
+        /* mRecorder = WavAudioRecorder.getInstanse();
+        mRecorder.setOutputFile(outputFile); */
 
 
+
+        final ExerciseVocal self = this;
 
         record.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                    myAudioRecorder.prepare();
-                    myAudioRecorder.start();
+                    mRecorder = WavAudioRecorder.getInstanse();
+                    mRecorder.setOutputFile(outputFile);
+                    /*myAudioRecorder.prepare();
+                    myAudioRecorder.start();*/
+
+                    mRecorder.prepare();
+                    mRecorder.start();
                 }
 
                 catch (IllegalStateException e) {
@@ -84,12 +109,13 @@ public class ExerciseVocal extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                catch (IOException e) {
+                /*catch (IOException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
-                }
+                }*/
                 record.setEnabled(false);
                 stop.setEnabled(true);
+                play.setEnabled(false);
 
                 Toast.makeText(getApplicationContext(), "Recording started", Toast.LENGTH_LONG).show();
             }
@@ -98,9 +124,23 @@ public class ExerciseVocal extends AppCompatActivity {
         stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myAudioRecorder.stop();
-                myAudioRecorder.release();
-                myAudioRecorder  = null;
+                loadingDialog = new ProgressDialog(self);
+                loadingDialog.setTitle("Loading");
+                loadingDialog.setMessage("Evaluating your results...");
+                loadingDialog.show();
+                Log.i("test", "pongo el dialog");
+                //myAudioRecorder.stop();
+
+
+                mRecorder.stop();
+                mRecorder.reset();
+
+
+                login.sendExercise(self, outputFile, exercise.id.toString());
+
+                //myAudioRecorder.release();
+
+                //myAudioRecorder  = null;
 
                 stop.setEnabled(false);
                 play.setEnabled(true);
@@ -132,6 +172,7 @@ public class ExerciseVocal extends AppCompatActivity {
 
                 m.start();
                 Toast.makeText(getApplicationContext(), "Playing audio", Toast.LENGTH_LONG).show();
+                record.setEnabled(true);
             }
         });
 
@@ -232,4 +273,23 @@ public class ExerciseVocal extends AppCompatActivity {
             recorder = null;
         }
     } */
+
+    public void notify_result(String result){
+        loadingDialog.dismiss();
+
+        AlertDialog.Builder alertDialogBuilder =
+                new AlertDialog.Builder(this)
+                        .setTitle("Your result")
+                        .setMessage(result)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+
+// Show the AlertDialog.
+        AlertDialog alertDialog = alertDialogBuilder.show();
+
+
+    }
 }

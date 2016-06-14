@@ -34,8 +34,8 @@ import okio.Source;
 
 public class LoginManager {
 
-    //private static String ADDRESS = "10.0.2.2:8000/API";
     private static String ADDRESS = "162.243.214.40:9000/API";
+    //private static String ADDRESS = "10.0.2.2:8000/API";
     private static String FULLURL;
 
     //public void LoginManager
@@ -109,17 +109,20 @@ public class LoginManager {
                 final String role = get_item(out,"role_name");
 
                 Log.i("test", "role is: " + role);
+                if (!(activity == null)){
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
 
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(role.equals("Patient")){
-                            activity.loginSucessPatient();
-                        } else {
-                            activity.loginSucessOrtho();
+                                if (role.equals("Patient")) {
+                                    activity.loginSucessPatient();
+                                } else {
+                                    activity.loginSucessOrtho();
+                                }
+
                         }
-                    }
-                });
+                    });
+                }
 
             }
         });
@@ -163,14 +166,14 @@ public class LoginManager {
                         patient_list.add(patient);
                     }
 
-                    fragment1.getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            fragment1.setPatients(patient_list);
-                        }
-                    });
-
-
+                    if ( !(null == fragment1)) {
+                        fragment1.getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                fragment1.setPatients(patient_list);
+                            }
+                        });
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -180,9 +183,7 @@ public class LoginManager {
 
     }
 
-    public void getListOfExercises(final ExerciseReceiver tab) {
-        //FIXME this method is too generic
-        Request request = withHeader("/exercises/").build();
+    private void getListOfExercisesFromRequest(Request request, final ExerciseReceiver tab){
         client.newCall(request).enqueue(new Callback() {
 
             @Override public void onFailure(Call call, IOException e) {
@@ -201,18 +202,23 @@ public class LoginManager {
                         JSONObject exercise_json = array.getJSONObject(i);
                         exercise.done = exercise_json.getBoolean("done");
                         exercise.word = exercise_json.getString("word");
+                        exercise.id = exercise_json.getInt("id");
                         //exercise.type = meeting_json.getInt("exercise"); //FIXME it's more than a int
                         exerciseList.add(exercise);
                     }
 
                     // A new thread is created for the display of data on the user's side
                     //fragment.getActivity().runOnUiThread(new Runnable() {
-                    tab.getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            tab.setExercises(exerciseList);
-                        }
-                    });
+                    if (!(tab == null)) {
+                        tab.getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                    tab.setExercises(exerciseList);
+                                }
+
+                        });
+                    }
 
 
                 } catch (JSONException e) {
@@ -222,7 +228,18 @@ public class LoginManager {
                 }*/
             }
         });
+    }
 
+    public void getListOfExercises(final ExerciseReceiver tab, String id) {
+
+        Request request = withHeader("/exercises/"+id+"/").build();
+        getListOfExercisesFromRequest(request, tab);
+
+    }
+
+    public void getListOfExercises(final ExerciseReceiver tab) {
+        Request request = withHeader("/exercises/").build();
+        getListOfExercisesFromRequest(request, tab);
     }
 
     public void getListOfMeetings(final MeetingReceiver fragment) {
@@ -252,12 +269,15 @@ public class LoginManager {
 
                     /*A new thread is created for the display of data on the user's side*/
                     //fragment.getActivity().runOnUiThread(new Runnable() {
-                    fragment.getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            fragment.setMeetings(meetings_list);
-                        }
-                    });
+                    if (!(fragment == null)) {
+                        fragment.getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                fragment.setMeetings(meetings_list);
+                            }
+                        });
+                    }
 
 
                 } catch (JSONException e) {
@@ -292,12 +312,15 @@ public class LoginManager {
 
             @Override public void onResponse(Call call, Response response) throws IOException {
 
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        activity.addNewToList(patient);
-                    }
-                });
+                if (!(activity == null)) {
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            activity.addNewToList(patient);
+                        }
+                    });
+                }
 
             }
         });
@@ -306,7 +329,7 @@ public class LoginManager {
 
     }
 
-    public void sendExercise(AppCompatActivity act){
+    public void sendExercise(final ExerciseVocal act, String path, String ex_id){
 
         Log.i("test","pido ejes");
         // InputStream iS = resources.getAssets().open("bla.txt");
@@ -319,15 +342,14 @@ public class LoginManager {
             RequestBody requestBody = RequestBodyUtil.create(MEDIA_TYPE_MARKDOWN, inputStream);
 
 
-            Request request = withHeader("/makeexercise/1/")
-                    .post(requestBody)
-                    .build();;
-
-            /*Request request = new Request.Builder()
-                    .url("http://10.0.2.2:8000/API/makeexercise/1/")
-                    //.post(RequestBody.create(MEDIA_TYPE_MARKDOWN, file))
+            /*Request request = withHeader("/makeexercise/1/")
                     .post(requestBody)
                     .build();*/
+
+            Request request = withHeader("/makeexercise/" + ex_id + "/")
+                    .post(RequestBody.create(MEDIA_TYPE_MARKDOWN, new File(path) ))
+                    //.post(requestBody)
+                    .build();
 
             client.newCall(request).enqueue(new Callback() {
                 @Override public void onFailure(Call call, IOException e) {
@@ -335,14 +357,19 @@ public class LoginManager {
                 }
 
                 @Override public void onResponse(Call call, Response response) throws IOException {
-                    Log.i("test",response.body().string());
+                    final String reponse_text =  response.body().string();
+                    Log.i("test",reponse_text);
 
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            // activity.addNewToList(patient);
-                        }
-                    });
+                    if (!(act == null)) {
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                    act.notify_result(reponse_text);
+                                }
+
+                        });
+                    }
 
                 }
             });

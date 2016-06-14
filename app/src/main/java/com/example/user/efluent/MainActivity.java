@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.EditText;
 import android.content.Intent;
 import android.widget.Toast;
@@ -72,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final Button button2 = (Button) findViewById(R.id.GoPatientActivity);
+        /*final Button button2 = (Button) findViewById(R.id.GoPatientActivity);
         button2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.i("test", "-> Patient tab");
@@ -82,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             }
-        });
+        });*/
 
 
 
@@ -114,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
         // the following line is here only for testing
-        login.sendExercise(this);
+        //login.sendExercise(this, "");
     }
 
     private void loginSucess() {

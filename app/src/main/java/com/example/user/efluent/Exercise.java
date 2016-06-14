@@ -5,6 +5,6 @@ public class Exercise {
     String name;
     String word;
     Boolean done = false;
-    String mot;
+    Integer id;
     int type;
 }

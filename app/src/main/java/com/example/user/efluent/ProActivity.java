@@ -1,6 +1,8 @@
 package com.example.user.efluent;
 
+import android.content.res.Resources;
 import android.support.design.widget.TabLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -13,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 
 public class ProActivity extends AppCompatActivity {
 
@@ -39,7 +42,10 @@ public class ProActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pro);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         //mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -183,4 +189,6 @@ public class ProActivity extends AppCompatActivity {
             return null;
         }
     }*/
+
+
 }

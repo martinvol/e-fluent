@@ -35,9 +35,9 @@ public class TabFragmentPro1 extends ListFragment {
                 R.layout.rowlayout, R.id.label,values);
         setListAdapter(adapter);*/
 
-        View addButton = getActivity().findViewById(R.id.GoAddPatient);
-
         final TabFragmentPro1 self = this;
+
+        View addButton = getActivity().findViewById(R.id.GoAddPatient);
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
