@@ -46,7 +46,11 @@
             android:name=".ExerciseVocal"
             android:screenOrientation="portrait" />
         <activity android:name=".GiveExerciseActivity" />
-        <activity android:name=".GiveRendezvousActivity"></activity>
+        <activity android:name=".GiveRendezvousActivity" />
+        <activity
+            android:name=".Sonometre"
+            android:label="@string/title_activity_sonometre"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

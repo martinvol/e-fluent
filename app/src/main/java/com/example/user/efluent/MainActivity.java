@@ -17,11 +17,20 @@ public class MainActivity extends AppCompatActivity {
     LoginManager login;
     ProgressDialog loginDialog;
 
-    final void login(){
+    public EditText idField;
+    public EditText passwordField;
+
+    final void login(String username, String password){
         loginDialog.show();
         Log.i("test", "Login");
         login.login(
-                ((EditText) findViewById(R.id.LoginMain)).getText().toString(),
+                username,
+                password
+        );
+    }
+
+    final void login(){
+        login(((EditText) findViewById(R.id.LoginMain)).getText().toString(),
                 ((EditText)findViewById(R.id.PasswordMain)).getText().toString()
         );
     }
@@ -38,8 +47,10 @@ public class MainActivity extends AppCompatActivity {
         loginDialog.setMessage("Wait while loading...");
 
 
-        ((EditText) findViewById(R.id.LoginMain)).setText("ortho1");
-        ((EditText) findViewById(R.id.PasswordMain)).setText("123456");
+        idField = ((EditText) findViewById(R.id.LoginMain));
+        idField .setText("ortho1");
+        passwordField = ((EditText) findViewById(R.id.PasswordMain));
+        passwordField .setText("123456");
 
         ((Button) findViewById(R.id.connexionMain))
                 .setOnClickListener(new View.OnClickListener() {
@@ -57,12 +68,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        final MainActivity self = this;
+
         final Button buttonInscription = (Button) findViewById(R.id.inscriptionMain);
         buttonInscription.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.i("test", "-> ProActivity tab");
                 Intent intent = new Intent(v.getContext(), InscriptionProActivity.class);
                 InscriptionProActivity.login = login;
+                InscriptionProActivity.oldActivity = self;
                 startActivity(intent);
 
 
@@ -73,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.i("test", "-> ProActivity tab");
-                Intent intent = new Intent(v.getContext(), ProActivity.class);
+                Intent intent = new Intent(v.getContext(), Sonometre.class);
                 ProActivity.login = login;
                 startActivity(intent);
 
