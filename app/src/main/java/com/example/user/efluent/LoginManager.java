@@ -1,7 +1,5 @@
 package com.example.user.efluent;
 
-import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -9,10 +7,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,17 +21,12 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.Callback;
-import okhttp3.internal.Util;
-import okio.BufferedSink;
-import okio.Okio;
-import okio.Source;
-
 
 
 public class LoginManager {
 
-    private static String ADDRESS = "162.243.214.40:9000/API";
-    //private static String ADDRESS = "10.0.2.2:8000/API";
+    //private static String ADDRESS = "162.243.214.40:9000/API";
+    private static String ADDRESS = "10.0.2.2:8000/API";
     private static String FULLURL;
 
     //public void LoginManager
@@ -379,12 +370,12 @@ public class LoginManager {
     }
 
     /** ADD ORTHOPHONISTE TO THE SERVER HERE**/
-    public void createOrthophoniste(Orthophonist ortho, final InscriptionProActivity activity, Orthophonist orthophonist) {
+    public void createOrthophoniste(Orthophonist ortho, final InscriptionProActivity activity) {
 
         RequestBody formBody = new FormBody.Builder()
-                .add("email", orthophonist.email)
-                .add("username", orthophonist.first_name + orthophonist.last_name)
-                .add("password", orthophonist.password)
+                .add("email", ortho.email)
+                .add("username", ortho.username)
+                .add("password", ortho.password)
                 .build();
 
         Request request = withHeader("/register_orthophoniste/")
@@ -405,7 +396,7 @@ public class LoginManager {
                         @Override
                         public void run() {
                             Log.i("test", text_response);
-                            activity.loginSucess();
+                            activity.singUpSuccess();
                         }
                     });
                 }

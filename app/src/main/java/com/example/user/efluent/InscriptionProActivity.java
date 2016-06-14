@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 public class InscriptionProActivity extends AppCompatActivity {
 
-    public static MainActivity fragmentICameFrom;
     Button createPro;
     EditText lastName;
     EditText firstName;
@@ -20,12 +19,13 @@ public class InscriptionProActivity extends AppCompatActivity {
     EditText password;
     EditText numADELI;
 
-    MainActivity oldActivity;
+    static public MainActivity oldActivity;
 
     ProgressDialog dialog;
 
     static public LoginManager login;
 
+    Orthophonist ortho;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +52,7 @@ public class InscriptionProActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         /*Create an empty object Patient, and fill the attributes by getText of
                         * fields in the AddPatientActivity*/
-                        Orthophonist ortho = new Orthophonist(null);
+                        ortho = new Orthophonist(null);
                         ortho.last_name = lastName.getText().toString();
                         //System.out.println("patient.last_name = " + patient.last_name);
                         ortho.first_name = firstName.getText().toString();
@@ -62,8 +62,10 @@ public class InscriptionProActivity extends AppCompatActivity {
                         ortho.phone_number = phoneNumber.getText().toString();
                         ortho.password = password.getText().toString();
                         ortho.numADELI = numADELI.getText().toString();
+
+                        ortho.username = ortho.first_name + ortho.last_name;
                         //System.out.println("patient.password = " + patient.password);
-                        login.createOrthophoniste(ortho, self, ortho);
+                        login.createOrthophoniste(ortho, self);
 
                         /*Intent intent = new Intent(view.getContext(), MainActivity.class);
                         startActivity(intent);*/
@@ -72,19 +74,21 @@ public class InscriptionProActivity extends AppCompatActivity {
                         dialog.setTitle("Loging in");
                         dialog.setMessage("Wait while loading...");
                         dialog.show();
-
-
                     }
                 });
 
     }
 
-    public void loginSucess() {
+    public void singUpSuccess() {
         //oldActivity.
         dialog.dismiss();
         Toast toast = Toast.makeText(getApplicationContext(), "Inscription Orthophonist successful!", Toast.LENGTH_LONG);
         toast.show();
 
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+
+        oldActivity.login(ortho.username, ortho.password);
 
     }
 
