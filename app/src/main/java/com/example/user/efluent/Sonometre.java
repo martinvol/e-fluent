@@ -100,6 +100,8 @@ class GetAudio extends TimerTask {
 
 public class Sonometre extends AppCompatActivity {
 
+    public static Exercise exercise;
+    public static LoginManager login;
     private int LIIMT = 1000;
     Timer timer;
     Timer timer2;
@@ -170,6 +172,8 @@ public class Sonometre extends AppCompatActivity {
                     }).show();
         }
 
+        // tell the server that it is done
+
         Log.i("test", "Good!");
 
     }
@@ -206,5 +210,8 @@ public class Sonometre extends AppCompatActivity {
     }
 
 
+    public void notifyResult(String reponse_text) {
+        //fin
+    }
 }
 

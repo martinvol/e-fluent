@@ -6,5 +6,5 @@ public class Exercise {
     String word;
     Boolean done = false;
     Integer id;
-    int type;
+    String type;
 }
