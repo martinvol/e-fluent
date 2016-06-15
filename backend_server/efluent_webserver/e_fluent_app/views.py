@@ -252,7 +252,7 @@ class MakeExercises(APIView):
 def process_out(command_out):
     return "PASSED" in command_out
 
-class MakeExercises(APIView):
+class GiveExercises(APIView):
     permission_classes = (permissions.IsAuthenticated,)
 
     def post(self, request, format=None):

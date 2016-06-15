@@ -44,6 +44,6 @@ urlpatterns = [
     url(r'^exercises/', Exercises.as_view()),
     url(r'^makeexercise/(?P<pk>[0-9]+)/$', MakeExercises.as_view()),
     #url(r'^give_exercise/ReconnaissanceVocale/(?P<world>.+)/(?P<pk>[0-9]+)/$', MakeExercises.as_view()),
-    url(r'^give_exercise/$', MakeExercises.as_view()),
+    url(r'^give_exercise/$', GiveExercises.as_view()),
     #url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
