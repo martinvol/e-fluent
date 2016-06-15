@@ -1,6 +1,7 @@
 package com.example.user.efluent;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
@@ -16,11 +17,41 @@ import java.util.ArrayList;
 public class TabFragmentPro2 extends ListFragment implements MeetingReceiver{
 
     private ArrayList<Meeting> meetingList;
+    private ArrayList<Patient> patient_list;
+    public LoginManager login;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.tab_fragment_2, container, false);
     }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        /*String[] values = new String[] { "Android", "iPhone", "WindowsMobile",
+                "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
+                "Linux", "OS/2" };*/
+        /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                R.layout.rowlayout, R.id.label,values);
+        setListAdapter(adapter);*/
+
+        final TabFragmentPro2 self = this;
+        self.patient_list = login.patient_list;
+        //System.out.println("TESTTTTTTT : " + self.patient_list.get(1).first_name);
+
+        View addButton = getActivity().findViewById(R.id.GoAddRDV);
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i("Test", "GoAddPatient");
+                Intent intent = new Intent(getView().getContext(), GiveRendezvousActivity.class);
+                GiveRendezvousActivity.login = login;
+                startActivity(intent);
+            }
+        });
+    }
+
 
     public void setMeetings(ArrayList<Meeting> meetingList){
         this.meetingList = meetingList;
