@@ -40,11 +40,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        login = new LoginManager(this);
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        login = new LoginManager(this);
+
         loginDialog = new ProgressDialog(this);
         loginDialog.setTitle("Logging in");
         loginDialog.setMessage("Wait while loading...");
