@@ -12,14 +12,6 @@
     tools:context="com.example.user.efluent.Sonometre"
     tools:showIn="@layout/activity_sonometre">
 
-   <!-- <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="micro_sonometre"
-        android:id="@+id/micro_sonometre"
-        android:layout_marginTop="28dp"
-         /> -->
-
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -48,6 +40,18 @@
         android:id="@+id/sonometre_out"
         android:layout_below="@+id/comment_sonometre"
         android:layout_alignStart="@+id/micro_sonometre"
+        android:layout_marginTop="25dp" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/timer"
+        android:layout_below="@+id/sonometre_out"
+        android:layout_alignStart="@+id/sonometre_out"
         android:layout_marginTop="25dp" />
 
 

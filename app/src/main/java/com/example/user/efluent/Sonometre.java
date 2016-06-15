@@ -1,5 +1,7 @@
 package com.example.user.efluent;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
@@ -19,59 +21,160 @@ import android.widget.TextView;
 import java.util.Timer;
 import java.util.TimerTask;
 
+
+class GetTime extends TimerTask {
+
+    long start;
+    Sonometre sonometre;
+    float TIME_SUCCESS = 2;
+
+
+    public GetTime(Sonometre sonometre){
+        restart();
+        this.sonometre = sonometre;
+
+    }
+
+    public void run() {
+
+        this.sonometre.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                long current = (System.currentTimeMillis() - start);
+
+                double currentSeconds = ((double) current)/1000;
+
+                // update label
+                sonometre.currentTime.setText(String.valueOf(currentSeconds));
+
+                if (currentSeconds > TIME_SUCCESS ){
+
+                    sonometre.exitGood();
+                }
+
+                //if ()
+
+            }
+        });
+    }
+
+    public void restart(){
+
+        start = System.currentTimeMillis();
+    }
+}
+
+class GetAudio extends TimerTask {
+    long start;
+    Sonometre sonometre;
+
+    public GetAudio(Sonometre sonometre){
+        //start = System.currentTimeMillis();
+        this.sonometre = sonometre;
+    }
+
+
+    public void run() {
+
+        sonometre.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                sonometre.label.setText(String.valueOf(sonometre.getAmplitude()));
+                if (sonometre.getAmplitude() < 1000) {
+                    sonometre.comment.setText("Il faut parler plus fort");
+                    sonometre.exitWrong();
+                }
+                else if(sonometre.getAmplitude() > 10000) {
+                    sonometre.comment.setText("Il faut parler moins fort");
+                    sonometre.exitWrong();
+                }
+                else {
+                    sonometre.comment.setText("Bonne puissance de voix !");
+
+                }
+            }
+        });
+    }
+}
+
+
 public class Sonometre extends AppCompatActivity {
+
+    private int LIIMT = 1000;
+    Timer timer;
+    Timer timer2;
+    public TextView currentTime;
+    public TextView label;
+    public TextView comment;
+    GetTime changeLabelTaskt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sonometre);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         final Sonometre self = this;
-        final TextView label = (TextView) findViewById(R.id.sonometre_out);
-        final TextView comment = (TextView) findViewById(R.id.comment_sonometre);
+        label = (TextView) findViewById(R.id.sonometre_out);
+        comment = (TextView) findViewById(R.id.comment_sonometre);
+        currentTime = (TextView) findViewById(R.id.timer);
         final ImageButton button = (ImageButton) findViewById(R.id.micro_sonometre);
+
+
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.i("test", "-> ProActivity tab");
                 start();
 
-                class GetAudio extends TimerTask {
-
-                    public void run() {
-
-                        self.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                label.setText(String.valueOf(getAmplitude()));
-                                if (getAmplitude() < 1000) {
-                                    comment.setText("Il faut parler plus fort");
-                                }
-                                else if(getAmplitude() > 10000) {
-                                    comment.setText("Il faut parler moins fort");
-                                }
-                                else {
-                                    comment.setText("Bonne puissance de voix !");
-                                }
-                            }
-                        });
-                    }
-                }
-
-                Timer timer = new Timer();
+                timer = new Timer();
                 final int FPS = 5;
-                GetAudio audioTaskt = new GetAudio();
+                GetAudio audioTaskt = new GetAudio(self);
                 timer.scheduleAtFixedRate(audioTaskt, 0, 1000/FPS);
+
+                timer2 = new Timer();
+                changeLabelTaskt = new GetTime(self);
+                timer2.scheduleAtFixedRate(changeLabelTaskt , 0, 50);
+
             }
         });
+    }
 
-
-
-
+    public void exitWrong(){
+        timer2.cancel();
+        timer2.purge();
+        timer2 = new Timer();
+        changeLabelTaskt = new GetTime(this);
+        timer2.scheduleAtFixedRate(changeLabelTaskt , 0, 50);
 
     }
+
+    public void exitGood(){
+        if (!(timer2 == null)) {
+            timer2.cancel();
+            timer2.purge();
+            timer2 = null;
+        }
+        if (!(timer == null)) {
+            timer.cancel();
+            timer.purge();
+            timer = null;
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Success!")
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // FIRE ZE MISSILES!
+                        }
+                    }).show();
+        }
+
+        Log.i("test", "Good!");
+
+    }
+
+
 
     private AudioRecord ar = null;
     private int minSize;
