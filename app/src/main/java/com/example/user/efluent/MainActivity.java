@@ -12,10 +12,13 @@ import android.widget.EditText;
 import android.content.Intent;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     LoginManager login;
     ProgressDialog loginDialog;
+    private ArrayList<Patient> patient_list;
 
     public EditText idField;
     public EditText passwordField;
@@ -43,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         loginDialog = new ProgressDialog(this);
-        loginDialog.setTitle("Loging in");
+        loginDialog.setTitle("Logging in");
         loginDialog.setMessage("Wait while loading...");
 
 

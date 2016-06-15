@@ -29,6 +29,8 @@ public class LoginManager {
     //private static String ADDRESS = "10.0.2.2:8000/API";
     private static String FULLURL;
 
+    public ArrayList<Patient> patient_list;
+
     //public void LoginManager
     private OkHttpClient client;
     private MainActivity activity;
@@ -161,6 +163,54 @@ public class LoginManager {
                             @Override
                             public void run() {
                                 fragment1.setPatients(patient_list);
+                                self.patient_list = patient_list;
+                            }
+                        });
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+    }
+
+    public void patientList2(final GiveRendezvousActivity activity1){
+        Request request = withHeader("/patient_list/").build();
+
+        final LoginManager self = this;
+
+        final ArrayList<Patient> patient_list = new ArrayList<Patient>();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override public void onResponse(Call call, Response response) throws IOException {
+                String out =  response.body().string();
+                System.out.println(out);
+
+                try {
+                    JSONArray array = new JSONArray(out);
+
+                    for (int i=0; i < array.length(); i++) {
+                        Patient patient = new Patient(self);
+                        JSONObject patient_json = array.getJSONObject(i);
+                        patient.id = patient_json.getString("id");
+                        JSONObject user_json = patient_json.getJSONObject("user");
+                        patient.first_name = user_json.getString("first_name");
+                        patient.last_name = user_json.getString("last_name");
+                        patient.email = user_json.getString("email");
+                        patient_list.add(patient);
+                    }
+
+                    if ( !(null == activity1)) {
+                        activity1.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                activity1.setPatients(patient_list);
                             }
                         });
                     }
