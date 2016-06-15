@@ -1,6 +1,7 @@
 package com.example.user.efluent;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -47,12 +48,15 @@ public class Sonometre extends AppCompatActivity {
                             public void run() {
                                 label.setText(String.valueOf(getAmplitude()));
                                 if (getAmplitude() < 1000) {
+                                    comment.setTextColor(Color.RED);
                                     comment.setText("Il faut parler plus fort");
                                 }
                                 else if(getAmplitude() > 10000) {
+                                    comment.setTextColor(Color.RED);
                                     comment.setText("Il faut parler moins fort");
                                 }
                                 else {
+                                    comment.setTextColor(Color.GREEN);
                                     comment.setText("Bonne puissance de voix !");
                                 }
                             }
