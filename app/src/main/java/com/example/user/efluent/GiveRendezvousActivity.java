@@ -85,7 +85,7 @@ public class GiveRendezvousActivity extends AppCompatActivity implements
         buttonFix.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.i("test", "-> ProActivity tab");
-                datechoisie.set(mYear + 1900, mMonth, mDay, mHour, mMinute);
+                //datechoisie.set(mYear + 1900, mMonth, mDay, mHour, mMinute);
                 //Object Date is deprecated, better use Calendar!
                 ProActivity.login = login;
                 Intent intent = new Intent(v.getContext(), ProActivity.class);
