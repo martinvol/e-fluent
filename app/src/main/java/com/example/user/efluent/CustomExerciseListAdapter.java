@@ -28,13 +28,18 @@ public class CustomExerciseListAdapter extends ArrayAdapter<Exercise> {
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
         textView.setText(values[position].word);
         // Change the icon for Windows and iPhone
-        Exercise s = values[position];
+        //Exercise s = values[position];
 /*        if (s.startsWith("Windows7") || s.startsWith("iPhone")
                 || s.startsWith("Solaris")) {
             imageView.setImageResource(R.drawable.no);
         } else {
             imageView.setImageResource(R.drawable.ok);
         }*/
+
+        if (values[position].type.equals("Sonometre")){
+            textView.setText("Sonometre");
+        }
+
         if (values[position].done){
             imageView.setImageResource(R.drawable.ic_done_black_24dp);
         } else {

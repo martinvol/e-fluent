@@ -274,7 +274,7 @@ public class ExerciseVocal extends AppCompatActivity {
         }
     } */
 
-    public void notify_result(String result){
+    public void notifyResult(String result){
         loadingDialog.dismiss();
 
         AlertDialog.Builder alertDialogBuilder =

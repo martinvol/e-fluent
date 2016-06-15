@@ -243,8 +243,11 @@ public class LoginManager {
                         exercise.done = exercise_json.getBoolean("done");
                         exercise.word = exercise_json.getString("word");
                         exercise.id = exercise_json.getInt("id");
+                        JSONObject typeJson = exercise_json.getJSONObject("exercise");
+                        exercise.type = typeJson.getString("name");
                         //exercise.type = meeting_json.getInt("exercise"); //FIXME it's more than a int
                         exerciseList.add(exercise);
+                        //Log.i("LoginManager",exercise.type);
                     }
 
                     // A new thread is created for the display of data on the user's side
@@ -369,6 +372,40 @@ public class LoginManager {
 
     }
 
+    public void sendExerciseSonometre(final Sonometre act, String ex_id){
+        RequestBody formBody = new FormBody.Builder()
+                .build();
+
+        Request request = withHeader("/makeexercise/" + ex_id + "/")
+                .post(formBody)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override public void onResponse(Call call, Response response) throws IOException {
+                final String reponse_text =  response.body().string();
+                Log.i("test",reponse_text);
+
+                if (!(act == null)) {
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            act.notifyResult(reponse_text);
+                        }
+
+                    });
+                }
+
+            }
+        });
+
+    }
+
+
     public void sendExercise(final ExerciseVocal act, String path, String ex_id){
 
         Log.i("test","pido ejes");
@@ -399,7 +436,7 @@ public class LoginManager {
                             @Override
                             public void run() {
 
-                                    act.notify_result(reponse_text);
+                                    act.notifyResult(reponse_text);
                                 }
 
                         });
@@ -447,6 +484,7 @@ public class LoginManager {
             }
         });
     }
+
 
     public void addExercise(final GiveExerciseActivity activity, Patient patient_to_add, String type, String nameExo) {
 

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class TabFragmentInfoPatient3 extends ListFragment implements ExerciseReceiver{
 
     //private ArrayList<Patient> patient_list;
-    ArrayList<Exercise> exerciseList;
+    //ArrayList<Exercise> exerciseList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,30 +47,18 @@ public class TabFragmentInfoPatient3 extends ListFragment implements ExerciseRec
     }
 
     public void setExercises(ArrayList<Exercise> exerciseList){
-        this.exerciseList = exerciseList;
-        ArrayList<String> patient_names = new ArrayList<String>();
+        //this.exerciseList = exerciseList;
+        ArrayList<Exercise> exerciseListFiltered = new ArrayList<Exercise>();
 
         for(Exercise exercise: exerciseList ){
-            // System.out.println("first name: " + exercise.time.toString());
             if (exercise.done){
-                patient_names.add(exercise.word);
+                exerciseListFiltered.add(exercise);
             }
         }
 
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                R.layout.rowlayout3, R.id.label, patient_names.toArray(new String[patient_names.size()]));
+        CustomExerciseListAdapter adapter  = new CustomExerciseListAdapter(getActivity(),
+                exerciseListFiltered.toArray(new Exercise[exerciseListFiltered.size()]));
         setListAdapter(adapter);
-
-        getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long id) {
-                Log.i("test", "Click from the list");
-                final String item = (String) parent.getItemAtPosition(position);
-                Log.i("test", "Word of exercises is: " + item);
-            }
-        });
     }
 }

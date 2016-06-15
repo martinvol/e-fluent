@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class TabFragmentInfoPatient2 extends ListFragment implements ExerciseReceiver {
 
     //private ArrayList<Patient> patient_list;
-    ArrayList<Exercise> exerciseList;
+    //ArrayList<Exercise> exerciseList;
     public Patient patient;
     public LoginManager login;
 
@@ -37,7 +37,7 @@ public class TabFragmentInfoPatient2 extends ListFragment implements ExerciseRec
                 Log.i("Test", "GoGiveExercise");
                 Intent intent = new Intent(getView().getContext(), GiveExerciseActivity.class);
                 GiveExerciseActivity.patient_to_add = patient;
-                GiveExerciseActivity.login = login;
+                AddPatientActivity.login = login;
                 startActivity(intent);
             }
         });
@@ -62,21 +62,25 @@ public class TabFragmentInfoPatient2 extends ListFragment implements ExerciseRec
     }
 
     public void setExercises(ArrayList<Exercise> exerciseList){
-        this.exerciseList = exerciseList;
-        ArrayList<String> patient_names = new ArrayList<String>();
+        //this.exerciseList = exerciseList;
+        ArrayList<Exercise> exerciseListFiltered = new ArrayList<Exercise>();
 
         for(Exercise exercise: exerciseList ){
             if (!exercise.done){
-                patient_names.add(exercise.word);
+                exerciseListFiltered.add(exercise);
             }
         }
 
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                R.layout.rowlayout, R.id.label, patient_names.toArray(new String[patient_names.size()]));
+        CustomExerciseListAdapter adapter  = new CustomExerciseListAdapter(getActivity(),
+                exerciseListFiltered.toArray(new Exercise[exerciseListFiltered.size()]));
         setListAdapter(adapter);
 
-        getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                R.layout.rowlayout, R.id.label, patient_names.toArray(new String[patient_names.size()]));
+        setListAdapter(adapter);*/
+
+        /*getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
@@ -85,7 +89,7 @@ public class TabFragmentInfoPatient2 extends ListFragment implements ExerciseRec
                 final String item = (String) parent.getItemAtPosition(position);
                 Log.i("test", "Word of exercises is: " + item);
             }
-        });
+        });*/
     }
 
 

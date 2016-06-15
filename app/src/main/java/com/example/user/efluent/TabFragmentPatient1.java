@@ -51,9 +51,17 @@ public class TabFragmentPatient1 extends ListFragment implements ExerciseReceive
                 Log.i("test", "Click from the list");
                 final Exercise item = (Exercise) parent.getItemAtPosition(position);
                 Log.i("test", "Word of exercises is: " + item);
-                Intent intent = new Intent(getView().getContext(), ExerciseVocal.class);
-                ExerciseVocal.exercise = item;
-                ExerciseVocal.login = login;
+                Intent intent;
+                if (item.type.equals("Sonometre")){
+                    intent = new Intent(getView().getContext(), Sonometre.class);
+                    Sonometre.exercise = item;
+                    Sonometre.login = login;
+                }
+                else {
+                    intent = new Intent(getView().getContext(), ExerciseVocal.class);
+                    ExerciseVocal.exercise = item;
+                    ExerciseVocal.login = login;
+                }
 
                 startActivity(intent);
             }

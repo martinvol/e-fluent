@@ -219,6 +219,13 @@ class MakeExercises(APIView):
             return Response(status.HTTP_404_NOT_FOUND)
 
 
+        if exercise.exercise.id == 2:
+            exercise.done = True
+            exercise.save()
+            return Response(
+                {'detail': 'done'}
+        )
+
         file_obj = request.FILES['file']
 
         #temp_file_path = "/tmp/audio%s.wav" % str(time.time())
