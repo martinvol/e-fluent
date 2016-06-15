@@ -23,7 +23,7 @@ class AddPatientSerializer(serializers.ModelSerializer):
         fields = ('last_name', 'first_name', 'email', 'password',)
 
     def create(self, validated_data):
-        user = User.objects.create_user(**validated_data, username=validated_data['first_name']+validated_data['last_name'])
+        user = User.objects.create_user(**validated_data, username=(validated_data['first_name']+validated_data['last_name']).lower())
         user.save()
         patient = models.Patient.objects.create(user=user)
         return patient
