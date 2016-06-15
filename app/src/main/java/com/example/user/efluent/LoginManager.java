@@ -486,12 +486,12 @@ public class LoginManager {
     }
 
 
-    public void addExercise(final GiveExerciseActivity activity, Patient patient_to_add, String type, String nameExo) {
+    public void addExercise(final GiveExerciseActivity activity, Patient patient_to_add, Integer type, String nameExo) {
 
         RequestBody formBody = new FormBody.Builder()
                 .add("patient", patient_to_add.id)
                 .add("word", nameExo)
-                .add("exercise", "1")
+                .add("exercise", type.toString())
                 .build();
 
         //Request request = withHeader("/give_exercise/" + type + "/" + nameExo + "/" +patient_to_add.id + "/")
@@ -521,4 +521,5 @@ public class LoginManager {
         });
 
     }
+
 }

@@ -26,7 +26,7 @@ public class GiveExerciseActivity extends AppCompatActivity {
             "papa",
             "tata",
             "voeux"};
-    String[] listExercisesPuissance = new String[]{"","Sonometre"};
+    String[] listExercisesPuissance = new String[]{"choisir l'exercise..", "Sonometre"};
     String[] emptyList = new String[]{};
 
     //Strings to be sent to the server
@@ -100,11 +100,12 @@ public class GiveExerciseActivity extends AppCompatActivity {
 
                             }
                             else {
-                                theme = dropdown2.getSelectedItem().toString();
+                                type = dropdown2.getSelectedItem().toString();
                                 dropdown3.setAdapter(adapter5);
                                 dropdown3.setSelection(0, false);
                                 //Show dropdown2
                                 dropdown3.setVisibility(View.VISIBLE);
+
                                 dropdown3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
                                     public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -148,11 +149,14 @@ public class GiveExerciseActivity extends AppCompatActivity {
                 Log.i("test", "-> ProActivity tab");
                 //String text = dropdown.getSelectedItem().toString();
                 Intent intent = new Intent(v.getContext(), InfoPatientActivity.class);
-                if ( theme != null && type != null && nameExo != null) {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Exo choisi :" + theme + "/" + type + "/" + nameExo + "/", Toast.LENGTH_LONG);
-                    toast.show();
+                if ( theme != null && theme != "choisir le thème.." && type != null && type != "choisir le type.." && nameExo != null && nameExo != "choisir l'exercise..") {
+                    /*Toast toast = Toast.makeText(getApplicationContext(), "Exo choisi :" + theme + "/" + type + "/" + nameExo + "/", Toast.LENGTH_LONG);
+                    toast.show();*/
 
-                    login.addExercise(self, patient_to_add, type.replace(" ",""), nameExo);
+                    if (nameExo.equals("Sonometre")){
+                        login.addExercise(self, patient_to_add, 2, nameExo);
+                    }
+                    login.addExercise(self, patient_to_add, 1, nameExo);
                     startActivity(intent);
                 }
                 else{

@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         loginDialog.show();
         Log.i("test", "Login");
         login.login(
-                username,
+                username.toLowerCase(),
                 password
         );
     }

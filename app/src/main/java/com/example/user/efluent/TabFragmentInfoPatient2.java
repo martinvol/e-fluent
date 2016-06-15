@@ -37,7 +37,7 @@ public class TabFragmentInfoPatient2 extends ListFragment implements ExerciseRec
                 Log.i("Test", "GoGiveExercise");
                 Intent intent = new Intent(getView().getContext(), GiveExerciseActivity.class);
                 GiveExerciseActivity.patient_to_add = patient;
-                AddPatientActivity.login = login;
+                GiveExerciseActivity.login = login;
                 startActivity(intent);
             }
         });
