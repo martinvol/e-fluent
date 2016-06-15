@@ -63,7 +63,7 @@ public class InscriptionProActivity extends AppCompatActivity {
                         ortho.password = password.getText().toString();
                         ortho.numADELI = numADELI.getText().toString();
 
-                        ortho.username = ortho.first_name + ortho.last_name;
+                        ortho.username = (ortho.first_name + ortho.last_name).toLowerCase();
                         //System.out.println("patient.password = " + patient.password);
                         login.createOrthophoniste(ortho, self);
 
