@@ -45,7 +45,10 @@ public class InfoPatientActivity extends AppCompatActivity {
         setContentView(R.layout.activity_info_patient);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+            //getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         //mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -54,8 +57,8 @@ public class InfoPatientActivity extends AppCompatActivity {
         //tabLayout.setupWithViewPager(mViewPager);
 
         tabLayout.addTab(tabLayout.newTab().setText("Information"));
-        tabLayout.addTab(tabLayout.newTab().setText("Devoir"));
-        tabLayout.addTab(tabLayout.newTab().setText("Performance"));
+        tabLayout.addTab(tabLayout.newTab().setText("Exercices"));
+        tabLayout.addTab(tabLayout.newTab().setText("Performances"));
         tabLayout.addTab(tabLayout.newTab().setText("Commentaires"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
@@ -125,12 +128,12 @@ public class InfoPatientActivity extends AppCompatActivity {
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment {
+    //public static class PlaceholderFragment extends Fragment {
         /**
          * The fragment argument representing the section number for this
          * fragment.
          */
-        private static final String ARG_SECTION_NUMBER = "section_number";
+        /*private static final String ARG_SECTION_NUMBER = "section_number";
 
         public PlaceholderFragment() {
         }
@@ -139,7 +142,7 @@ public class InfoPatientActivity extends AppCompatActivity {
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
+        /*public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
