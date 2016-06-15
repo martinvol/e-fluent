@@ -1,9 +1,7 @@
 package com.example.user.efluent;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -67,35 +65,6 @@ public class InscriptionProActivity extends AppCompatActivity {
 
                         ortho.username = (ortho.first_name + ortho.last_name).toLowerCase();
                         //System.out.println("patient.password = " + patient.password);
-
-
-                        if (!ortho.isValid()){
-                            final AlertDialog show = new AlertDialog.Builder(InscriptionProActivity.this)
-                                    .setTitle("Missing information")
-                                    .setMessage("Last name, First Name, E-mail and Password must be filled")
-                                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            // continue with delete
-                                        }
-                                    })
-                                    .setIcon(android.R.drawable.ic_dialog_alert)
-                                    .show();
-                            return;
-                        }
-                        if(ortho.password.length() < 6) {
-
-                            final AlertDialog show = new AlertDialog.Builder(InscriptionProActivity.this)
-                                    .setTitle("Mot de passe pas assez long")
-                                    .setMessage("Veuillez rentrer un mot de passe de plus de 6 caractères")
-                                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            // continue with delete
-                                        }
-                                    })
-                                    .setIcon(android.R.drawable.ic_dialog_alert)
-                                    .show();
-                            return;
-                        }
                         login.createOrthophoniste(ortho, self);
 
                         /*Intent intent = new Intent(view.getContext(), MainActivity.class);

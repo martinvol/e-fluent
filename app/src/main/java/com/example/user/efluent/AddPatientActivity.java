@@ -69,20 +69,6 @@ public class AddPatientActivity extends AppCompatActivity {
                                     .show();
                             return;
                         }
-                        if(patient.password.length() < 6) {
-
-                            final AlertDialog show = new AlertDialog.Builder(AddPatientActivity.this)
-                                    .setTitle("Mot de passe pas assez long")
-                                    .setMessage("Veuillez rentrer un mot de passe de plus de 6 caractères")
-                                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            // continue with delete
-                                        }
-                                    })
-                                    .setIcon(android.R.drawable.ic_dialog_alert)
-                                    .show();
-                            return;
-                        }
                         login.addPatient(patient, self);
 
                         Intent intent = new Intent(view.getContext(), ProActivity.class);

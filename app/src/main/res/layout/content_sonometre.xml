@@ -42,15 +42,6 @@
         android:layout_alignStart="@+id/micro_sonometre"
         android:layout_marginTop="25dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Parlez à une hauteur de voix normale pendant 2 secondes pour réussir l'exercice."
-        android:id="@+id/textView5"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/timer"/>
-
 
     <TextView
         android:layout_width="wrap_content"
