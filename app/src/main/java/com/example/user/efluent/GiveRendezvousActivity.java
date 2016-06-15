@@ -3,8 +3,10 @@ package com.example.user.efluent;
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -79,6 +81,20 @@ public class GiveRendezvousActivity extends AppCompatActivity implements
             public void onNothingSelected(AdapterView<?> adapter) {  }
         }); */
 
+        final Button buttonFix = (Button) findViewById(R.id.buttonFixRDV);
+        buttonFix.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.i("test", "-> ProActivity tab");
+                datechoisie.set(mYear + 1900, mMonth, mDay, mHour, mMinute);
+                //Object Date is deprecated, better use Calendar!
+                ProActivity.login = login;
+                Intent intent = new Intent(v.getContext(), ProActivity.class);
+                startActivity(intent);
+
+
+            }
+        });
+
     }
 
     @Override
@@ -127,7 +143,7 @@ public class GiveRendezvousActivity extends AppCompatActivity implements
             timePickerDialog.show();
         }
 
-        datechoisie.set(mYear + 1900, mMonth, mDay, mHour, mMinute);
+        //datechoisie.set(mYear + 1900, mMonth, mDay, mHour, mMinute);
         //Object Date is deprecated, better use Calendar!
     }
 

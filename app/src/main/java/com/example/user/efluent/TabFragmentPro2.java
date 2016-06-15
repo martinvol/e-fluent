@@ -36,7 +36,6 @@ public class TabFragmentPro2 extends ListFragment implements MeetingReceiver{
         setListAdapter(adapter);*/
 
         final TabFragmentPro2 self = this;
-        self.patient_list = login.patient_list;
         //System.out.println("TESTTTTTTT : " + self.patient_list.get(1).first_name);
 
         View addButton = getActivity().findViewById(R.id.GoAddRDV);
