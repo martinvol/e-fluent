@@ -143,12 +143,13 @@ public class Sonometre extends AppCompatActivity {
     }
 
     public void exitWrong(){
-        timer2.cancel();
-        timer2.purge();
-        timer2 = new Timer();
-        changeLabelTaskt = new GetTime(this);
-        timer2.scheduleAtFixedRate(changeLabelTaskt , 0, 50);
-
+        if (!(timer2 == null)) {
+            timer2.cancel();
+            timer2.purge();
+            timer2 = new Timer();
+            changeLabelTaskt = new GetTime(this);
+            timer2.scheduleAtFixedRate(changeLabelTaskt , 0, 50);
+        }
     }
 
     public void exitGood(){
@@ -165,7 +166,6 @@ public class Sonometre extends AppCompatActivity {
             builder.setMessage("Success!")
                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            // FIRE ZE MISSILES!
                         }
                     }).show();
         }
