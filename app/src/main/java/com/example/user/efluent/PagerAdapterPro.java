@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 public class PagerAdapterPro extends FragmentStatePagerAdapter {
     int mNumOfTabs;
     public LoginManager login;
+    public Patient patient;
 
     public PagerAdapterPro(FragmentManager fm, int NumOfTabs) {
         super(fm);

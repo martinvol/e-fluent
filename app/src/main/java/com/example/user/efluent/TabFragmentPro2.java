@@ -19,6 +19,7 @@ public class TabFragmentPro2 extends ListFragment implements MeetingReceiver{
     private ArrayList<Meeting> meetingList;
     private ArrayList<Patient> patient_list;
     public LoginManager login;
+    public static Patient patient;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class TabFragmentPro2 extends ListFragment implements MeetingReceiver{
                 Log.i("Test", "GoAddPatient");
                 Intent intent = new Intent(getView().getContext(), GiveRendezvousActivity.class);
                 GiveRendezvousActivity.login = login;
+                GiveRendezvousActivity.patient = patient;
                 startActivity(intent);
             }
         });

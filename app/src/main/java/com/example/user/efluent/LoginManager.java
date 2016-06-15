@@ -306,7 +306,7 @@ public class LoginManager {
                         Meeting meeting = new Meeting();
                         JSONObject meeting_json = array.getJSONObject(i);
                         meeting.time = format.parse(meeting_json.getString("time"));
-                        //Log.i("test", "The time of the meeting is: " + meeting.time.toString());
+                        Log.i("test", "The time of the meeting is: " + meeting_json.getString("time"));
                         meetings_list.add(meeting);
                     }
 
@@ -522,4 +522,42 @@ public class LoginManager {
 
     }
 
+    public void createRDV(final GiveRendezvousActivity activity, Patient patient, String formatedDate) {
+        RequestBody formBody = new FormBody.Builder()
+                .add("time", formatedDate)
+                .add("patient", patient.id)
+                .build();
+        Request request = withHeader("/set_RDV/")
+                .post(formBody)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override public void onResponse(Call call, final Response response) throws IOException {
+
+                final String text_response = response.body().string();
+
+                if (!(activity == null)) {
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.i("test", text_response);
+                            activity.giveSuccess();
+                        }
+                    });
+                }
+            }
+        });
+
+    }
+
+    public void mitrivialFunc(String formatedDate, GiveRendezvousActivity self, Patient choosenPatient) {
+        RequestBody formBody = new FormBody.Builder()
+                .add("patient", choosenPatient.id)
+                .add("time", formatedDate)
+                .build();
+    }
 }

@@ -156,6 +156,10 @@ public class MainActivity extends AppCompatActivity {
         PatientActivity.login = login;
         startActivity(intent);
     }
+
+    public void giveSuccess() {
+
+    }
 }
 
 
