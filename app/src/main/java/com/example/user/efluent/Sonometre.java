@@ -161,15 +161,16 @@ public class Sonometre extends AppCompatActivity {
             timer2 = null;
         }
         if (!(timer == null)) {
+            login.sendExerciseSonometre(this, exercise.id.toString());
             timer.cancel();
             timer.purge();
             timer = null;
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Success!")
-                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                        }
-                    }).show();
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                }).show();
         }
 
         // tell the server that it is done
@@ -199,10 +200,8 @@ public class Sonometre extends AppCompatActivity {
         short[] buffer = new short[minSize];
         ar.read(buffer, 0, minSize);
         int max = 0;
-        for (short s : buffer)
-        {
-            if (Math.abs(s) > max)
-            {
+        for (short s : buffer) {
+            if (Math.abs(s) > max) {
                 max = Math.abs(s);
             }
         }

@@ -150,10 +150,13 @@ public class GiveExerciseActivity extends AppCompatActivity {
                 //String text = dropdown.getSelectedItem().toString();
                 Intent intent = new Intent(v.getContext(), InfoPatientActivity.class);
                 if ( theme != null && theme != "choisir le thème.." && type != null && type != "choisir le type.." && nameExo != null && nameExo != "choisir l'exercise..") {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Exo choisi :" + theme + "/" + type + "/" + nameExo + "/", Toast.LENGTH_LONG);
-                    toast.show();
+                    /*Toast toast = Toast.makeText(getApplicationContext(), "Exo choisi :" + theme + "/" + type + "/" + nameExo + "/", Toast.LENGTH_LONG);
+                    toast.show();*/
 
-                    login.addExercise(self, patient_to_add, type.replace(" ",""), nameExo);
+                    if (nameExo.equals("Sonometre")){
+                        login.addExercise(self, patient_to_add, 2, nameExo);
+                    }
+                    login.addExercise(self, patient_to_add, 1, nameExo);
                     startActivity(intent);
                 }
                 else{
