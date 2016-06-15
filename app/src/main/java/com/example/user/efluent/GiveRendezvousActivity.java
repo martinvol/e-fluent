@@ -88,10 +88,6 @@ public class GiveRendezvousActivity extends AppCompatActivity implements
                 //login.createRDV(self, choosenPatient, "formatedDate");
                 login.createRDV(self, spinAdapter.getItem(mySpinner.getSelectedItemPosition()), formatedDate);
 
-                ProActivity.login = login;
-                Intent intent = new Intent(v.getContext(), ProActivity.class);
-                startActivity(intent);
-
 
             }
         });
@@ -189,7 +185,9 @@ public class GiveRendezvousActivity extends AppCompatActivity implements
 
 
     public void giveSuccess() {
-
+        ProActivity.login = login;
+        Intent intent = new Intent(this, ProActivity.class);
+        startActivity(intent);
     }
 
     private void setDate(int year,
