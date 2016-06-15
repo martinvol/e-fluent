@@ -9,4 +9,99 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.user.efluent.GiveRendezvousActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Fixer Un Rendezvous :"
+        android:id="@+id/textView12"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="64dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Patient :"
+        android:id="@+id/textView13"
+        android:layout_below="@+id/textView12"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="40dp" />
+
+    <Spinner
+        android:id="@+id/spinnerListPatient"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        android:drawSelectorOnTop="true"
+        android:layout_alignTop="@+id/textView13"
+        android:layout_alignStart="@+id/DateRDV" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Date :"
+        android:id="@+id/textView14"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/spinnerListPatient"
+        android:layout_alignEnd="@+id/textView13" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Heure :"
+        android:id="@+id/textView15"
+        android:layout_above="@+id/buttonFixRDV"
+        android:layout_alignEnd="@+id/textView14"
+        android:layout_marginBottom="61dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FIXER"
+        android:id="@+id/buttonFixRDV"
+        android:layout_alignParentBottom="true"
+        android:layout_alignEnd="@+id/spinnerListPatient"
+        android:layout_marginBottom="85dp" />
+
+    <EditText
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:ems="10"
+        android:id="@+id/DateRDV"
+        android:layout_alignBottom="@+id/textView14"
+        android:layout_toEndOf="@+id/textView14" />
+
+    <EditText
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:ems="10"
+        android:id="@+id/TimeRDV"
+        android:layout_alignBottom="@+id/textView15"
+        android:layout_alignStart="@+id/DateRDV" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DATE"
+        android:id="@+id/buttonDatePicker"
+        android:layout_alignBottom="@+id/DateRDV"
+        android:layout_alignStart="@+id/buttonFixRDV" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TIME"
+        android:id="@+id/buttonTimePicker"
+        android:layout_alignBottom="@+id/TimeRDV"
+        android:layout_alignEnd="@+id/buttonDatePicker" />
+
 </RelativeLayout>
