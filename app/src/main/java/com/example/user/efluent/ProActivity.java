@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class ProActivity extends AppCompatActivity {
 
@@ -122,14 +123,18 @@ public class ProActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.logout:
                 System.out.println("Je me délogge");
-                //final ActionMenuItem itemlogout = (ActionMenuItem) findViewById(R.id.logout);
+
+                Log.i("test", "->LoginManager");
+                Intent logout = new Intent(getApplicationContext(),MainActivity.class);
+                Toast toast = Toast.makeText(getApplicationContext(),"You are now logged out", Toast.LENGTH_LONG);
+
+                startActivity(logout);
+                //final ActionMenuItem itemlogout = (findViewById()) findViewById(R.id.logout);
                 //itemlogout.setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
                   /*  public void onClick(View v) {
                         Log.i("test", "-> ProActivity tab");
                         Intent intent = new Intent(v.getContext(), MainActivity.class);
                         startActivity(intent);
-
-
                     }
                 });*/
 

@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Environment;
 
 import android.provider.Settings;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -21,11 +22,13 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.IOException;
+import java.util.Locale;
 
 public class ExerciseVocal extends AppCompatActivity {
 
@@ -42,6 +45,10 @@ public class ExerciseVocal extends AppCompatActivity {
 
     private ProgressDialog loadingDialog;
 
+    private EditText write;
+
+    TextToSpeech t1;
+
     public static Exercise exercise;
     /*Button micCall;
     private static final String AUDIO_RECORDER_FILE_EXT_3GP = ".3gp";
@@ -57,13 +64,14 @@ public class ExerciseVocal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_vocal);
-
-        exerciseWord = (TextView )findViewById(R.id.WordToPronounce);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        exerciseWord = (TextView) findViewById(R.id.WordToPronounce);
         exerciseWord.setText(exercise.word);
 
-        play = (Button)findViewById(R.id.playButton);
-        stop = (Button)findViewById(R.id.stopButton);
-        record = (ImageButton)findViewById(R.id.CallMic);
+        play = (Button) findViewById(R.id.playButton);
+        stop = (Button) findViewById(R.id.stopButton);
+        record = (ImageButton) findViewById(R.id.CallMic);
 
         stop.setEnabled(false);
         play.setEnabled(false);
@@ -88,7 +96,6 @@ public class ExerciseVocal extends AppCompatActivity {
         mRecorder.setOutputFile(outputFile); */
 
 
-
         final ExerciseVocal self = this;
 
         record.setOnClickListener(new View.OnClickListener() {
@@ -102,9 +109,7 @@ public class ExerciseVocal extends AppCompatActivity {
 
                     mRecorder.prepare();
                     mRecorder.start();
-                }
-
-                catch (IllegalStateException e) {
+                } catch (IllegalStateException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
@@ -145,9 +150,11 @@ public class ExerciseVocal extends AppCompatActivity {
                 stop.setEnabled(false);
                 play.setEnabled(true);
 
-                Toast.makeText(getApplicationContext(), "Audio recorded successfully",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Audio recorded successfully", Toast.LENGTH_LONG).show();
+
             }
         });
+
 
         play.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -197,6 +204,31 @@ public class ExerciseVocal extends AppCompatActivity {
             }
         }); */
     }
+    public void TTS_false () {
+        t1=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+                    t1.setLanguage(Locale.FRANCE);
+                    t1.speak("Tu as mal prononcé, tu ne mérite pas d'être à l'INSA",TextToSpeech.QUEUE_FLUSH,null,null );
+                    //t1.speak(exercise.id.toString(),TextToSpeech.QUEUE_FLUSH,null,null );
+
+                }
+            }
+        });
+    }
+    public void TTS_true () {
+        t1=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+                    t1.setLanguage(Locale.FRANCE);
+                    t1.speak("Félicitation tu es un grand orateur",TextToSpeech.QUEUE_FLUSH,null,null );
+
+                }
+            }
+        });
+    }
 
     /* @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -214,12 +246,18 @@ public class ExerciseVocal extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+
+        if( id == android.R.id.home) {
+            System.out.println("Je vais en arrière");
+            Intent back = new Intent(getApplicationContext(), PatientActivity.class);
+            startActivity(back);
             return true;
         }
-        return super.onOptionsItemSelected(item);
-    }
-
+            if (id == R.id.action_settings) {
+                return true;
+            }
+            return super.onOptionsItemSelected(item);
+        }
     /*private String getFilename(){
         String filepath = Environment.getExternalStorageDirectory().getPath();
         File file = new File(filepath,AUDIO_RECORDER_FOLDER);
@@ -288,7 +326,14 @@ public class ExerciseVocal extends AppCompatActivity {
                         });
 
 // Show the AlertDialog.
+        if(result == " true") {
+            TTS_true();
+        }
+        else {
+            TTS_false();
+        }
         AlertDialog alertDialog = alertDialogBuilder.show();
+        System.out.println(result);
 
 
     }

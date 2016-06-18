@@ -1,5 +1,6 @@
 package com.example.user.efluent;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class PatientActivity extends AppCompatActivity {
     /** UNCOMMENT THIS **/
@@ -44,6 +47,8 @@ public class PatientActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+       //getSupportActionBar().setTitle(+ " "+ .last_name); A faire ajouter le nom du patient
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         //mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -51,7 +56,7 @@ public class PatientActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         //tabLayout.setupWithViewPager(mViewPager);
 
-        tabLayout.addTab(tabLayout.newTab().setText("Exo A Faire"));
+        tabLayout.addTab(tabLayout.newTab().setText("Exercices A Faire"));
         tabLayout.addTab(tabLayout.newTab().setText("Planning"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
@@ -108,13 +113,32 @@ public class PatientActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        switch (item.getItemId()) {
+            case R.id.logout:
+                System.out.println("Je me délogge");
 
-        return super.onOptionsItemSelected(item);
+                Log.i("test", "->LoginManager");
+                Intent logout = new Intent(getApplicationContext(),MainActivity.class);
+                Toast toast = Toast.makeText(getApplicationContext(),"You are now logged out", Toast.LENGTH_LONG);
+
+                startActivity(logout);
+                //final ActionMenuItem itemlogout = (findViewById()) findViewById(R.id.logout);
+                //itemlogout.setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
+                  /*  public void onClick(View v) {
+                        Log.i("test", "-> ProActivity tab");
+                        Intent intent = new Intent(v.getContext(), MainActivity.class);
+                        startActivity(intent);
+                    }
+                });*/
+
+                //logout code
+                return true;
+            case R.id.action_settings :
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     /**
