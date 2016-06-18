@@ -155,8 +155,9 @@ public class GiveExerciseActivity extends AppCompatActivity {
 
                     if (nameExo.equals("Sonometre")){
                         login.addExercise(self, patient_to_add, 2, nameExo);
+                    } else {
+                        login.addExercise(self, patient_to_add, 1, nameExo);
                     }
-                    login.addExercise(self, patient_to_add, 1, nameExo);
                     startActivity(intent);
                 }
                 else{
