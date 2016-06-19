@@ -10,10 +10,14 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -109,21 +113,24 @@ public class Sonometre extends AppCompatActivity {
     public TextView label;
     public TextView comment;
     GetTime changeLabelTaskt;
+    private ViewGroup zoomGood;
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate (Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_sonometre);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         final Sonometre self = this;
         label = (TextView) findViewById(R.id.sonometre_out);
         comment = (TextView) findViewById(R.id.comment_sonometre);
         currentTime = (TextView) findViewById(R.id.timer);
         final ImageButton button = (ImageButton) findViewById(R.id.micro_sonometre);
-
+        zoomGood= (ViewGroup)findViewById(R.id.grade_good);
+        zoomGood.setVisibility(View.INVISIBLE);
 
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -165,12 +172,10 @@ public class Sonometre extends AppCompatActivity {
             timer.cancel();
             timer.purge();
             timer = null;
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Success!")
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                    }
-                }).show();
+            Animation zoomGood = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+            ViewGroup grade = (ViewGroup)findViewById(R.id.grade_good);
+            grade.startAnimation(zoomGood);
+            grade.setVisibility(View.VISIBLE);
         }
 
         // tell the server that it is done
@@ -212,5 +217,27 @@ public class Sonometre extends AppCompatActivity {
     public void notifyResult(String reponse_text) {
         //fin
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+
+        if( id == android.R.id.home) {
+            System.out.println("Je vais en arrière");
+            Intent back = new Intent(getApplicationContext(), PatientActivity.class);
+            startActivity(back);
+            return true;
+        }
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }
 

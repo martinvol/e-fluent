@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -46,7 +47,8 @@ public class ExerciseVocal extends AppCompatActivity {
     private ProgressDialog loadingDialog;
 
     private EditText write;
-
+    private ViewGroup zoomBad;
+    private ViewGroup zoomGood;
     TextToSpeech t1;
 
     public static Exercise exercise;
@@ -62,8 +64,13 @@ public class ExerciseVocal extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);;
         setContentView(R.layout.activity_exercise_vocal);
+        zoomGood = (ViewGroup)findViewById(R.id.grade_good);
+        zoomBad = (ViewGroup)findViewById(R.id.grade_bad);
+        zoomBad.setVisibility(View.INVISIBLE);
+        zoomGood= (ViewGroup)findViewById(R.id.grade_good);
+        zoomGood.setVisibility(View.INVISIBLE);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         exerciseWord = (TextView) findViewById(R.id.WordToPronounce);
@@ -312,10 +319,10 @@ public class ExerciseVocal extends AppCompatActivity {
         }
     } */
 
+
     public void notifyResult(String result){
         loadingDialog.dismiss();
-
-        AlertDialog.Builder alertDialogBuilder =
+        /*AlertDialog.Builder alertDialogBuilder =
                 new AlertDialog.Builder(this)
                         .setTitle("Your result")
                         .setMessage(result)
@@ -323,18 +330,27 @@ public class ExerciseVocal extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
 
                             }
-                        });
+                        });*/
 
 // Show the AlertDialog.
-        if(result == " true") {
+        if(result.equals("true")){
+            Animation zoomGood = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+            ViewGroup grade = (ViewGroup)findViewById(R.id.grade_good);
             TTS_true();
+            grade.startAnimation(zoomGood);
+            grade.setVisibility(View.VISIBLE);
+
         }
         else {
+           Animation zoomBad= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+            ViewGroup grade = (ViewGroup)findViewById(R.id.grade_bad);
             TTS_false();
+            grade.startAnimation(zoomBad);
+            grade.setVisibility(View.VISIBLE);
         }
-        AlertDialog alertDialog = alertDialogBuilder.show();
-        System.out.println(result);
-
+        //Intent back = new Intent(getApplicationContext(), PatientActivity.class);
+        //startActivity(back);
+        //AlertDialog alertDialog = alertDialogBuilder.show();
 
     }
 }
